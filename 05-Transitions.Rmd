@@ -1,0 +1,224 @@
+---
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+```{r}
+
+#Do just a little bit of post processing to get datasets ready for Multi-state Transition Modeling in Girls and Boys
+
+transition_data_girls <- demo_ed.lf.girls %>% 
+  mutate(ti_mean_14_std = standardise(ti_mean_14)) %>% 
+  mutate(body_sat_mean_14_std = standardise(body_sat_mean_14)) %>% 
+  mutate(exercise_group = exercise_group + 1) %>% 
+  mutate(age = as.numeric(age)) %>% 
+  # count number of exercise observations and select only rows with available exercise data and only individuals who have completed at least two exercise assessments 
+  mutate(ex_complete = ifelse(is.na(driven_exercise) == TRUE, NA, 1)) %>%
+  group_by(id, ex_complete) %>% 
+  mutate(nobs = n()) %>% 
+  ungroup() %>%   
+  filter(nobs > 1) 
+
+
+transition_data_boys <- demo_ed.lf.boys %>% 
+  mutate(ti_mean_14_std = standardise(ti_mean_14)) %>% 
+  mutate(body_sat_mean_14_std = standardise(body_sat_mean_14)) %>% 
+  mutate(exercise_group = exercise_group + 1) %>% 
+  mutate(age = as.numeric(age)) %>% 
+  # count number of exercise observations and select only rows with available exercise data and only individuals who have completed at least two exercise assessments 
+  mutate(ex_complete = ifelse(is.na(driven_exercise) == TRUE, NA, 1)) %>%
+  group_by(id, ex_complete) %>% 
+  mutate(nobs = n()) %>% 
+  ungroup() %>%   
+  filter(!is.na(ex_complete) == TRUE) %>% 
+  filter(nobs > 1) 
+
+```
+
+
+# Exercise Over Time
+
+Below, we examine shifts in exercise for weight loss and driven exercise
+over time:
+
+The first plot shows exercise status at ages 14-24 years in girls and
+boys, as a percentage of the total number of boys and girls. Total
+numbers of boys and girls differ across timepoints in this graph, and we
+show raw percentages within timepoint.
+
+```{r}
+exercise_group_data <- frq_table_by_age_sex(demo_ed.lf, exercise_group)
+
+exercise_status_plot_1 <- ggplot(data = exercise_group_data, 
+    aes(x = sex, y = pct, fill = exercise_group, label = sprintf('%0.1f%%', pct*100))) + #set the aesthetic features, including the labels at one decimal place
+    geom_bar(position = position_stack(reverse = TRUE), stat = 'identity') + #add column graph, with male and female separated
+    scale_y_continuous(labels = scales::percent, limits = c(0,1))+ #set the lower and upper limits of the y axis ( 0-100 percent); 
+    theme(legend.title = element_blank(), axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1), text = element_text(size = 15))+ #make legend text a bit bigger
+    labs(x = element_blank(), y = 'Percent (within gender)', title = 'Exercise Groups Across Age') +
+    facet_wrap(~age) + 
+    theme_classic()+
+    theme(legend.title = element_blank(), axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1), text = element_text(size = 15)) + #make legend text a bit bigger 
+   scale_fill_manual(values = wes_palette(name = 'GrandBudapest1', n = 3 ))
+exercise_status_plot_1
+```
+
+Overall, it appears that percentage of males and female in the three
+exercise groups is relatively stable from ages 14-18, with a possible
+increase in exercise for weight loss at age 18 among girls, and a more
+substantive increase in exercise for weight loss among men at age 24 and
+an increase in driven exercise across gender at age 24.
+
+## Transition in Exercise Status over Time
+
+In the next two graphs, we examine transitions over time amongst the
+subset of girls (N = 1169) and boys (N = 568) who completed all
+assessments, ages 14-24. Transition plot code derived from
+@cernatVisualizingTransitionsTime2021.
+
+```{r}
+ex_status_girl_plot <- transition_plot(demo_ed_girls, 'exercise_group.', 'Exercise Status Across Age in Girls', na.rm = TRUE)
+ex_status_girl_plot  + 
+    theme(legend.text = element_text(size = 12),
+          legend.title = element_blank())
+```
+
+```{r}
+ex_status_boy_plot <- transition_plot(demo_ed_boys, 'exercise_group.', 'Exercise Status Across Age in Boys', na.rm = TRUE)
+ex_status_boy_plot  + 
+    theme(legend.text = element_text(size = 12),
+          legend.title = element_blank())
+```
+
+## Multi-state Model
+
+A multi-state model to panel data relies on a Markov assumption, that future evelolution only depends on the current state. 
+
+The likelihood for this basic model, used in msm, is calculated from the transition probability matrix $P(u; t + u)$. The $(r, s)$ entry of $P(u; t + u)$, $prs(u; t + u)$, is the
+probability of being in state s at a time t + u, given the state at time u is r.
+
+Sampling times are ignorable if they are fixed in advance, or otherwise chosen independently of the outcome of the process
+
+The subject id variable does not need to be numeric, but observations from the same subject must be adjacent in the dataset, and observations must be ordered by time within subjects
+
+Below is the state table for exercise group, indicating transitions between each state. Transitions from 'no exercise for weight loss' to 'driven exercise' appear to be the least common of all transitions, wtih 164 instances of this transition. 
+
+
+```{r}
+#state table for girls
+statetable.msm(exercise_group, id, data = transition_data_girls)
+
+#identify possible transitions - in our model, it is assumed that individuals do not need to 'pass through' exercise for weight loss when transitioning in and out of driven exercise, thus; all possible transitions are allowed
+
+#Q-matrix not allowing instantaneous transitions to and from 'driven exercise' and 'no exercise for weight loss'
+qmat_1 <- rbind (c(0, 1, 0), 
+                 c(1, 0, 1),
+                 c(0, 1, 0))
+
+#Q-matrix allowing instantaneous transition from 'driven exercise' to 'no exercise for weight loss'
+qmat_2 <- rbind (c(0, 1, 0), 
+                 c(1, 0, 1),
+                 c(1, 1, 0))
+
+rownames(qmat_1) <- colnames(qmat_1) <- c('No EWL', 'EWL', 'DEx')
+rownames(qmat_2) <- colnames(qmat_2) <- c('No EWL', 'EWL', 'DEx')
+
+ex_group_girls_1 <- msm(exercise_group ~ age, subject = id, data = transition_data_girls, qmatrix = qmat_1, gen.inits = TRUE, control = list(fnscale = 5000, maxit = 10000))
+
+ex_group_girls_2 <- msm(exercise_group ~ age, subject = id, data = transition_data_girls, qmatrix = qmat_2, gen.inits = TRUE, control = list(fnscale = 5000, maxit = 10000))
+
+plot_2_girls <- plot.prevalence.msm(ex_group_girls_2, mintime = 14, maxtime = 24, xlab = 'age', legend.pos = c(19, 90))
+plot_1_girls <- plot.prevalence.msm(ex_group_girls_1, mintime = 14, maxtime = 24, xlab = 'age', legend.pos = c(19, 90))
+
+#Markov model with covariates
+
+ex_group_girls_covs_1 <- msm(exercise_group ~ age, subject = id, data = transition_data_girls, qmatrix = qmat_1, gen.inits = TRUE, control = list(fnscale =5000, maxit = 100000, reltol = 1e-16), covariates = ~ ti_mean_14_std + body_sat_mean_14_std + bmi_z_bestavail.13 + parent_highest_occupation)
+
+ex_group_girls_covs_2 <- msm(exercise_group ~ age, subject = id, data = transition_data_girls, qmatrix = qmat_2, gen.inits = TRUE, control = list(fnscale =5000, maxit = 100000, reltol = 1e-16), covariates = ~ body_sat_mean_14_std)
+
+
+hr_1_girls <- hazard.msm(ex_group_girls_covs_1)
+hr_2_girls <- hazard.msm(ex_group_girls_covs_2)
+
+ex_group_girls_1_pmat <- pmatrix.msm(ex_group_girls_1, t = 1, ci = 'normal')
+ex_group_girls_1_covs_pmat <- pmatrix.msm(ex_group_girls_covs_2, t = 1, ci = 'normal')
+
+ex_group_girls_2_pmat <- pmatrix.msm(ex_group_girls_2, t = 1, ci = 'normal')
+ex_group_girls_2_covs_pmat <- pmatrix.msm(ex_group_girls_covs_2, t = 1, ci = 'normal')
+
+ti_girls_hazard <- hr_1_girls[[1]] |> 
+round(2)
+kableExtra::kbl(ti_girls_hazard, booktabs = TRUE) |> 
+  kable_paper('striped', full_width = FALSE)  
+
+bd_girls_hazard <- hr_1_girls[[2]] |> 
+round(2)
+kableExtra::kbl(bd_girls_hazard, booktabs = TRUE) |> 
+  kable_paper('striped', full_width = FALSE)  
+
+bmi_z_girls_hazard <- hr_1_girls[[3]] |> 
+round(2)
+kableExtra::kbl(bmi_z_girls_hazard, booktabs = TRUE) |> 
+  kable_paper('striped', full_width = FALSE)  
+
+ses_girls_hazard <- hr_1_girls[[4]] |> 
+round(2)
+kableExtra::kbl(ses_girls_hazard, booktabs = TRUE) |> 
+  kable_paper('striped', full_width = FALSE)  
+
+bd_girls_hazard_2 <- hr_2_girls[[1]]
+round(2)
+kableExtra::kbl(bd_girls_hazard_2, booktabs = TRUE) |> 
+  kable_paper('striped', full_width = FALSE)  
+```
+
+```{r}
+#state table for boys
+statetable.msm(exercise_group, id, data = transition_data_boys)
+
+#identify possible transitions - in our model, it is assumed that individuals do not need to 'pass through' exercise for weight loss when transitioning in and out of driven exercise, thus; all possible transitions are allowed
+
+#Q-matrix not allowing instantaneous transitions to and from 'driven exercise' and 'no exercise for weight loss'
+qmat_1 <- rbind (c(0, 1, 0), 
+                 c(1, 0, 1),
+                 c(0, 1, 0))
+
+#Q-matrix allowing instantaneous transition from 'driven exercise' to 'no exercise for weight loss'
+qmat_2 <- rbind (c(0, 1, 0), 
+                 c(1, 0, 1),
+                 c(1, 1, 0))
+
+rownames(qmat_1) <- colnames(qmat_1) <- c('No EWL', 'EWL', 'DEx')
+rownames(qmat_2) <- colnames(qmat_2) <- c('No EWL', 'EWL', 'DEx')
+
+ex_group_boys_1 <- msm(exercise_group ~ age, subject = id, data = transition_data_boys, qmatrix = qmat_1, gen.inits = TRUE, control = list(fnscale = 5000, maxit = 10000))
+
+ex_group_boys_2 <- msm(exercise_group ~ age, subject = id, data = transition_data_boys, qmatrix = qmat_2, gen.inits = TRUE, control = list(fnscale = 5000, maxit = 10000))
+
+plot.prevalence.msm(ex_group_boys_1, mintime = 14, maxtime = 24, xlab = 'age', legend.pos = c(19, 90))
+plot.prevalence.msm(ex_group_boys_2, mintime = 14, maxtime = 24, xlab = 'age', legend.pos = c(19, 90))
+
+#Markov model with covariates
+
+ex_group_boys_covs <- msm(exercise_group ~ age, subject = id, data = transition_data_boys, qmatrix = qmat_1, gen.inits = TRUE, control = list(fnscale =5000, maxit = 1000000, reltol = 1e-16), covariates = ~  ti_mean_14_std + bmi_z_bestavail.13)
+
+
+hr_1_boys <- hazard.msm(ex_group_boys_covs)
+
+ex_group_boys_2_pmat <- pmatrix.msm(ex_group_boys_2, t = 1, ci = 'normal')
+ex_group_boys_covs_pmat <- pmatrix.msm(ex_group_boys_covs, t = 1, ci = 'normal')
+ex_group_boys_1_pmat <- pmatrix.msm(ex_group_boys_1, t = 1, ci = 'normal')
+
+ti_boys_hazard <- hr_1_boys[[1]] |> 
+round(2)
+kableExtra::kbl(ti_boys_hazard, booktabs = TRUE) |> 
+  kable_paper('striped', full_width = FALSE)  
+
+bmi_boys_hazard <- hr_1_boys[[2]] |> 
+round(2)
+kableExtra::kbl(bmi_boys_hazard, booktabs = TRUE) |> 
+  kable_paper('striped', full_width = FALSE)  
+
+
+```
+

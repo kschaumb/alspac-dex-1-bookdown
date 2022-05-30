@@ -1,0 +1,27 @@
+
+# Measures
+
+## Exercise Measures Across Age
+
+
+Questions related to driven exercise were self-reported at ages 14, 16, 18, and 24 years. Questions were adapted from the Youth Risk Behavior Survelliance System [@kannYouthRiskBehavior1995].
+
+**Exercise for Weight Loss**
+
+At ages 14, 16, and 18 years, individuals were asked if they exercised to lose weight or avoid againing weight, with response options of: No, Yes-Sometimes, and Yes-Frequently. 
+
+At age 24, individuals were asked the frequency with which they exercised to lose weight or avoid gaining weight, with response options of: Never, <1x/mo, 1-3x/mo, 1-4x/wk, and 5 or more times per week. For the purposes of this analysis, responses at age 24 were harmonized with age 14, 16, and 18.  Responses of Never and <1x/mo were binned as "No";  1x/mo to 4x/wk as 'Yes - Sometimes', and 5x/wk or more as 'Yes - Frequently'. 
+
+**Exercise Issues**
+Issues that are associated with exercise were also reported at ages 14,16, 18, and 24 years. At all ages, participants reported whether exercise interferes with work/school (14,16,18), or their daily routine (24). At ages 14 and 24, participants also reported whether they exercised to lose weight even when sick or injured. At ages 16 and 18, participants reported whether they felt guilty about missing an exercise session. 
+
+|Age| Interferes| Sick/Injured | Guilt|
+|--|--|--|--|
+|14| x |x |  |
+|16| x |  | x|
+|18| x |  | x|
+|24| x |x |  |
+
+## Eating Disorder Behaviors Across Age
+
+Eating Disorder behaviors were assessed using adapted questions from the Youth Risk Behavior Surveillance System[@kannYouthRiskBehavior1995], at ages 14, 16, 18, and 24 years. 

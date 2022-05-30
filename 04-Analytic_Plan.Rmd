@@ -1,0 +1,74 @@
+
+# Analytic Plan
+
+Primary analyses will be gender stratified.
+
+After data harmonization, the first step in analyses will be to evaluate
+overall changes in the presence of exercise for weight loss and driven
+exercise over time in the sample.
+
+Visualization will be completed with transition plots for each eating disorder behavior.
+
+For consideration: transition probabilities and Marginal distributions:
+[youtube tutorial](https://www.youtube.com/watch?v=7lrl1GbX-og)
+[datacamp](https://www.datacamp.com/community/tutorials/markov-chain-analysis-r)
+[msm package](https://cran.r-project.org/web/packages/msm/vignettes/msm-manual.pdf)
+
+Modeling will be done via Mixed Effects Ordinal (exercise for weight loss) and Logistic (driven exercise) Regression [@landermanModelingRepeatedMeasures2011], with a random intercept for each individual, and assessment point, parent SES, ED cognition at age 14, and BMI z-score at age 14 as fixed predictors.
+
+The second step in analyses will examine a cross-lagged panel model
+between each ED behavior and two primary exercise-related variables:
+exercise for weight loss (ordered frequency) and driven exercise
+(presence vs. absence, broad definition). Eating disorder cognition
+variables, a marker of SES [parent highest occupation], and BMI z-score
+at age 14 will be included as time-independent covariates.
+
+## Transition Analysis
+
+Transition analysis will be examined via a multi-state model which will describe how individuals move between three states - 'no exercise for weight loss', 'exercise for weight loss', and 'driven exercise', 
+
+$$
+q_{r s}(t, z(t))=\lim _{\delta t \rightarrow 0} \mathrm{P}(S(t+\delta t)=s \mid S(t)=r) / \delta t
+$$
+
+## Mixed Effects Modeling
+
+Packages for use include:
+
+| DV type    | Package                                                                      | Distribution |
+|------------------------|------------------------|------------------------|
+| Continuous | [lme4](https://m-clark.github.io/mixed-models-with-R/random_intercepts.html) | Gaussian     |
+| Ordinal | [ordinal](https://cran.r-project.org/web/packages/ordinal/index.html), [clmm function](https://cran.r-project.org/web/packages/ordinal/vignettes/clmm2_tutorial.pdf)| Cumulative Link |
+| Binary | [glmer](https://www.rdocumentation.org/packages/lme4/versions/1.1-29/topics/glmer) | Binomial|
+
+
+For both boys and girls, we are fitting an overall random effect model as a baseline model, and a random intercept model with a fixed effect for age to examine whether the odds of exercise for weight loss and driven exercise increase over time in the sample. 
+
+
+### Random Effect Model
+
+Random Effect Model: Baseline model which allows individuals to differ on their mean endorsement of driven exercise
+
+$$
+Driven\ Exercise_{ij} = b_{0j} + e_{ij}\\
+b_{0j} = \gamma_{00} + u_{0j}\\
+$$
+
+### Random Intercepts Model
+
+Allows for intercepts to vary (i.e. driven exercise endorsement at age 14), with fixed slopes, and adding a fixed effect for age
+
+$$
+Driven\ Exercise_{ij} = b_{0j} + b_1Age + e_{ij} \\
+b_{0j} = \gamma_{00} + u_{0j}
+$$
+
+### Model with Baseline Predictors
+
+Adds in 
+
+$$
+Driven\ Exercise_{ij} = b_{0j} + b_1Age + b_2parentSES + b_3bmi14 + b_4thin14 + b_5bodydissat14 + e_{ij} \\
+b_{0j} = \gamma_{00} + u_{0j}
+$$
+

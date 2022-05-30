@@ -1,0 +1,23 @@
+
+
+
+
+## Exercise for Weight Loss
+
+We are utilizing the same approach to examine endorsement of exercise
+for weight loss over time in the sample, but use an ordinal model (clmm)
+.
+
+<https://rdrr.io/github/DaanNieboer/ordinalimputation/man/pooling.clmm.html>
+
+### Girls
+
+### Boys
+
+m1 <- as.list(mcomp_rand_int_x_bl$result) 
+m1 <- data.frame(t(unlist(m1)))
+
+m2 <- as.list(mcomp_cov1_x_rand_int$result)
+dfnames<- c('m1', 'm2')
+pooled_coefs_1 <- do.call(rbind, lapply(dfnames, function(x) cbind(get(x), Model=x))) 
+
