@@ -55,7 +55,6 @@ source("R/transitions_plot.R", local = knitr::knit_global())
 ```{r}
 #Loads data
 load('data/ed_data.RData')
-
 ```
 
 ## Driven Exercise in ALSPAC

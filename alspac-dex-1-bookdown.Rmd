@@ -1,0 +1,876 @@
+--- 
+title: "ALSPAC Longitudinal Driven Exercise Anlysis"
+author: "Katherine Schaumberg"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+bibliography: [DEx_ALSPAC.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+github-repo: kschaumb/alspac-dex-bookdown
+description: "This is a bookdown for ALSPAC Longitudinal DEx analyses"
+resource_files: 
+ -data/ed_data.RData
+ -R/plot_by_age_sex.R
+ -R/transitions_plot.R
+---
+# Introduction
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+library(dplyr)
+library(wesanderson)
+library(ordinal)
+library(tidyr)
+library(tibble)
+library(ggplot2)
+library(haven)
+library(usethis)
+library(stringr)
+library(ggalluvial)
+library(ggthemes)
+library(rlang)
+library(viridis)
+library(lme4)
+library(flexplot)
+library(jtools)
+library(kableExtra)
+library(docxtools)
+library(msm)
+library(mice)
+library(datawizard)
+library(miceadds)
+library(purrr)
+library(labelled)
+library(broom.mixed)
+library(mitml)
+
+
+source("R/plot_by_age_sex.R", local = knitr::knit_global())
+source("R/transitions_plot.R", local = knitr::knit_global())
+```
+
+
+```{r}
+#Loads data
+load('data/ed_data.RData')
+```
+
+## Driven Exercise in ALSPAC
+
+Driven exercise is a common, debilitating symptom across eating disorders (ED). Up to 40% of individuals with bulimia nervosa and 80% of those with anorexia nervosa experience driven exercise. Driven exercise relates to high levels of ED symptoms and poor ED treatment outcomes, and has been purported to be an early ED symptom via retrospective reports. A previous study examined exercise for weight loss and driven exercise at age 14 in the ALSPAC cohort, identifying whether groups at age 14 were associated with ED behaviors at ages 14 and 16 [@schaumbergProspectiveAssociationsDriven2022] Results found that both exercise for weight loss and driven exercise groups at age 14 were demonstrated higher levels of other ED behaviors (binge eating, fasting, purging) at age 16. In the current study, we extend a longitudinal investigation of exercise for weight loss and driven exercise as predictors of other ED behaviors across a larger developmental window (ages 14-24), and further clarify directionality of effects.
+
+## Current Study
+
+The current study examines data from the ALSPAC Cohort at ages 14,16,18, and 24 years
+
+**Aim 1:** To investigate rates of transition between 'no exercise for weight loss', 'exercise for weight loss', and 'driven exercise' groups between ages 14-24, and characterize initial predictors of transitions to driven exercise amongst boys and girls.
+
+H1: Driven Exercise will be the most stable category, and transitions between the driven exercise and exercise for weight loss categories will be more common than transitions between the driven exercise and no exercise for weight loss category.
+
+**Aim 2:** To examine overall changes in probability of driven exercise and exercise for weight loss from ages 14-24 and characterize initial predictors of changes in probability of driven exercise and exercise for weight loss over time
+
+H2: ED cognitions at age 14 will predict driven exercise during ages 14-24
+
+
+<!--chapter:end:index.Rmd-->
+
+
+# Sample
+
+## The ALSPAC Cohort
+
+
+The ALSPAC Cohort [@boydCohortProfileChildren2013; @fraserCohortProfileAvon2013] was established to understand how genetic and environmental characteristics influence health and development in parents and children. Ethical approval for this study was granted by the ALSPAC Law and Ethics Committee and Local Ethics Committees. All pregnant women living in the geographical area of Avon, United Kingdom, who were expected to deliver between April 1, 1991 and December 31, 1992, were invited to participate in the study. Children from 14,541 pregnancies were enrolled; 13,988 children were alive at 1 year. An additional 913 children were enrolled during subsequent phases of enrollment, with a total sample size alive at 1 year of 14,901. All women gave informed and written consent. Among twin pairs, one twin per pair was randomly excluded from the current study.
+
+A fully searchable ALSPAC data dictionary is available [here](http://www.bris.ac.uk/alspac/researchers/data-access/data-dictionary/).
+
+## Sample Size
+
+The sample size is defined for the current study as the number of individuals of each gender reporting exercise for weight loss data from ages 14-24 years. Sample size ranged from 3229 (age 18) to 5950 (age 14), with slightly more female than male participants responding at all time points. Across all time points, 3319 Male, 4360 Female, and 9 participants not reporting gender completed at least one assessment of exercise for weight loss (**Total N = 7688**). Participants reporting exercise for weight loss data at one or more time points were included in analyses. A graph of sample size at each age is presented below:
+
+```{r}
+#The first chunk of code defines the table for evaluation
+
+exercise_wtloss_df  <- pivot_longer(demo_ed, cols = c('exercise_wtloss.14', 'exercise_wtloss.16', 'exercise_wtloss.18', 'exercise_wtloss.24'), names_to = 'age', names_prefix = 'exercise_wtloss.', values_to = 'exercise_wtloss') 
+
+ewl_ss1 <- exercise_wtloss_df %>% 
+  subset(!is.na(exercise_wtloss) & !is.na(sex)) %>% 
+  select(exercise_wtloss, sex, age) %>% 
+  mutate (exercise_wtloss = as_factor(exercise_wtloss)) %>% 
+  mutate (sex = as_factor(sex)) %>% 
+  group_by(sex, age) %>% 
+  summarise(sample_size = n()) %>% 
+  ungroup 
+ewl_ss2 <- ewl_ss1 %>% 
+  group_by(age) %>% 
+  summarise(sample_size = sum(sample_size)) %>% 
+  ungroup %>% 
+  add_column(sex = 'Combined')
+
+ewl_sample_size <- full_join(ewl_ss1, ewl_ss2)
+
+# Here, I also define the effective sample size of indivdiuals who report any time point
+exercise_wtloss_df_2 <- demo_ed %>% 
+  select(sex, exercise_wtloss.14, exercise_wtloss.16, exercise_wtloss.18, exercise_wtloss.24) %>% 
+  filter_at(vars(c(exercise_wtloss.14, exercise_wtloss.16, exercise_wtloss.18, exercise_wtloss.24)), any_vars(!is.na(.))) %>%
+  group_by(as_factor(sex)) %>% 
+  count(as_factor(sex)) 
+
+#This chunk of code creates the graph 
+ss_plot <- ggplot(data = ewl_sample_size, aes(x = age, y = sample_size, color = sex))+
+      geom_line(aes(group = sex)) +
+      geom_point(color = 'white', size = 5.5) + 
+      geom_point(size = 4) + 
+      labs (x = 'Age', y = element_blank(), title = 'Sample Size Reporting Exercise Data Across Age') +
+      scale_color_manual(values = c('Male' = 'darkgreen', 'Female' = 'orange', 'Combined' = 'purple'))+
+      geom_text(aes(y = sample_size, label = sample_size,
+              vjust = 2, color = 'black')) +
+      scale_y_continuous(limits = c(500,8000)) +
+      theme_classic() +
+      theme (legend.title = element_blank(), text = element_text(size = 14)) 
+
+ss_plot
+```
+
+
+<!--chapter:end:01-Method_Sample.Rmd-->
+
+
+# Measures
+
+## Exercise Measures Across Age
+
+
+Questions related to driven exercise were self-reported at ages 14, 16, 18, and 24 years. Questions were adapted from the Youth Risk Behavior Survelliance System [@kannYouthRiskBehavior1995].
+
+**Exercise for Weight Loss**
+
+At ages 14, 16, and 18 years, individuals were asked if they exercised to lose weight or avoid againing weight, with response options of: No, Yes-Sometimes, and Yes-Frequently. 
+
+At age 24, individuals were asked the frequency with which they exercised to lose weight or avoid gaining weight, with response options of: Never, <1x/mo, 1-3x/mo, 1-4x/wk, and 5 or more times per week. For the purposes of this analysis, responses at age 24 were harmonized with age 14, 16, and 18.  Responses of Never and <1x/mo were binned as "No";  1x/mo to 4x/wk as 'Yes - Sometimes', and 5x/wk or more as 'Yes - Frequently'. 
+
+**Exercise Issues**
+Issues that are associated with exercise were also reported at ages 14,16, 18, and 24 years. At all ages, participants reported whether exercise interferes with work/school (14,16,18), or their daily routine (24). At ages 14 and 24, participants also reported whether they exercised to lose weight even when sick or injured. At ages 16 and 18, participants reported whether they felt guilty about missing an exercise session. 
+
+|Age| Interferes| Sick/Injured | Guilt|
+|--|--|--|--|
+|14| x |x |  |
+|16| x |  | x|
+|18| x |  | x|
+|24| x |x |  |
+
+## Eating Disorder Behaviors Across Age
+
+Eating Disorder behaviors were assessed using adapted questions from the Youth Risk Behavior Surveillance System[@kannYouthRiskBehavior1995], at ages 14, 16, 18, and 24 years. 
+
+<!--chapter:end:02-Method_Measures.Rmd-->
+
+
+# Exercise Behavior Descriptive Analyses
+
+## Exercise for Weight Loss
+
+Rates of exercise for weight loss are presented in the graph below:
+
+```{r}
+exercise_wtloss_df  <- pivot_longer(demo_ed, cols = c('exercise_wtloss.14', 'exercise_wtloss.16', 'exercise_wtloss.18', 'exercise_wtloss.24'), names_to = 'age', names_prefix = 'exercise_wtloss.', values_to = 'exercise_wtloss') 
+
+ewl_plot <- hist_by_age_sex(exercise_wtloss_df, exercise_wtloss, 'Exercise for Weight Loss Across Age')
+
+ewl_plot
+```
+
+By visual examination, it appears that females report exercise for weight loss more frequently across adolescent and young adult (AYA) development, though discrepancies in exercise for weight loss between males and females may be reduced at age 24 as compared to younger ages. Overall, rates of frequent exercise for weight loss appear to increase steadily from ages 14-18 amongst girls and stay roughly the same amongst boys. It appears that there may be an uptick in reporting of exercise for weight loss in general at age 24, though it is somewhet unclear whether this represents a true increase, given that response options for the question differ somewhat at this timepoint.
+
+**Categorizing 1-3x/mo as 'No exercise for weight loss' at Age 24, 1-4x/wk as sometimes, and 5x/wk or more as frequently**
+
+```{r, message = FALSE, warning = FALSE, out.width='75%'}
+exercise_wtloss_df_2  <- pivot_longer(demo_ed, cols = c('exercise_wtloss.14', 'exercise_wtloss.16', 'exercise_wtloss.18', 'exercise_wtloss_h1.24'), names_to = 'age', names_prefix = 'exercise_wtloss.', values_to = 'exercise_wtloss') %>% 
+  mutate(age = recode(age, 'h1.24' = '24'))
+
+ewl_plot_2 <- hist_by_age_sex(exercise_wtloss_df_2, exercise_wtloss, 'Exercise for Weight Loss Frequency \n - 1-3x/mo as *no* age 24')
+ewl_plot_2
+```
+
+Changing the categorization for 1-3x/mo to be 'no' instead of 'sometimes', with 1-4x/wk being 'sometimes' and \>1x/wk as 'frequently', the rates of exercise for weight loss endorsement at age 24 drop somewhat, remaining higher than ages 14-18 for males and settling at similar levels to ages 14-18 for females. Overall, it seems that exercise for weight loss endorsement increases for boys at age 24, relative to younger ages, regardless of how the variable is harmonized.
+
+**Analytic Decision 4.9.2022** : KS and NM discusssion
+
+Logically, 1-3x/mo seems to fit better in a 'Yes- sometimes' category as opposed to a 'No' category, and 1x/wk meets similar threshold to other diagnotic ; thus, \*\*additional anlyses requiring harmonization across age for this question will proceed with categorizing \<1x/mo as 'No', 1-3x/mo as 'Yes-sometimes', and 1x/wk or more as 'freqently at age 24\*
+
+(1) 1x/wk is a common threshold for diagnostic-level eating disorder symptoms
+(2) Frequency of exercise has demonstrated less predictive value than psychological components of exercise in defining eating disorder risk; thus, more conservative cutoffs for frequency may miss individuals engaging in maladaptive exercise or at ED risk
+
+Overall, it seems possible that the frequency of exercise for weight loss increases in young adulthood, relative to younger ages, due to reduced engagement in competitive sport during this time span and greater societal focus on exercise as a tool for weight management (as opposed to other benefits of exercise) in adulthood.
+
+## Exercise Issues
+
+As discussed earlier, two component symptoms of driven exercise were assessed at each time point. Participants reported whether exercise interfered with work, school or daily activities at each timepoint plus one other driven exercise syptom - either feeling guilty after missing an exercise session or exercising even when sick or injured. Together, these were defined as 'exercise related issues', and endorsement of exercise issues across age is presented below:
+
+```{r}
+exercise_issues_df <- pivot_longer(demo_ed, cols = c('exercise_issues.14', 'exercise_issues.16', 'exercise_issues.18', 'exercise_issues.24'), names_to = 'age', names_prefix = 'exercise_issues.', values_to = 'exercise_issues') 
+
+ex_issues_plot <- hist_by_age_sex(exercise_issues_df, exercise_issues, 'Exercise Issues across Age')
+ex_issues_plot
+```
+
+It appears that endorsement of exercise issues is slightly higher at ages 16 and 18 as compared to 14 and 24. It is unclear whether this is an accurate representation or whether it could be an artifact of slightly different questions at ages 14,24 and 16,18. To investigate this possibility, we examine just the question that is asked at all four time points - whether exercise interferes with work, school, or daily routine. The graph below presents the endorsement of exercise interfering with work, school, or daily routine across age.
+
+```{r}
+
+exercise_interfere_df <- pivot_longer(demo_ed, cols = starts_with('exercise_interfere_present'), names_to = 'age', names_prefix = 'exercise_interfere_present.', values_to = 'exercise_interfere') 
+ex_interfere_plot <- hist_by_age_sex(exercise_interfere_df, exercise_interfere, 'Exercise Interferes with Work/School/Daily Routine by Age')
+ex_interfere_plot
+```
+
+Consistent with data reported above, the age at which exercise is most likely to interfere is age 16; however, exercise interference at age 18 is lowest. Further, as only 10-15% of individuals report this symptom across ages, it appears that the majority of endorsment for exercise issues is arising from the second question -- at ages 16 and 18, experiencing guilt after missing an exercise session. Below we examine rates of exercise issues if a more stringent cutoff is identified -- i.e. individuals must report either exercise interfereing with work or school and/or guilt after missing an exercise question occurs **frequently** at ages 16 and 18.
+
+```{r, out.width='80%'}
+exercise_issues_gf_df  <- pivot_longer(demo_ed, cols = c('exercise_issues.14', 'exercise_issues_gf.16', 'exercise_issues_gf.18', 'exercise_issues.24'), names_to = 'age', names_prefix = 'exercise_issues.', values_to = 'exercise_issues') %>% 
+  mutate(age = recode(age, 'gf.16' = '16', 'gf.18' = '18'))
+
+ex_issues_gf_plot <- hist_by_age_sex(exercise_issues_gf_df, exercise_issues, 'Endorsement of exercise issues across age \n - Frequent guilt required at 16/18')
+ex_issues_gf_plot
+```
+
+Requiring guilt to be present freqently after missing an exercise session reduces endorsement of exercise issues at ages 16 and 18 to be more similar to rates at 14 and 24. Patterns here seem to reflect the pattern of exercise interfering with work, school, or daily routine across age; thus, analyses that require harmonization of exercise issues across age (i.e. defining groups reporting driven exercise) will require **exercise interfering with work/school OR frequent guilt at ages 16/18** and **exercise interfering with work/school/daily routine OR exercising even when sick/injured sometimes or more at ages 14/24**
+
+## Driven Exercise
+
+Driven exercise is defined as exercise for weight loss being present **sometimes** or **frequently** AND exercise issues being **present** at each age, as defined above. Overall, it seems that there is an increase in driven exercise at age 24, relative to prior ages.
+
+```{r}
+driven_exercise_df  <- pivot_longer(demo_ed, cols = c('driven_exercise.14', 'driven_exercise.16', 'driven_exercise.18', 'driven_exercise.24'), names_to = 'age', names_prefix = 'driven_exercise.', values_to = 'driven_exercise') 
+driven_exercise_plot <- hist_by_age_sex(driven_exercise_df, driven_exercise, 'Driven Exercise Across Age')
+driven_exercise_plot
+```
+
+In the below graph, we adjust the definition of driven exercise such that exercise for weight loss must occur **frequently** ('frequently' is self-defined at ages 14-18, and defined as 1x/wk or more at age 24). In this graph, it appears that this more strict definition of driven exercise results in substantially lower rates that are more consistent across age. In subsequent analyses, we will refer to this definition which requires frequent exercise for weight loss along with at least one issue related to exercise as 'strictly defined' driven exercise.
+
+```{r}
+driven_exercise_df_2  <- pivot_longer(demo_ed, cols = c('driven_exercise_2.14', 'driven_exercise_2.16', 'driven_exercise_2.18', 'driven_exercise_2.24'), names_to = 'age', names_prefix = 'driven_exercise_2.', values_to = 'driven_exercise_2') 
+
+driven_exercise_plot_2 <- hist_by_age_sex(driven_exercise_df_2, driven_exercise_2, 'Driven Exercise (strictly defined) Across Age')
+driven_exercise_plot_2
+```
+
+**Analytic Decision 4.9.2022** KS and NM Discussion: The primary driven exercise variable will be defined as exercising for weight loss **sometimes or frequently** and at least one **exercise issue** present at each time point. Decision factors: (1) frequency of exercise may be less important than cognitive features in defining exercise risk in the context of EDs (2) The nature of the epidemiological sample and the concomitant goals of our analyses are such that we are interested in identifying early risk indicators, which may be best captured via a broad definition
+
+**Analytic Decision 4.9.2022** KS and NM Discussion: Subsequent analyses will include models of two primary variables:
+
+(1) ordinal Exercise for Weight Loss (0 = No, 1 = Sometimes, 2 = Frequently)
+(2) dichotomous Driven Exercise (0 = Absent, 1 = Present)
+
+We will examine both of these variables as they associate with concurrent and prospective eating disorder behaviors. We will model both variables as our paper examining associations between exercise groups and concurrent ED behaviors at age 14 and prospective ED behaviors at age 16 found that both the exercise for weight loss and driven exercise groups showed similar elevations in prospective risk for ED behaviors. Thus, exercise for weight loss will be considered in addition to driven exercise.
+
+We will also describe exercise status groups over time, replicating groups defined in @schaumbergProspectiveAssociationsDriven2022, as those who report 'no exercise for weight loss', 'exercise for weight loss', and 'driven exercise'
+
+
+<!--chapter:end:03-EX_behavior_descriptives.Rmd-->
+
+
+# Analytic Plan
+
+Primary analyses will be gender stratified.
+
+After data harmonization, the first step in analyses will be to evaluate
+overall changes in the presence of exercise for weight loss and driven
+exercise over time in the sample.
+
+Visualization will be completed with transition plots for each eating disorder behavior.
+
+For consideration: transition probabilities and Marginal distributions:
+[youtube tutorial](https://www.youtube.com/watch?v=7lrl1GbX-og)
+[datacamp](https://www.datacamp.com/community/tutorials/markov-chain-analysis-r)
+[msm package](https://cran.r-project.org/web/packages/msm/vignettes/msm-manual.pdf)
+
+Modeling will be done via Mixed Effects Ordinal (exercise for weight loss) and Logistic (driven exercise) Regression [@landermanModelingRepeatedMeasures2011], with a random intercept for each individual, and assessment point, parent SES, ED cognition at age 14, and BMI z-score at age 14 as fixed predictors.
+
+The second step in analyses will examine a cross-lagged panel model
+between each ED behavior and two primary exercise-related variables:
+exercise for weight loss (ordered frequency) and driven exercise
+(presence vs. absence, broad definition). Eating disorder cognition
+variables, a marker of SES [parent highest occupation], and BMI z-score
+at age 14 will be included as time-independent covariates.
+
+## Transition Analysis
+
+Transition analysis will be examined via a multi-state model which will describe how individuals move between three states - 'no exercise for weight loss', 'exercise for weight loss', and 'driven exercise', 
+
+$$
+q_{r s}(t, z(t))=\lim _{\delta t \rightarrow 0} \mathrm{P}(S(t+\delta t)=s \mid S(t)=r) / \delta t
+$$
+
+## Mixed Effects Modeling
+
+Packages for use include:
+
+| DV type    | Package                                                                      | Distribution |
+|------------------------|------------------------|------------------------|
+| Continuous | [lme4](https://m-clark.github.io/mixed-models-with-R/random_intercepts.html) | Gaussian     |
+| Ordinal | [ordinal](https://cran.r-project.org/web/packages/ordinal/index.html), [clmm function](https://cran.r-project.org/web/packages/ordinal/vignettes/clmm2_tutorial.pdf)| Cumulative Link |
+| Binary | [glmer](https://www.rdocumentation.org/packages/lme4/versions/1.1-29/topics/glmer) | Binomial|
+
+
+For both boys and girls, we are fitting an overall random effect model as a baseline model, and a random intercept model with a fixed effect for age to examine whether the odds of exercise for weight loss and driven exercise increase over time in the sample. 
+
+
+### Random Effect Model
+
+Random Effect Model: Baseline model which allows individuals to differ on their mean endorsement of driven exercise
+
+$$
+Driven\ Exercise_{ij} = b_{0j} + e_{ij}\\
+b_{0j} = \gamma_{00} + u_{0j}\\
+$$
+
+### Random Intercepts Model
+
+Allows for intercepts to vary (i.e. driven exercise endorsement at age 14), with fixed slopes, and adding a fixed effect for age
+
+$$
+Driven\ Exercise_{ij} = b_{0j} + b_1Age + e_{ij} \\
+b_{0j} = \gamma_{00} + u_{0j}
+$$
+
+### Model with Baseline Predictors
+
+Adds in 
+
+$$
+Driven\ Exercise_{ij} = b_{0j} + b_1Age + b_2parentSES + b_3bmi14 + b_4thin14 + b_5bodydissat14 + e_{ij} \\
+b_{0j} = \gamma_{00} + u_{0j}
+$$
+
+
+<!--chapter:end:04-Analytic_Plan.Rmd-->
+
+---
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+```{r}
+
+#Do just a little bit of post processing to get datasets ready for Multi-state Transition Modeling in Girls and Boys
+
+transition_data_girls <- demo_ed.lf.girls %>% 
+  mutate(ti_mean_14_std = standardise(ti_mean_14)) %>% 
+  mutate(body_sat_mean_14_std = standardise(body_sat_mean_14)) %>% 
+  mutate(exercise_group = exercise_group + 1) %>% 
+  mutate(age = as.numeric(age)) %>% 
+  # count number of exercise observations and select only rows with available exercise data and only individuals who have completed at least two exercise assessments 
+  mutate(ex_complete = ifelse(is.na(driven_exercise) == TRUE, NA, 1)) %>%
+  group_by(id, ex_complete) %>% 
+  mutate(nobs = n()) %>% 
+  ungroup() %>%   
+  filter(nobs > 1) 
+
+
+transition_data_boys <- demo_ed.lf.boys %>% 
+  mutate(ti_mean_14_std = standardise(ti_mean_14)) %>% 
+  mutate(body_sat_mean_14_std = standardise(body_sat_mean_14)) %>% 
+  mutate(exercise_group = exercise_group + 1) %>% 
+  mutate(age = as.numeric(age)) %>% 
+  # count number of exercise observations and select only rows with available exercise data and only individuals who have completed at least two exercise assessments 
+  mutate(ex_complete = ifelse(is.na(driven_exercise) == TRUE, NA, 1)) %>%
+  group_by(id, ex_complete) %>% 
+  mutate(nobs = n()) %>% 
+  ungroup() %>%   
+  filter(!is.na(ex_complete) == TRUE) %>% 
+  filter(nobs > 1) 
+
+```
+
+
+# Exercise Over Time
+
+Below, we examine shifts in exercise for weight loss and driven exercise
+over time:
+
+The first plot shows exercise status at ages 14-24 years in girls and
+boys, as a percentage of the total number of boys and girls. Total
+numbers of boys and girls differ across timepoints in this graph, and we
+show raw percentages within timepoint.
+
+```{r}
+exercise_group_data <- frq_table_by_age_sex(demo_ed.lf, exercise_group)
+
+exercise_status_plot_1 <- ggplot(data = exercise_group_data, 
+    aes(x = sex, y = pct, fill = exercise_group, label = sprintf('%0.1f%%', pct*100))) + #set the aesthetic features, including the labels at one decimal place
+    geom_bar(position = position_stack(reverse = TRUE), stat = 'identity') + #add column graph, with male and female separated
+    scale_y_continuous(labels = scales::percent, limits = c(0,1))+ #set the lower and upper limits of the y axis ( 0-100 percent); 
+    theme(legend.title = element_blank(), axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1), text = element_text(size = 15))+ #make legend text a bit bigger
+    labs(x = element_blank(), y = 'Percent (within gender)', title = 'Exercise Groups Across Age') +
+    facet_wrap(~age) + 
+    theme_classic()+
+    theme(legend.title = element_blank(), axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1), text = element_text(size = 15)) + #make legend text a bit bigger 
+   scale_fill_manual(values = wes_palette(name = 'GrandBudapest1', n = 3 ))
+exercise_status_plot_1
+```
+
+Overall, it appears that percentage of males and female in the three
+exercise groups is relatively stable from ages 14-18, with a possible
+increase in exercise for weight loss at age 18 among girls, and a more
+substantive increase in exercise for weight loss among men at age 24 and
+an increase in driven exercise across gender at age 24.
+
+## Transition in Exercise Status over Time
+
+In the next two graphs, we examine transitions over time amongst the
+subset of girls (N = 1169) and boys (N = 568) who completed all
+assessments, ages 14-24. Transition plot code derived from
+@cernatVisualizingTransitionsTime2021.
+
+```{r}
+ex_status_girl_plot <- transition_plot(demo_ed_girls, 'exercise_group.', 'Exercise Status Across Age in Girls', na.rm = TRUE)
+ex_status_girl_plot  + 
+    theme(legend.text = element_text(size = 12),
+          legend.title = element_blank())
+```
+
+```{r}
+ex_status_boy_plot <- transition_plot(demo_ed_boys, 'exercise_group.', 'Exercise Status Across Age in Boys', na.rm = TRUE)
+ex_status_boy_plot  + 
+    theme(legend.text = element_text(size = 12),
+          legend.title = element_blank())
+```
+
+## Multi-state Model
+
+A multi-state model to panel data relies on a Markov assumption, that future evelolution only depends on the current state. 
+
+The likelihood for this basic model, used in msm, is calculated from the transition probability matrix $P(u; t + u)$. The $(r, s)$ entry of $P(u; t + u)$, $prs(u; t + u)$, is the
+probability of being in state s at a time t + u, given the state at time u is r.
+
+Sampling times are ignorable if they are fixed in advance, or otherwise chosen independently of the outcome of the process
+
+The subject id variable does not need to be numeric, but observations from the same subject must be adjacent in the dataset, and observations must be ordered by time within subjects
+
+Below is the state table for exercise group, indicating transitions between each state. Transitions from 'no exercise for weight loss' to 'driven exercise' appear to be the least common of all transitions, wtih 164 instances of this transition. 
+
+
+```{r}
+#state table for girls
+statetable.msm(exercise_group, id, data = transition_data_girls)
+
+#identify possible transitions - in our model, it is assumed that individuals do not need to 'pass through' exercise for weight loss when transitioning in and out of driven exercise, thus; all possible transitions are allowed
+
+#Q-matrix not allowing instantaneous transitions to and from 'driven exercise' and 'no exercise for weight loss'
+qmat_1 <- rbind (c(0, 1, 0), 
+                 c(1, 0, 1),
+                 c(0, 1, 0))
+
+#Q-matrix allowing instantaneous transition from 'driven exercise' to 'no exercise for weight loss'
+qmat_2 <- rbind (c(0, 1, 0), 
+                 c(1, 0, 1),
+                 c(1, 1, 0))
+
+rownames(qmat_1) <- colnames(qmat_1) <- c('No EWL', 'EWL', 'DEx')
+rownames(qmat_2) <- colnames(qmat_2) <- c('No EWL', 'EWL', 'DEx')
+
+ex_group_girls_1 <- msm(exercise_group ~ age, subject = id, data = transition_data_girls, qmatrix = qmat_1, gen.inits = TRUE, control = list(fnscale = 5000, maxit = 10000))
+
+ex_group_girls_2 <- msm(exercise_group ~ age, subject = id, data = transition_data_girls, qmatrix = qmat_2, gen.inits = TRUE, control = list(fnscale = 5000, maxit = 10000))
+
+plot_2_girls <- plot.prevalence.msm(ex_group_girls_2, mintime = 14, maxtime = 24, xlab = 'age', legend.pos = c(19, 90))
+plot_1_girls <- plot.prevalence.msm(ex_group_girls_1, mintime = 14, maxtime = 24, xlab = 'age', legend.pos = c(19, 90))
+
+#Markov model with covariates
+
+ex_group_girls_covs_1 <- msm(exercise_group ~ age, subject = id, data = transition_data_girls, qmatrix = qmat_1, gen.inits = TRUE, control = list(fnscale =5000, maxit = 100000, reltol = 1e-16), covariates = ~ ti_mean_14_std + body_sat_mean_14_std + bmi_z_bestavail.13 + parent_highest_occupation)
+
+ex_group_girls_covs_2 <- msm(exercise_group ~ age, subject = id, data = transition_data_girls, qmatrix = qmat_2, gen.inits = TRUE, control = list(fnscale =5000, maxit = 100000, reltol = 1e-16), covariates = ~ body_sat_mean_14_std)
+
+
+hr_1_girls <- hazard.msm(ex_group_girls_covs_1)
+hr_2_girls <- hazard.msm(ex_group_girls_covs_2)
+
+ex_group_girls_1_pmat <- pmatrix.msm(ex_group_girls_1, t = 1, ci = 'normal')
+ex_group_girls_1_covs_pmat <- pmatrix.msm(ex_group_girls_covs_2, t = 1, ci = 'normal')
+
+ex_group_girls_2_pmat <- pmatrix.msm(ex_group_girls_2, t = 1, ci = 'normal')
+ex_group_girls_2_covs_pmat <- pmatrix.msm(ex_group_girls_covs_2, t = 1, ci = 'normal')
+
+ti_girls_hazard <- hr_1_girls[[1]] |> 
+round(2)
+kableExtra::kbl(ti_girls_hazard, booktabs = TRUE) |> 
+  kable_paper('striped', full_width = FALSE)  
+
+bd_girls_hazard <- hr_1_girls[[2]] |> 
+round(2)
+kableExtra::kbl(bd_girls_hazard, booktabs = TRUE) |> 
+  kable_paper('striped', full_width = FALSE)  
+
+bmi_z_girls_hazard <- hr_1_girls[[3]] |> 
+round(2)
+kableExtra::kbl(bmi_z_girls_hazard, booktabs = TRUE) |> 
+  kable_paper('striped', full_width = FALSE)  
+
+ses_girls_hazard <- hr_1_girls[[4]] |> 
+round(2)
+kableExtra::kbl(ses_girls_hazard, booktabs = TRUE) |> 
+  kable_paper('striped', full_width = FALSE)  
+
+bd_girls_hazard_2 <- hr_2_girls[[1]]
+round(2)
+kableExtra::kbl(bd_girls_hazard_2, booktabs = TRUE) |> 
+  kable_paper('striped', full_width = FALSE)  
+```
+
+```{r}
+#state table for boys
+statetable.msm(exercise_group, id, data = transition_data_boys)
+
+#identify possible transitions - in our model, it is assumed that individuals do not need to 'pass through' exercise for weight loss when transitioning in and out of driven exercise, thus; all possible transitions are allowed
+
+#Q-matrix not allowing instantaneous transitions to and from 'driven exercise' and 'no exercise for weight loss'
+qmat_1 <- rbind (c(0, 1, 0), 
+                 c(1, 0, 1),
+                 c(0, 1, 0))
+
+#Q-matrix allowing instantaneous transition from 'driven exercise' to 'no exercise for weight loss'
+qmat_2 <- rbind (c(0, 1, 0), 
+                 c(1, 0, 1),
+                 c(1, 1, 0))
+
+rownames(qmat_1) <- colnames(qmat_1) <- c('No EWL', 'EWL', 'DEx')
+rownames(qmat_2) <- colnames(qmat_2) <- c('No EWL', 'EWL', 'DEx')
+
+ex_group_boys_1 <- msm(exercise_group ~ age, subject = id, data = transition_data_boys, qmatrix = qmat_1, gen.inits = TRUE, control = list(fnscale = 5000, maxit = 10000))
+
+ex_group_boys_2 <- msm(exercise_group ~ age, subject = id, data = transition_data_boys, qmatrix = qmat_2, gen.inits = TRUE, control = list(fnscale = 5000, maxit = 10000))
+
+plot.prevalence.msm(ex_group_boys_1, mintime = 14, maxtime = 24, xlab = 'age', legend.pos = c(19, 90))
+plot.prevalence.msm(ex_group_boys_2, mintime = 14, maxtime = 24, xlab = 'age', legend.pos = c(19, 90))
+
+#Markov model with covariates
+
+ex_group_boys_covs <- msm(exercise_group ~ age, subject = id, data = transition_data_boys, qmatrix = qmat_1, gen.inits = TRUE, control = list(fnscale =5000, maxit = 1000000, reltol = 1e-16), covariates = ~  ti_mean_14_std + bmi_z_bestavail.13)
+
+
+hr_1_boys <- hazard.msm(ex_group_boys_covs)
+
+ex_group_boys_2_pmat <- pmatrix.msm(ex_group_boys_2, t = 1, ci = 'normal')
+ex_group_boys_covs_pmat <- pmatrix.msm(ex_group_boys_covs, t = 1, ci = 'normal')
+ex_group_boys_1_pmat <- pmatrix.msm(ex_group_boys_1, t = 1, ci = 'normal')
+
+ti_boys_hazard <- hr_1_boys[[1]] |> 
+round(2)
+kableExtra::kbl(ti_boys_hazard, booktabs = TRUE) |> 
+  kable_paper('striped', full_width = FALSE)  
+
+bmi_boys_hazard <- hr_1_boys[[2]] |> 
+round(2)
+kableExtra::kbl(bmi_boys_hazard, booktabs = TRUE) |> 
+  kable_paper('striped', full_width = FALSE)  
+
+
+```
+
+
+<!--chapter:end:05-Transitions.Rmd-->
+
+
+#Mixed Effects Models
+
+## Driven Exercise
+
+### Girls
+
+```{r}
+load('models/Girl_Models_DEx')
+
+bl_0_dex_girls_pooled <- pool(bl_0_dex_girls)
+bl_0_dex_girls_ORs <- summary(bl_0_dex_girls_pooled, conf.int = TRUE, exponentiate = TRUE) 
+
+bl_0_dex_girls_ORs <- bl_0_dex_girls_ORs |>  
+  mutate(`0.25 %` = estimate - std.error*2.81) |> 
+  mutate(`99.75 %` = estimate + std.error*2.81)
+
+age_1_dex_girls_pooled <- pool(age_1_dex_girls)
+age_1_dex_girls_ORs <- summary(age_1_dex_girls_pooled, conf.int = TRUE, exponentiate = TRUE)  |> 
+  mutate(`0.25 %` = estimate - std.error*2.81) |> 
+  mutate(`99.75 %` = estimate + std.error*2.81)
+
+
+#use the D1 method to compare 
+mcomp_1 <- D1(age_1_dex_girls, bl_0_dex_girls)
+
+
+#Now we include fixed effect covariates of BMI, parent highest occupation, and eating disorder cogitions at age 14: thin-ideal internalization, body dissatisfaction, and fear of weight gain
+covs_2_dex_girls_pooled <- pool(covs_2_dex_girls)
+covs_2_dex_girls_ORs <- summary(covs_2_dex_girls_pooled, conf.int = TRUE, exponentiate = TRUE)|> 
+  mutate(`0.25 %` = estimate - std.error*2.81) |> 
+  mutate(`99.75 %` = estimate + std.error*2.81)
+
+mcomp_2 <- D1(covs_2_dex_girls, age_1_dex_girls)
+
+
+covs_3_dex_girls_pooled <- pool(covs_3_dex_girls)
+covs_3_dex_girls_ORs <- summary(covs_3_dex_girls_pooled, conf.int = TRUE, exponentiate = TRUE)|> 
+  mutate(`0.25 %` = estimate - std.error*2.81) |> 
+  mutate(`99.75 %` = estimate + std.error*2.81)
+
+mcomp_3 <- D1(covs_3_dex_girls, covs_2_dex_girls)
+
+covs_4_dex_girls_pooled <- pool(covs_4_dex_girls)
+covs_4_dex_girls_ORs <- summary(covs_4_dex_girls_pooled, conf.int = TRUE, exponentiate = TRUE)|> 
+  mutate(`0.25 %` = estimate - std.error*2.81) |> 
+  mutate(`99.75 %` = estimate + std.error*2.81)
+
+mcomp_4 <- D1(covs_4_dex_girls, covs_3_dex_girls)
+
+```
+
+
+```{r, label = 'DEx Poled Coeffs Table - Girls'}
+
+dfnames <- c("bl_0_dex_girls_ORs", "age_1_dex_girls_ORs", 'covs_2_dex_girls_ORs', 'covs_3_dex_girls_ORs', 'covs_4_dex_girls_ORs')
+pooled_coefs <- do.call(rbind, lapply(dfnames, function(x) cbind(get(x), Model=x))) |> 
+  relocate(Model) %>% 
+  select(-c(p.value, statistic, df, `2.5 %`, `97.5 %`))
+
+for (i in 3:ncol(pooled_coefs) ) {
+  pooled_coefs[i] <- round(pooled_coefs[i], digits = 3)
+}
+
+pooled_coefs['Model'][pooled_coefs['Model'] == 'bl_0_dex_girls_ORs'] <- 'Baseline Model'
+pooled_coefs['Model'][pooled_coefs['Model'] == 'age_1_dex_girls_ORs'] <- 'Age Effect Model'
+pooled_coefs['Model'][pooled_coefs['Model'] == 'covs_2_dex_girls_ORs'] <- 'Step 1 Covariates'
+pooled_coefs['Model'][pooled_coefs['Model'] == 'covs_3_dex_girls_ORs'] <- 'Step 2 Covariates'
+pooled_coefs['Model'][pooled_coefs['Model'] == 'covs_4_dex_girls_ORs'] <- 'Step 3 Age x Cov Interactions'
+
+pooled_coefs <- pooled_coefs |> mutate(term = as.character(term))
+pooled_coefs['term'][pooled_coefs['term'] == 'parent_highest_occupation'] <- 'Parent SES'
+pooled_coefs['term'][pooled_coefs['term'] == 'bmi_z_bestavail'] <- 'BMI Z - Age 13'
+pooled_coefs['term'][pooled_coefs['term'] == 'age_adjust'] <- 'Age'
+pooled_coefs['term'][pooled_coefs['term'] == 'fear_wtgain_14'] <- 'Fear of Wt Gain - Age 14'
+pooled_coefs['term'][pooled_coefs['term'] == 'body_sat_mean_14_std'] <- 'Body Satisifaction - Age 14'
+pooled_coefs['term'][pooled_coefs['term'] == 'ti_mean_14_std'] <- 'Thin-ideal Internalization - Age 14'
+pooled_coefs['term'][pooled_coefs['term'] == 'age_adjust:bmi_z_bestavail'] <- 'Age x BMI (13)'
+pooled_coefs['term'][pooled_coefs['term'] == 'age_adjust:fear_wtgain_14'] <- 'Age x Fear of Wt Gain (14)'
+pooled_coefs['term'][pooled_coefs['term'] == 'age_adjust:body_sat_mean_14_std'] <- 'Age x Body Satisfaction (14)'
+pooled_coefs['term'][pooled_coefs['term'] == 'age_adjust:ti_mean_14_std'] <- 'Age x Thin-Ideal Internalization (14)'
+
+est_color <- function (df) {
+  if (pooled_coefs$term[i] != '(Intercept)') {
+  column_spec(df, 3, color = ifelse(pooled_coefs$estimate > 1, "blue", "red"))}
+  else{
+  column_spec(df, column = 3, color = 'black')}}
+
+pooled_coefs_girls <- pooled_coefs|> 
+  kbl(caption = 'Table 1: Parameter Estimates for Models Predicting Driven Exercise in Girls') %>% 
+  row_spec(c(2:3, 8:14), background = '#E0E0E0') %>% 
+  column_spec(2:3, color = case_when(pooled_coefs$term != '(Intercept)' & pooled_coefs$`0.25 %` > 1  ~ "blue",
+                                   pooled_coefs$term != '(Intercept)' & pooled_coefs$`99.75 %`< 1  ~ "red", 
+                                   pooled_coefs$term == '(Intercept)' & pooled_coefs$`0.25 %`> 0 ~ "blue",
+                                   pooled_coefs$term == '(Intercept)' & pooled_coefs$`99.75 %`< 0  ~ "red",
+                                   TRUE ~ 'black')) |> 
+  kable_paper(full_width = T)
+
+pooled_coefs_girls
+
+```
+
+```{r}
+#Results Table - Model Comparisons
+
+model_comparisons <- c('mcomp_1', 'mcomp_2', 'mcomp_3', 'mcomp_4')
+
+n = list() 
+for (i in model_comparisons) { 
+  x<- as.list((eval(ensym(i))[2])) 
+  x<- data.frame(t(unlist(x)))
+  colnames(x) = c('statistic', 'df1', 'df2', 'p.value','riv')
+  n[[i]] = x
+}
+pooled_coefs_2 <- do.call('rbind', n) 
+
+rownames(pooled_coefs_2) <- c('Baseline vs. Age Effects', 'Age vs. Step 1 Covariates', 'Step 1 vs. Step 2 Covariates', 'Step 2 vs. Age x Covariate Interactions')
+
+mcomp_table_girls <- pooled_coefs_2 %>% 
+  kbl(caption = 'Table 2: Model Comparisons - Driven Exercise in Girls', digits = 3) %>% 
+  kable_material('striped')
+
+mcomp_table_girls
+
+```
+
+### Boys
+
+
+```{r}
+rm(list = ls())
+load('models/Boy_Models_DEx')
+
+```
+
+
+```{r}
+
+bl_0_dex_boys_pooled <- pool(bl_0_dex_boys)
+bl_0_dex_boys_ORs <- summary(bl_0_dex_boys_pooled, conf.int = TRUE, exponentiate = TRUE)|> 
+  mutate(`0.25 %` = estimate - std.error*2.81) |> 
+  mutate(`99.75 %` = estimate + std.error*2.81)
+
+age_1_dex_boys_pooled <- pool(age_1_dex_boys)
+age_1_dex_boys_ORs <- summary(age_1_dex_boys_pooled, conf.int = TRUE, exponentiate = TRUE)|> 
+  mutate(`0.25 %` = estimate - std.error*2.81) |> 
+  mutate(`99.75 %` = estimate + std.error*2.81)
+
+#use the D1 method to compare 
+mcomp_1 <- D1(age_1_dex_boys, bl_0_dex_boys)
+
+```
+
+
+```{r}
+
+#Now we include fixed effect covariates of BMI, parent highest occupation, and eating disorder cogitions at age 14: thin-ideal internalization, body dissatisfaction, and fear of weight gain
+covs_2_dex_boys_pooled <- pool(covs_2_dex_boys)
+covs_2_dex_boys_ORs <- summary(covs_2_dex_boys_pooled, conf.int = TRUE, exponentiate = TRUE)|> 
+  mutate(`0.25 %` = estimate - std.error*2.81) |> 
+  mutate(`99.75 %` = estimate + std.error*2.81)
+
+mcomp_2 <- D1(covs_2_dex_boys, age_1_dex_boys)
+
+
+covs_3_dex_boys_pooled <- pool(covs_3_dex_boys)
+covs_3_dex_boys_ORs <- summary(covs_3_dex_boys_pooled, conf.int = TRUE, exponentiate = TRUE)|> 
+  mutate(`0.25 %` = estimate - std.error*2.81) |> 
+  mutate(`99.75 %` = estimate + std.error*2.81)
+
+mcomp_3 <- D1(covs_3_dex_boys, covs_2_dex_boys)
+
+covs_4_dex_boys_pooled <- pool(covs_4_dex_boys)
+covs_4_dex_boys_ORs <- summary(covs_4_dex_boys_pooled, conf.int = TRUE, exponentiate = TRUE)|> 
+  mutate(`0.25 %` = estimate - std.error*2.81) |> 
+  mutate(`99.75 %` = estimate + std.error*2.81)
+
+mcomp_4 <- D1(covs_4_dex_boys, covs_3_dex_boys)
+
+```
+
+
+
+
+```{r, label = 'DEx Poled Coeffs Table - Boys'}
+
+dfnames <- c("bl_0_dex_boys_ORs", "age_1_dex_boys_ORs", 'covs_2_dex_boys_ORs', 'covs_3_dex_boys_ORs', 'covs_4_dex_boys_ORs')
+pooled_coefs <- do.call(rbind, lapply(dfnames, function(x) cbind(get(x), Model=x))) |> 
+  relocate(Model) %>% 
+  select(-c(p.value, statistic, df, `2.5 %`, `97.5 %`))
+
+for (i in 3:ncol(pooled_coefs) ) {
+  pooled_coefs[i] <- round(pooled_coefs[i], digits = 3)
+}
+
+pooled_coefs['Model'][pooled_coefs['Model'] == 'bl_0_dex_boys_ORs'] <- 'Baseline Model'
+pooled_coefs['Model'][pooled_coefs['Model'] == 'age_1_dex_boys_ORs'] <- 'Age Effect Model'
+pooled_coefs['Model'][pooled_coefs['Model'] == 'covs_2_dex_boys_ORs'] <- 'Step 1 Covariates'
+pooled_coefs['Model'][pooled_coefs['Model'] == 'covs_3_dex_boys_ORs'] <- 'Step 2 Covariates'
+pooled_coefs['Model'][pooled_coefs['Model'] == 'covs_4_dex_boys_ORs'] <- 'Step 3 Age x Cov Interactions'
+
+pooled_coefs <- pooled_coefs |> mutate(term = as.character(term))
+pooled_coefs['term'][pooled_coefs['term'] == 'parent_highest_occupation'] <- 'Parent SES'
+pooled_coefs['term'][pooled_coefs['term'] == 'bmi_z_bestavail'] <- 'BMI Z - Age 13'
+pooled_coefs['term'][pooled_coefs['term'] == 'age_adjust'] <- 'Age'
+pooled_coefs['term'][pooled_coefs['term'] == 'fear_wtgain_14'] <- 'Fear of Wt Gain - Age 14'
+pooled_coefs['term'][pooled_coefs['term'] == 'body_sat_mean_14_std'] <- 'Body Satisifaction - Age 14'
+pooled_coefs['term'][pooled_coefs['term'] == 'ti_mean_14_std'] <- 'Thin-ideal Internalization - Age 14'
+pooled_coefs['term'][pooled_coefs['term'] == 'age_adjust:bmi_z_bestavail'] <- 'Age x BMI (13)'
+pooled_coefs['term'][pooled_coefs['term'] == 'age_adjust:fear_wtgain_14'] <- 'Age x Fear of Wt Gain (14)'
+pooled_coefs['term'][pooled_coefs['term'] == 'age_adjust:body_sat_mean_14_std'] <- 'Age x Body Satisfaction (14)'
+pooled_coefs['term'][pooled_coefs['term'] == 'age_adjust:ti_mean_14_std'] <- 'Age x Thin-Ideal Internalization (14)'
+
+
+pooled_coefs_boys <- pooled_coefs|> 
+  kbl(caption = 'Table 1: Parameter Estimates for Models Predicting Driven Exercise in Boys') %>% 
+  row_spec(c(2:3, 8:14), background = '#E0E0E0') %>% 
+  column_spec(2:3, color = case_when(pooled_coefs$term != '(Intercept)' & pooled_coefs$`0.25 %` > 1  ~ "blue",
+                                   pooled_coefs$term != '(Intercept)' & pooled_coefs$`99.75 %`< 1  ~ "red", 
+                                   pooled_coefs$term == '(Intercept)' & pooled_coefs$`0.25 %`> 0 ~ "blue",
+                                   pooled_coefs$term == '(Intercept)' & pooled_coefs$`99.75 %`< 0  ~ "red",
+                                   TRUE ~ 'black')) |> 
+  kable_paper(full_width = T)
+
+pooled_coefs_boys
+
+```
+
+
+
+```{r}
+#Results Table - Model Comparisons
+
+model_comparisons <- c('mcomp_1', 'mcomp_2', 'mcomp_3', 'mcomp_4')
+
+n = list() 
+for (i in model_comparisons) { 
+  x<- as.list((eval(ensym(i))[2])) 
+  x<- data.frame(t(unlist(x)))
+  colnames(x) = c('statistic', 'df1', 'df2', 'p.value','riv')
+  n[[i]] = x
+}
+pooled_coefs_2 <- do.call('rbind', n) 
+
+rownames(pooled_coefs_2) <- c('Baseline vs. Age Effects', 'Age vs. Step 1 Covariates', 'Step 1 vs. Step 2 Covariates', 'Step 2 vs. Age x Covariate Interactions')
+
+mcomp_table_boys <- pooled_coefs_2 %>% 
+  kbl(caption = 'Table 2: Model Comparisons - Driven Exercise in boys', digits = 3) %>% 
+  kable_material('striped')
+
+mcomp_table_boys
+
+```
+
+
+<!--chapter:end:06-mixed-effects-dex.Rmd-->
+
+
+
+
+
+## Exercise for Weight Loss
+
+We are utilizing the same approach to examine endorsement of exercise
+for weight loss over time in the sample, but use an ordinal model (clmm)
+.
+
+<https://rdrr.io/github/DaanNieboer/ordinalimputation/man/pooling.clmm.html>
+
+### Girls
+
+### Boys
+
+m1 <- as.list(mcomp_rand_int_x_bl$result) 
+m1 <- data.frame(t(unlist(m1)))
+
+m2 <- as.list(mcomp_cov1_x_rand_int$result)
+dfnames<- c('m1', 'm2')
+pooled_coefs_1 <- do.call(rbind, lapply(dfnames, function(x) cbind(get(x), Model=x))) 
+
+
+<!--chapter:end:07-mixed-effects-EWL.Rmd-->
+
+
+# References {-}
+
+```{r include=FALSE}
+# automatically create a bib database for R packages
+knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown'
+), 'packages.bib')
+```
+
+
+`r if (knitr:::is_html_output()) '
+
+'`
+
+<!--chapter:end:09-References.Rmd-->
+

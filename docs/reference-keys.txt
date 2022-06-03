@@ -1,5 +1,5 @@
-tab:unnamed-chunk-22
-tab:unnamed-chunk-26
+tab:unnamed-chunk-17
+tab:unnamed-chunk-21
 introduction
 driven-exercise-in-alspac
 current-study
@@ -13,10 +13,6 @@ exercise-behavior-descriptive-analyses
 exercise-for-weight-loss
 exercise-issues
 driven-exercise
-eating-disorder-behaivors---descriptive-analyses
-binge-eating
-fasting
-purging
 analytic-plan
 transition-analysis
 mixed-effects-modeling
