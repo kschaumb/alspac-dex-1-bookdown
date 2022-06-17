@@ -1,43 +1,11 @@
----
-editor_options: 
-  markdown: 
-    wrap: 72
----
 
+
+## Transitions in Exercise Groups Over Time
 ```{r}
-
-#Do just a little bit of post processing to get datasets ready for Multi-state Transition Modeling in Girls and Boys
-
-transition_data_girls <- demo_ed.lf.girls %>% 
-  mutate(ti_mean_14_std = standardise(ti_mean_14)) %>% 
-  mutate(body_sat_mean_14_std = standardise(body_sat_mean_14)) %>% 
-  mutate(exercise_group = exercise_group + 1) %>% 
-  mutate(age = as.numeric(age)) %>% 
-  # count number of exercise observations and select only rows with available exercise data and only individuals who have completed at least two exercise assessments 
-  mutate(ex_complete = ifelse(is.na(driven_exercise) == TRUE, NA, 1)) %>%
-  group_by(id, ex_complete) %>% 
-  mutate(nobs = n()) %>% 
-  ungroup() %>%   
-  filter(nobs > 1) 
-
-
-transition_data_boys <- demo_ed.lf.boys %>% 
-  mutate(ti_mean_14_std = standardise(ti_mean_14)) %>% 
-  mutate(body_sat_mean_14_std = standardise(body_sat_mean_14)) %>% 
-  mutate(exercise_group = exercise_group + 1) %>% 
-  mutate(age = as.numeric(age)) %>% 
-  # count number of exercise observations and select only rows with available exercise data and only individuals who have completed at least two exercise assessments 
-  mutate(ex_complete = ifelse(is.na(driven_exercise) == TRUE, NA, 1)) %>%
-  group_by(id, ex_complete) %>% 
-  mutate(nobs = n()) %>% 
-  ungroup() %>%   
-  filter(!is.na(ex_complete) == TRUE) %>% 
-  filter(nobs > 1) 
-
+load('models/transition_models')
 ```
 
 
-# Exercise Over Time
 
 Below, we examine shifts in exercise for weight loss and driven exercise
 over time:
@@ -69,8 +37,6 @@ increase in exercise for weight loss at age 18 among girls, and a more
 substantive increase in exercise for weight loss among men at age 24 and
 an increase in driven exercise across gender at age 24.
 
-## Transition in Exercise Status over Time
-
 In the next two graphs, we examine transitions over time amongst the
 subset of girls (N = 1169) and boys (N = 568) who completed all
 assessments, ages 14-24. Transition plot code derived from
@@ -90,8 +56,6 @@ ex_status_boy_plot  +
           legend.title = element_blank())
 ```
 
-## Multi-state Model
-
 A multi-state model to panel data relies on a Markov assumption, that future evelolution only depends on the current state. 
 
 The likelihood for this basic model, used in msm, is calculated from the transition probability matrix $P(u; t + u)$. The $(r, s)$ entry of $P(u; t + u)$, $prs(u; t + u)$, is the
@@ -103,122 +67,219 @@ The subject id variable does not need to be numeric, but observations from the s
 
 Below is the state table for exercise group, indicating transitions between each state. Transitions from 'no exercise for weight loss' to 'driven exercise' appear to be the least common of all transitions, wtih 164 instances of this transition. 
 
+### Girls
 
 ```{r}
+
 #state table for girls
 statetable.msm(exercise_group, id, data = transition_data_girls)
 
 #identify possible transitions - in our model, it is assumed that individuals do not need to 'pass through' exercise for weight loss when transitioning in and out of driven exercise, thus; all possible transitions are allowed
 
-#Q-matrix not allowing instantaneous transitions to and from 'driven exercise' and 'no exercise for weight loss'
-qmat_1 <- rbind (c(0, 1, 0), 
-                 c(1, 0, 1),
-                 c(0, 1, 0))
-
-#Q-matrix allowing instantaneous transition from 'driven exercise' to 'no exercise for weight loss'
-qmat_2 <- rbind (c(0, 1, 0), 
-                 c(1, 0, 1),
-                 c(1, 1, 0))
-
-rownames(qmat_1) <- colnames(qmat_1) <- c('No EWL', 'EWL', 'DEx')
-rownames(qmat_2) <- colnames(qmat_2) <- c('No EWL', 'EWL', 'DEx')
-
-ex_group_girls_1 <- msm(exercise_group ~ age, subject = id, data = transition_data_girls, qmatrix = qmat_1, gen.inits = TRUE, control = list(fnscale = 5000, maxit = 10000))
-
-ex_group_girls_2 <- msm(exercise_group ~ age, subject = id, data = transition_data_girls, qmatrix = qmat_2, gen.inits = TRUE, control = list(fnscale = 5000, maxit = 10000))
-
 plot_2_girls <- plot.prevalence.msm(ex_group_girls_2, mintime = 14, maxtime = 24, xlab = 'age', legend.pos = c(19, 90))
 plot_1_girls <- plot.prevalence.msm(ex_group_girls_1, mintime = 14, maxtime = 24, xlab = 'age', legend.pos = c(19, 90))
 
 #Markov model with covariates
-
-ex_group_girls_covs_1 <- msm(exercise_group ~ age, subject = id, data = transition_data_girls, qmatrix = qmat_1, gen.inits = TRUE, control = list(fnscale =5000, maxit = 100000, reltol = 1e-16), covariates = ~ ti_mean_14_std + body_sat_mean_14_std + bmi_z_bestavail.13 + parent_highest_occupation)
-
-ex_group_girls_covs_2 <- msm(exercise_group ~ age, subject = id, data = transition_data_girls, qmatrix = qmat_2, gen.inits = TRUE, control = list(fnscale =5000, maxit = 100000, reltol = 1e-16), covariates = ~ body_sat_mean_14_std)
-
-
 hr_1_girls <- hazard.msm(ex_group_girls_covs_1)
-hr_2_girls <- hazard.msm(ex_group_girls_covs_2)
-
 ex_group_girls_1_pmat <- pmatrix.msm(ex_group_girls_1, t = 1, ci = 'normal')
-ex_group_girls_1_covs_pmat <- pmatrix.msm(ex_group_girls_covs_2, t = 1, ci = 'normal')
+ex_group_girls_1_covs_pmat <- pmatrix.msm(ex_group_girls_covs_1, t = 1, ci = 'normal')
 
-ex_group_girls_2_pmat <- pmatrix.msm(ex_group_girls_2, t = 1, ci = 'normal')
-ex_group_girls_2_covs_pmat <- pmatrix.msm(ex_group_girls_covs_2, t = 1, ci = 'normal')
+ti_girls_hazard <- hr_1_girls[[1]]  
+bd_girls_hazard <- hr_1_girls[[2]] 
+fear_wt_girls_hazard <- hr_1_girls[[3]] 
+bmi_z_girls_hazard <- hr_1_girls[[4]]
+ses_girls_hazard <- hr_1_girls[[5]]
 
-ti_girls_hazard <- hr_1_girls[[1]] |> 
-round(2)
-kableExtra::kbl(ti_girls_hazard, booktabs = TRUE) |> 
-  kable_paper('striped', full_width = FALSE)  
+```
 
-bd_girls_hazard <- hr_1_girls[[2]] |> 
-round(2)
-kableExtra::kbl(bd_girls_hazard, booktabs = TRUE) |> 
-  kable_paper('striped', full_width = FALSE)  
+```{r, label = Girls Hazard Ratios}
 
-bmi_z_girls_hazard <- hr_1_girls[[3]] |> 
-round(2)
-kableExtra::kbl(bmi_z_girls_hazard, booktabs = TRUE) |> 
-  kable_paper('striped', full_width = FALSE)  
+dfnames <- c('ti_girls_hazard', 'bd_girls_hazard', 'fear_wt_girls_hazard', 'bmi_z_girls_hazard', 'ses_girls_hazard')
+Girl_HRs <- do.call(rbind, lapply(dfnames, function(x) cbind(get(x), Covariate=x))) |> 
+  as.data.frame() |> 
+  rownames_to_column(var = 'transition') %>% 
+ mutate(HR = sprintf("%.3f", as.numeric(HR))) %>% 
+ mutate(L = sprintf("%.3f", as.numeric(L))) %>% 
+ mutate(U = sprintf("%.3f", as.numeric(U)))
 
-ses_girls_hazard <- hr_1_girls[[4]] |> 
-round(2)
-kableExtra::kbl(ses_girls_hazard, booktabs = TRUE) |> 
-  kable_paper('striped', full_width = FALSE)  
+Girl_HRs$transition <- gsub('\\No.', 'No ', Girl_HRs$transition)
+Girl_HRs$transition <- gsub('\\...', ' to ', Girl_HRs$transition)
+Girl_HRs$transition <- gsub('\\..*', '', Girl_HRs$transition)
+Girl_HRs$CI <- paste(Girl_HRs$L, Girl_HRs$U, sep = ', ')
+addparens <- function(x){paste('(',x,')')}
+Girl_HRs$CI <- addparens(Girl_HRs$CI)
+Girl_HRs$HR <- paste(Girl_HRs$HR, Girl_HRs$CI, sep = ' ')
 
-bd_girls_hazard_2 <- hr_2_girls[[1]]
-round(2)
-kableExtra::kbl(bd_girls_hazard_2, booktabs = TRUE) |> 
-  kable_paper('striped', full_width = FALSE)  
+
+Girl_HRs <- Girl_HRs |> 
+  select( - c( L, U, CI)) %>% 
+  pivot_wider(names_from = c(transition), values_from = HR)
+Girl_HRs['Covariate'][Girl_HRs['Covariate'] == 'ti_girls_hazard'] <- 'Thin-Ideal Internalization [14]'
+Girl_HRs['Covariate'][Girl_HRs['Covariate'] == 'bd_girls_hazard'] <- 'Body Satisfaction [14]'
+Girl_HRs['Covariate'][Girl_HRs['Covariate'] == 'fear_wt_girls_hazard'] <- 'Fear of Weight Gain [14]'
+Girl_HRs['Covariate'][Girl_HRs['Covariate'] == 'bmi_z_girls_hazard'] <- 'BMI Z-score [13]'
+Girl_HRs['Covariate'][Girl_HRs['Covariate'] == 'ses_girls_hazard'] <- 'Parent Occupation'
+
+Girl_HRs %>% 
+  kbl(caption = 'Hazard Ratios for Transitions with Baseline Covariates - Girls', format = 'html')  %>% 
+  kable_paper(full_width = T)   %>% 
+  column_spec(2, color = case_when(Girl_HRs$Covariate %in% c('Body Satisfaction [14]', 'Fear of Weight Gain [14]', 'BMI Z-score [13]') ~ 'blue', 
+                                    TRUE ~'black')) %>% 
+  column_spec(3, color = case_when(Girl_HRs$Covariate %in% c('Body Satisfaction [14]') ~ 'blue', 
+                                   Girl_HRs$Covariate %in% c('Parent Occupation') ~ 'red',
+                                    TRUE ~'black'))
+
+  
+
+
+
 ```
 
 ```{r}
+hr_2_girls <- hazard.msm(ex_group_girls_covs_2)
+ti_girls_hazard_2 <-hr_2_girls[[1]]
+bmi_girls_hazard_2<- hr_2_girls[[2]] 
+fear_wt_girls_hazard_2 <- hr_2_girls[[3]] 
+bd_girls_hazard <-hr_2_girls[[4]]
+ses_girls_hazard <- hr_2_girls[[5]] 
+
+
+dfnames <- c('fear_wt_girls_hazard_2', 'bmi_girls_hazard_2', 'ti_girls_hazard_2', 'bd_girls_hazard', 'ses_girls_hazard')
+girl_HRs_2 <- do.call(rbind, lapply(dfnames, function(x) cbind(get(x), Covariate=x))) |> 
+  as.data.frame() |> 
+  rownames_to_column(var = 'transition') %>% 
+ mutate(HR = sprintf("%.2f", as.numeric(HR))) %>% 
+ mutate(L = sprintf("%.2f", as.numeric(L))) %>% 
+ mutate(U = sprintf("%.2f", as.numeric(U)))
+
+girl_HRs_2$transition <- gsub('\\No.', 'No ', girl_HRs_2$transition)
+girl_HRs_2$transition <- gsub('\\...', ' to ', girl_HRs_2$transition)
+girl_HRs_2$transition <- gsub('\\..*', '', girl_HRs_2$transition)
+girl_HRs_2$CI <- paste(girl_HRs_2$L, girl_HRs_2$U, sep = ', ')
+addparens <- function(x){paste('(',x,')')}
+girl_HRs_2$CI <- addparens(girl_HRs_2$CI)
+girl_HRs_2$HR <- paste(girl_HRs_2$HR, girl_HRs_2$CI, sep = ' ')
+
+
+girl_HRs_2 <- girl_HRs_2 |> 
+  select( - c( L, U, CI)) %>% 
+  pivot_wider(names_from = c(transition), values_from = HR)
+girl_HRs_2['Covariate'][girl_HRs_2['Covariate'] == 'ti_girls_hazard_2'] <- 'Thin Ideal Internalization [14]'
+girl_HRs_2['Covariate'][girl_HRs_2['Covariate'] == 'fear_wt_girls_hazard_2'] <- 'Fear of Weight Gain [14]'
+girl_HRs_2['Covariate'][girl_HRs_2['Covariate'] == 'bmi_girls_hazard_2'] <- 'BMI Z-score [13]'
+girl_HRs_2['Covariate'][girl_HRs_2['Covariate'] == 'bd_girls_hazard'] <- 'Body Satisfaction [14]'
+girl_HRs_2['Covariate'][girl_HRs_2['Covariate'] == 'ses_girls_hazard'] <- 'Parent Occupation'
+
+girl_HRs_2 %>% 
+  kbl(caption = 'Hazard Ratios for Transitions with Baseline Covariates and Constrained Transitions - girls')  %>% 
+  kable_paper(full_width = T) %>% 
+  kable_styling(font_size = 13)
+```
+
+### Boys
+
+
+```{r}
 #state table for boys
+
 statetable.msm(exercise_group, id, data = transition_data_boys)
-
-#identify possible transitions - in our model, it is assumed that individuals do not need to 'pass through' exercise for weight loss when transitioning in and out of driven exercise, thus; all possible transitions are allowed
-
-#Q-matrix not allowing instantaneous transitions to and from 'driven exercise' and 'no exercise for weight loss'
-qmat_1 <- rbind (c(0, 1, 0), 
-                 c(1, 0, 1),
-                 c(0, 1, 0))
-
-#Q-matrix allowing instantaneous transition from 'driven exercise' to 'no exercise for weight loss'
-qmat_2 <- rbind (c(0, 1, 0), 
-                 c(1, 0, 1),
-                 c(1, 1, 0))
-
-rownames(qmat_1) <- colnames(qmat_1) <- c('No EWL', 'EWL', 'DEx')
-rownames(qmat_2) <- colnames(qmat_2) <- c('No EWL', 'EWL', 'DEx')
-
-ex_group_boys_1 <- msm(exercise_group ~ age, subject = id, data = transition_data_boys, qmatrix = qmat_1, gen.inits = TRUE, control = list(fnscale = 5000, maxit = 10000))
-
-ex_group_boys_2 <- msm(exercise_group ~ age, subject = id, data = transition_data_boys, qmatrix = qmat_2, gen.inits = TRUE, control = list(fnscale = 5000, maxit = 10000))
-
 plot.prevalence.msm(ex_group_boys_1, mintime = 14, maxtime = 24, xlab = 'age', legend.pos = c(19, 90))
 plot.prevalence.msm(ex_group_boys_2, mintime = 14, maxtime = 24, xlab = 'age', legend.pos = c(19, 90))
-
-#Markov model with covariates
-
-ex_group_boys_covs <- msm(exercise_group ~ age, subject = id, data = transition_data_boys, qmatrix = qmat_1, gen.inits = TRUE, control = list(fnscale =5000, maxit = 1000000, reltol = 1e-16), covariates = ~  ti_mean_14_std + bmi_z_bestavail.13)
-
-
 hr_1_boys <- hazard.msm(ex_group_boys_covs)
 
+ex_group_boys_1_pmat <- pmatrix.msm(ex_group_boys_1, t = 1, ci = 'normal')
 ex_group_boys_2_pmat <- pmatrix.msm(ex_group_boys_2, t = 1, ci = 'normal')
 ex_group_boys_covs_pmat <- pmatrix.msm(ex_group_boys_covs, t = 1, ci = 'normal')
-ex_group_boys_1_pmat <- pmatrix.msm(ex_group_boys_1, t = 1, ci = 'normal')
+ti_boys_hazard <-hr_1_boys[[1]]
+bmi_boys_hazard <- hr_1_boys[[2]] 
+fear_wt_boys_hazard <- hr_1_boys[[3]] 
+```
 
-ti_boys_hazard <- hr_1_boys[[1]] |> 
-round(2)
-kableExtra::kbl(ti_boys_hazard, booktabs = TRUE) |> 
-  kable_paper('striped', full_width = FALSE)  
+```{r, label = Boys Hazard Ratios}
 
-bmi_boys_hazard <- hr_1_boys[[2]] |> 
-round(2)
-kableExtra::kbl(bmi_boys_hazard, booktabs = TRUE) |> 
-  kable_paper('striped', full_width = FALSE)  
+dfnames <- c('fear_wt_boys_hazard', 'bmi_boys_hazard', 'ti_boys_hazard')
+Boy_HRs <- do.call(rbind, lapply(dfnames, function(x) cbind(get(x), Covariate=x))) |> 
+  as.data.frame() |> 
+  rownames_to_column(var = 'transition') %>% 
+ mutate(HR = sprintf("%.2f", as.numeric(HR))) %>% 
+ mutate(L = sprintf("%.2f", as.numeric(L))) %>% 
+ mutate(U = sprintf("%.2f", as.numeric(U)))
 
+Boy_HRs$transition <- gsub('\\No.', 'No ', Boy_HRs$transition)
+Boy_HRs$transition <- gsub('\\...', ' to ', Boy_HRs$transition)
+Boy_HRs$transition <- gsub('\\..*', '', Boy_HRs$transition)
+Boy_HRs$CI <- paste(Boy_HRs$L, Boy_HRs$U, sep = ', ')
+addparens <- function(x){paste('(',x,')')}
+Boy_HRs$CI <- addparens(Boy_HRs$CI)
+Boy_HRs$HR <- paste(Boy_HRs$HR, Boy_HRs$CI, sep = ' ')
+
+
+Boy_HRs <- Boy_HRs |> 
+  select( - c( L, U, CI)) %>% 
+  pivot_wider(names_from = c(transition), values_from = HR)
+Boy_HRs['Covariate'][Boy_HRs['Covariate'] == 'ti_boys_hazard'] <- 'Thin Ideal Internalization [14]'
+Boy_HRs['Covariate'][Boy_HRs['Covariate'] == 'fear_wt_boys_hazard'] <- 'Fear of Weight Gain [14]'
+Boy_HRs['Covariate'][Boy_HRs['Covariate'] == 'bmi_boys_hazard'] <- 'BMI Z-score [13]'
+
+
+Boy_HRs %>% 
+  kbl(caption = 'Hazard Ratios for Transitions with Baseline Covariates - Boys', format = 'html')  %>% 
+  kable_paper(full_width = T) 
+
+```
+
+column_spec(2, color = case_when(Girl_HRs$Covariate %in% c('Body Satisfaction [14]', 'Fear of Weight Gain [14]', 'BMI Z-score [13]') ~ 'blue', 
+                                    TRUE ~'black')) %>% 
+
+```{r}
+hr_2_boys <- hazard.msm(ex_group_boys_covs_2)
+ti_boys_hazard_2 <-hr_2_boys[[1]]
+bmi_boys_hazard_2<- hr_2_boys[[2]] 
+fear_wt_boys_hazard_2 <- hr_2_boys[[3]] 
+bd_boys_hazard <-hr_2_boys[[4]]
+ses_boys_hazard <- hr_2_boys[[5]] 
+
+
+dfnames <- c('fear_wt_boys_hazard_2', 'bmi_boys_hazard_2', 'ti_boys_hazard_2', 'bd_boys_hazard', 'ses_boys_hazard')
+Boy_HRs_2 <- do.call(rbind, lapply(dfnames, function(x) cbind(get(x), Covariate=x))) |> 
+  as.data.frame() |> 
+  rownames_to_column(var = 'transition') %>% 
+ mutate(HR = sprintf("%.2f", as.numeric(HR))) %>% 
+ mutate(L = sprintf("%.2f", as.numeric(L))) %>% 
+ mutate(U = sprintf("%.2f", as.numeric(U)))
+
+Boy_HRs_2$transition <- gsub('\\No.', 'No ', Boy_HRs_2$transition)
+Boy_HRs_2$transition <- gsub('\\...', ' to ', Boy_HRs_2$transition)
+Boy_HRs_2$transition <- gsub('\\..*', '', Boy_HRs_2$transition)
+Boy_HRs_2$CI <- paste(Boy_HRs_2$L, Boy_HRs_2$U, sep = ', ')
+addparens <- function(x){paste('(',x,')')}
+Boy_HRs_2$CI <- addparens(Boy_HRs_2$CI)
+Boy_HRs_2$HR <- paste(Boy_HRs_2$HR, Boy_HRs_2$CI, sep = ' ')
+
+
+Boy_HRs_2 <- Boy_HRs_2 |> 
+  select( - c( L, U, CI)) %>% 
+  pivot_wider(names_from = c(transition), values_from = HR)
+Boy_HRs_2['Covariate'][Boy_HRs_2['Covariate'] == 'ti_boys_hazard_2'] <- 'Thin Ideal Internalization [14]'
+Boy_HRs_2['Covariate'][Boy_HRs_2['Covariate'] == 'fear_wt_boys_hazard_2'] <- 'Fear of Weight Gain [14]'
+Boy_HRs_2['Covariate'][Boy_HRs_2['Covariate'] == 'bmi_boys_hazard_2'] <- 'BMI Z-score [13]'
+Boy_HRs_2['Covariate'][Boy_HRs_2['Covariate'] == 'bd_boys_hazard'] <- 'Body Satisfaction [14]'
+Boy_HRs_2['Covariate'][Boy_HRs_2['Covariate'] == 'ses_boys_hazard'] <- 'Parent Occupation'
+
+Boy_HRs_2 %>% 
+  kbl(caption = 'Hazard Ratios for Transitions with Baseline Covariates and Constrained Transitions - Boys')  %>% 
+  kable_paper(full_width = T) %>% 
+  kable_styling(font_size = 13) %>% 
+  column_spec(2, color = case_when(Boy_HRs_2$Covariate %in% c('BMI Z-score [13]') ~ 'blue', 
+                              TRUE ~'black')) %>% 
+  column_spec(3, color = case_when(Boy_HRs_2$Covariate %in% c('BMI Z-score [13]') ~ 'blue', 
+                              TRUE ~'black')) %>% 
+  column_spec(4, color = case_when(Boy_HRs_2$Covariate %in% c('BMI Z-score [13]') ~ 'red', 
+                              TRUE ~'black')) %>% 
+  column_spec(5, color = case_when(Boy_HRs_2$Covariate %in% c('BMI Z-score [13]') ~ 'blue', 
+                              TRUE ~'black')) %>% 
+  column_spec(7, color = case_when(Boy_HRs_2$Covariate %in% c('BMI Z-score [13]') ~ 'blue', 
+                              TRUE ~'black'))
 
 ```
 

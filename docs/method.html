@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 3 Analytic Plan | ALSPAC Longitudinal Driven Exercise Anlysis</title>
+  <title>Chapter 2 Method | ALSPAC Longitudinal Driven Exercise Anlysis</title>
   <meta name="description" content="This is a bookdown for ALSPAC Longitudinal DEx analyses" />
   <meta name="generator" content="bookdown 0.25 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 3 Analytic Plan | ALSPAC Longitudinal Driven Exercise Anlysis" />
+  <meta property="og:title" content="Chapter 2 Method | ALSPAC Longitudinal Driven Exercise Anlysis" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is a bookdown for ALSPAC Longitudinal DEx analyses" />
   <meta name="github-repo" content="kschaumb/alspac-dex-bookdown" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 3 Analytic Plan | ALSPAC Longitudinal Driven Exercise Anlysis" />
+  <meta name="twitter:title" content="Chapter 2 Method | ALSPAC Longitudinal Driven Exercise Anlysis" />
   
   <meta name="twitter:description" content="This is a bookdown for ALSPAC Longitudinal DEx analyses" />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="method.html"/>
-<link rel="next" href="results.html"/>
+<link rel="prev" href="index.html"/>
+<link rel="next" href="analytic-plan.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -161,89 +161,66 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="analytic-plan" class="section level1 hasAnchor" number="3">
-<h1><span class="header-section-number">Chapter 3</span> Analytic Plan<a href="analytic-plan.html#analytic-plan" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Primary analyses will be gender stratified.</p>
-<p>After data harmonization, the first step in analyses will be to evaluate
-overall changes in the presence of exercise for weight loss and driven
-exercise over time in the sample.</p>
-<p>Visualization will be completed with transition plots for each eating disorder behavior.</p>
-<p>For consideration: transition probabilities and Marginal distributions:
-<a href="https://www.youtube.com/watch?v=7lrl1GbX-og">youtube tutorial</a>
-<a href="https://www.datacamp.com/community/tutorials/markov-chain-analysis-r">datacamp</a>
-<a href="https://cran.r-project.org/web/packages/msm/vignettes/msm-manual.pdf">msm package</a></p>
-<p>Modeling will be done via Mixed Effects Ordinal (exercise for weight loss) and Logistic (driven exercise) Regression <span class="citation">(<a href="references.html#ref-landermanModelingRepeatedMeasures2011" role="doc-biblioref">Landerman, Mustillo, and Land 2011</a>)</span>, with a random intercept for each individual, and assessment point, parent SES, ED cognition at age 14, and BMI z-score at age 14 as fixed predictors.</p>
-<p>The second step in analyses will examine a cross-lagged panel model
-between each ED behavior and two primary exercise-related variables:
-exercise for weight loss (ordered frequency) and driven exercise
-(presence vs. absence, broad definition). Eating disorder cognition
-variables, a marker of SES [parent highest occupation], and BMI z-score
-at age 14 will be included as time-independent covariates.</p>
-<div id="transition-analysis" class="section level2 hasAnchor" number="3.1">
-<h2><span class="header-section-number">3.1</span> Transition Analysis<a href="analytic-plan.html#transition-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Transition analysis will be examined via a multi-state model which will describe how individuals move between three states - ‘no exercise for weight loss’, ‘exercise for weight loss’, and ‘driven exercise’,</p>
-<p><span class="math display">\[
-q_{r s}(t, z(t))=\lim _{\delta t \rightarrow 0} \mathrm{P}(S(t+\delta t)=s \mid S(t)=r) / \delta t
-\]</span></p>
+<div id="method" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">Chapter 2</span> Method<a href="method.html#method" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="sample---the-alspac-cohort" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Sample - The ALSPAC Cohort<a href="method.html#sample---the-alspac-cohort" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The ALSPAC Cohort <span class="citation">(<a href="references.html#ref-boydCohortProfileChildren2013" role="doc-biblioref">Boyd et al. 2013</a>; <a href="references.html#ref-fraserCohortProfileAvon2013" role="doc-biblioref">Fraser et al. 2013</a>)</span> was established to understand how genetic and environmental characteristics influence health and development in parents and children. Ethical approval for this study was granted by the ALSPAC Law and Ethics Committee and Local Ethics Committees. All pregnant women living in the geographical area of Avon, United Kingdom, who were expected to deliver between April 1, 1991 and December 31, 1992, were invited to participate in the study. Children from 14,541 pregnancies were enrolled; 13,988 children were alive at 1 year. An additional 913 children were enrolled during subsequent phases of enrollment, with a total sample size alive at 1 year of 14,901. All women gave informed and written consent. Among twin pairs, one twin per pair was randomly excluded from the current study.</p>
+<p>A fully searchable ALSPAC data dictionary is available <a href="http://www.bris.ac.uk/alspac/researchers/data-access/data-dictionary/">here</a>.</p>
+<p>The sample size is defined for the current study as the number of individuals of each gender reporting exercise for weight loss data from ages 14-24 years. Sample size ranged from 3229 (age 18) to 5950 (age 14), with slightly more female than male participants responding at all time points. Across all time points, 3319 Male, 4360 Female, and 9 participants not reporting gender completed at least one assessment of exercise for weight loss (<strong>Total N = 7688</strong>). Participants reporting exercise for weight loss data at one or more time points were included in analyses. A graph of sample size at each age is presented below:</p>
+<p><img src="alspac-dex-1-bookdown_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+
 </div>
-<div id="mixed-effects-modeling" class="section level2 hasAnchor" number="3.2">
-<h2><span class="header-section-number">3.2</span> Mixed Effects Modeling<a href="analytic-plan.html#mixed-effects-modeling" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Packages for use include:</p>
+<div id="measures" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Measures<a href="method.html#measures" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="exercise-measures-across-age" class="section level3 hasAnchor" number="2.2.1">
+<h3><span class="header-section-number">2.2.1</span> Exercise Measures Across Age<a href="method.html#exercise-measures-across-age" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Questions related to driven exercise were self-reported at ages 14, 16, 18, and 24 years. Questions were adapted from the Youth Risk Behavior Survelliance System <span class="citation">(<a href="references.html#ref-kannYouthRiskBehavior1995" role="doc-biblioref">Kann et al. 1995</a>)</span>.</p>
+<p><strong>Exercise for Weight Loss</strong></p>
+<p>At ages 14, 16, and 18 years, individuals were asked if they exercised to lose weight or avoid againing weight, with response options of: No, Yes-Sometimes, and Yes-Frequently.</p>
+<p>At age 24, individuals were asked the frequency with which they exercised to lose weight or avoid gaining weight, with response options of: Never, &lt;1x/mo, 1-3x/mo, 1-4x/wk, and 5 or more times per week. For the purposes of this analysis, responses at age 24 were harmonized with age 14, 16, and 18. Responses of Never and &lt;1x/mo were binned as “No”; 1x/mo to 4x/wk as ‘Yes - Sometimes’, and 5x/wk or more as ‘Yes - Frequently’.</p>
+<p><strong>Exercise Issues</strong>
+Issues that are associated with exercise were also reported at ages 14,16, 18, and 24 years. At all ages, participants reported whether exercise interferes with work/school (14,16,18), or their daily routine (24). At ages 14 and 24, participants also reported whether they exercised to lose weight even when sick or injured. At ages 16 and 18, participants reported whether they felt guilty about missing an exercise session.</p>
 <table>
-<colgroup>
-<col width="33%" />
-<col width="33%" />
-<col width="33%" />
-</colgroup>
 <thead>
 <tr class="header">
-<th>DV type</th>
-<th>Package</th>
-<th>Distribution</th>
+<th>Age</th>
+<th>Interferes</th>
+<th>Sick/Injured</th>
+<th>Guilt</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Continuous</td>
-<td><a href="https://m-clark.github.io/mixed-models-with-R/random_intercepts.html">lme4</a></td>
-<td>Gaussian</td>
+<td>14</td>
+<td>x</td>
+<td>x</td>
+<td></td>
 </tr>
 <tr class="even">
-<td>Ordinal</td>
-<td><a href="https://cran.r-project.org/web/packages/ordinal/index.html">ordinal</a>, <a href="https://cran.r-project.org/web/packages/ordinal/vignettes/clmm2_tutorial.pdf">clmm function</a></td>
-<td>Cumulative Link</td>
+<td>16</td>
+<td>x</td>
+<td></td>
+<td>x</td>
 </tr>
 <tr class="odd">
-<td>Binary</td>
-<td><a href="https://www.rdocumentation.org/packages/lme4/versions/1.1-29/topics/glmer">glmer</a></td>
-<td>Binomial</td>
+<td>18</td>
+<td>x</td>
+<td></td>
+<td>x</td>
+</tr>
+<tr class="even">
+<td>24</td>
+<td>x</td>
+<td>x</td>
+<td></td>
 </tr>
 </tbody>
 </table>
-<p>For both boys and girls, we are fitting an overall random effect model as a baseline model, and a random intercept model with a fixed effect for age to examine whether the odds of exercise for weight loss and driven exercise increase over time in the sample.</p>
-<div id="random-effect-model" class="section level3 hasAnchor" number="3.2.1">
-<h3><span class="header-section-number">3.2.1</span> Random Effect Model<a href="analytic-plan.html#random-effect-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Random Effect Model: Baseline model which allows individuals to differ on their mean endorsement of driven exercise</p>
-<p><span class="math display">\[
-Driven\ Exercise_{ij} = b_{0j} + e_{ij}\\
-b_{0j} = \gamma_{00} + u_{0j}\\
-\]</span></p>
 </div>
-<div id="random-intercepts-model" class="section level3 hasAnchor" number="3.2.2">
-<h3><span class="header-section-number">3.2.2</span> Random Intercepts Model<a href="analytic-plan.html#random-intercepts-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Allows for intercepts to vary (i.e. driven exercise endorsement at age 14), with fixed slopes, and adding a fixed effect for age</p>
-<p><span class="math display">\[
-Driven\ Exercise_{ij} = b_{0j} + b_1Age + e_{ij} \\
-b_{0j} = \gamma_{00} + u_{0j}
-\]</span></p>
-</div>
-<div id="model-with-baseline-predictors" class="section level3 hasAnchor" number="3.2.3">
-<h3><span class="header-section-number">3.2.3</span> Model with Baseline Predictors<a href="analytic-plan.html#model-with-baseline-predictors" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Adds in</p>
-<p><span class="math display">\[
-Driven\ Exercise_{ij} = b_{0j} + b_1Age + b_2parentSES + b_3bmi14 + b_4thin14 + b_5bodydissat14 + e_{ij} \\
-b_{0j} = \gamma_{00} + u_{0j}
-\]</span></p>
+<div id="eating-disorder-behaviors-across-age" class="section level3 hasAnchor" number="2.2.2">
+<h3><span class="header-section-number">2.2.2</span> Eating Disorder Behaviors Across Age<a href="method.html#eating-disorder-behaviors-across-age" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Eating Disorder behaviors were assessed using adapted questions from the Youth Risk Behavior Surveillance System<span class="citation">(<a href="references.html#ref-kannYouthRiskBehavior1995" role="doc-biblioref">Kann et al. 1995</a>)</span>, at ages 14, 16, 18, and 24 years.</p>
 
 </div>
 </div>
@@ -253,8 +230,8 @@ b_{0j} = \gamma_{00} + u_{0j}
           </div>
         </div>
       </div>
-<a href="method.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="results.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="analytic-plan.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

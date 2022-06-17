@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 3 Analytic Plan | ALSPAC Longitudinal Driven Exercise Anlysis</title>
+  <title>Chapter 5 Discussion | ALSPAC Longitudinal Driven Exercise Anlysis</title>
   <meta name="description" content="This is a bookdown for ALSPAC Longitudinal DEx analyses" />
   <meta name="generator" content="bookdown 0.25 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 3 Analytic Plan | ALSPAC Longitudinal Driven Exercise Anlysis" />
+  <meta property="og:title" content="Chapter 5 Discussion | ALSPAC Longitudinal Driven Exercise Anlysis" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is a bookdown for ALSPAC Longitudinal DEx analyses" />
   <meta name="github-repo" content="kschaumb/alspac-dex-bookdown" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 3 Analytic Plan | ALSPAC Longitudinal Driven Exercise Anlysis" />
+  <meta name="twitter:title" content="Chapter 5 Discussion | ALSPAC Longitudinal Driven Exercise Anlysis" />
   
   <meta name="twitter:description" content="This is a bookdown for ALSPAC Longitudinal DEx analyses" />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="method.html"/>
-<link rel="next" href="results.html"/>
+<link rel="prev" href="results.html"/>
+<link rel="next" href="references.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -161,100 +161,17 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="analytic-plan" class="section level1 hasAnchor" number="3">
-<h1><span class="header-section-number">Chapter 3</span> Analytic Plan<a href="analytic-plan.html#analytic-plan" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Primary analyses will be gender stratified.</p>
-<p>After data harmonization, the first step in analyses will be to evaluate
-overall changes in the presence of exercise for weight loss and driven
-exercise over time in the sample.</p>
-<p>Visualization will be completed with transition plots for each eating disorder behavior.</p>
-<p>For consideration: transition probabilities and Marginal distributions:
-<a href="https://www.youtube.com/watch?v=7lrl1GbX-og">youtube tutorial</a>
-<a href="https://www.datacamp.com/community/tutorials/markov-chain-analysis-r">datacamp</a>
-<a href="https://cran.r-project.org/web/packages/msm/vignettes/msm-manual.pdf">msm package</a></p>
-<p>Modeling will be done via Mixed Effects Ordinal (exercise for weight loss) and Logistic (driven exercise) Regression <span class="citation">(<a href="references.html#ref-landermanModelingRepeatedMeasures2011" role="doc-biblioref">Landerman, Mustillo, and Land 2011</a>)</span>, with a random intercept for each individual, and assessment point, parent SES, ED cognition at age 14, and BMI z-score at age 14 as fixed predictors.</p>
-<p>The second step in analyses will examine a cross-lagged panel model
-between each ED behavior and two primary exercise-related variables:
-exercise for weight loss (ordered frequency) and driven exercise
-(presence vs. absence, broad definition). Eating disorder cognition
-variables, a marker of SES [parent highest occupation], and BMI z-score
-at age 14 will be included as time-independent covariates.</p>
-<div id="transition-analysis" class="section level2 hasAnchor" number="3.1">
-<h2><span class="header-section-number">3.1</span> Transition Analysis<a href="analytic-plan.html#transition-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Transition analysis will be examined via a multi-state model which will describe how individuals move between three states - ‘no exercise for weight loss’, ‘exercise for weight loss’, and ‘driven exercise’,</p>
-<p><span class="math display">\[
-q_{r s}(t, z(t))=\lim _{\delta t \rightarrow 0} \mathrm{P}(S(t+\delta t)=s \mid S(t)=r) / \delta t
-\]</span></p>
-</div>
-<div id="mixed-effects-modeling" class="section level2 hasAnchor" number="3.2">
-<h2><span class="header-section-number">3.2</span> Mixed Effects Modeling<a href="analytic-plan.html#mixed-effects-modeling" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Packages for use include:</p>
-<table>
-<colgroup>
-<col width="33%" />
-<col width="33%" />
-<col width="33%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>DV type</th>
-<th>Package</th>
-<th>Distribution</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Continuous</td>
-<td><a href="https://m-clark.github.io/mixed-models-with-R/random_intercepts.html">lme4</a></td>
-<td>Gaussian</td>
-</tr>
-<tr class="even">
-<td>Ordinal</td>
-<td><a href="https://cran.r-project.org/web/packages/ordinal/index.html">ordinal</a>, <a href="https://cran.r-project.org/web/packages/ordinal/vignettes/clmm2_tutorial.pdf">clmm function</a></td>
-<td>Cumulative Link</td>
-</tr>
-<tr class="odd">
-<td>Binary</td>
-<td><a href="https://www.rdocumentation.org/packages/lme4/versions/1.1-29/topics/glmer">glmer</a></td>
-<td>Binomial</td>
-</tr>
-</tbody>
-</table>
-<p>For both boys and girls, we are fitting an overall random effect model as a baseline model, and a random intercept model with a fixed effect for age to examine whether the odds of exercise for weight loss and driven exercise increase over time in the sample.</p>
-<div id="random-effect-model" class="section level3 hasAnchor" number="3.2.1">
-<h3><span class="header-section-number">3.2.1</span> Random Effect Model<a href="analytic-plan.html#random-effect-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Random Effect Model: Baseline model which allows individuals to differ on their mean endorsement of driven exercise</p>
-<p><span class="math display">\[
-Driven\ Exercise_{ij} = b_{0j} + e_{ij}\\
-b_{0j} = \gamma_{00} + u_{0j}\\
-\]</span></p>
-</div>
-<div id="random-intercepts-model" class="section level3 hasAnchor" number="3.2.2">
-<h3><span class="header-section-number">3.2.2</span> Random Intercepts Model<a href="analytic-plan.html#random-intercepts-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Allows for intercepts to vary (i.e. driven exercise endorsement at age 14), with fixed slopes, and adding a fixed effect for age</p>
-<p><span class="math display">\[
-Driven\ Exercise_{ij} = b_{0j} + b_1Age + e_{ij} \\
-b_{0j} = \gamma_{00} + u_{0j}
-\]</span></p>
-</div>
-<div id="model-with-baseline-predictors" class="section level3 hasAnchor" number="3.2.3">
-<h3><span class="header-section-number">3.2.3</span> Model with Baseline Predictors<a href="analytic-plan.html#model-with-baseline-predictors" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Adds in</p>
-<p><span class="math display">\[
-Driven\ Exercise_{ij} = b_{0j} + b_1Age + b_2parentSES + b_3bmi14 + b_4thin14 + b_5bodydissat14 + e_{ij} \\
-b_{0j} = \gamma_{00} + u_{0j}
-\]</span></p>
+<div id="discussion" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">Chapter 5</span> Discussion<a href="discussion.html#discussion" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 
-</div>
-</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="method.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="results.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="results.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

@@ -1,7 +1,5 @@
 
-#Mixed Effects Models
-
-## Driven Exercise
+## Mixed Effects Models - Driven Exercise over Time
 
 ### Girls
 

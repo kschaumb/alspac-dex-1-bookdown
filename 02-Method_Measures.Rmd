@@ -1,7 +1,7 @@
 
-# Measures
+## Measures
 
-## Exercise Measures Across Age
+### Exercise Measures Across Age
 
 
 Questions related to driven exercise were self-reported at ages 14, 16, 18, and 24 years. Questions were adapted from the Youth Risk Behavior Survelliance System [@kannYouthRiskBehavior1995].
@@ -22,6 +22,6 @@ Issues that are associated with exercise were also reported at ages 14,16, 18, a
 |18| x |  | x|
 |24| x |x |  |
 
-## Eating Disorder Behaviors Across Age
+### Eating Disorder Behaviors Across Age
 
 Eating Disorder behaviors were assessed using adapted questions from the Youth Risk Behavior Surveillance System[@kannYouthRiskBehavior1995], at ages 14, 16, 18, and 24 years. 

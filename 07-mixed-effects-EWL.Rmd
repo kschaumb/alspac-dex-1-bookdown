@@ -1,23 +1,193 @@
 
-
-
-
-## Exercise for Weight Loss
+## Mixed-Effect Models - Exercise for Weight Loss
 
 We are utilizing the same approach to examine endorsement of exercise
 for weight loss over time in the sample, but use an ordinal model (clmm)
-.
-
-<https://rdrr.io/github/DaanNieboer/ordinalimputation/man/pooling.clmm.html>
 
 ### Girls
 
+```{r}
+load('models/Age_1_EWL_girl_model')
+load('models/Covs_2_EWL_girl_model')
+load('models/Covs_3_EWL_girl_model')
+load('models/Covs_4_EWL_girl_model')
+
+age_1_EWL_girls_pooled <- pool(age_1_ewl_girls)
+age_1_EWL_girls_ORs <- summary(age_1_EWL_girls_pooled, conf.int = TRUE, exponentiate = FALSE) |> 
+  mutate(`0.25 %` = estimate - std.error*2.81) |> 
+  mutate(`99.75 %` = estimate + std.error*2.81) |> 
+  mutate (OR = exp(estimate)) |> 
+  mutate (`OR LCI` = exp(`0.25 %`)) |> 
+  mutate (`OR HCI` = exp(`99.75 %`))
+
+covs_2_EWL_girls_pooled <- pool(covs_2_ewl_girls)
+covs_2_EWL_girls_ORs <- summary(covs_2_EWL_girls_pooled, conf.int = TRUE, exponentiate = FALSE) |> 
+  mutate(`0.25 %` = estimate - std.error*2.81) |> 
+  mutate(`99.75 %` = estimate + std.error*2.81) |> 
+  mutate (OR = exp(estimate)) |> 
+  mutate (`OR LCI` = exp(`0.25 %`)) |> 
+  mutate (`OR HCI` = exp(`99.75 %`))
+
+covs_3_EWL_girls_pooled <- pool(covs_3_ewl_girls)
+covs_3_EWL_girls_ORs <- summary(covs_3_EWL_girls_pooled, conf.int = TRUE, exponentiate = FALSE) |> 
+  mutate(`0.25 %` = estimate - std.error*2.81) |> 
+  mutate(`99.75 %` = estimate + std.error*2.81) |> 
+  mutate (OR = exp(estimate)) |> 
+  mutate (`OR LCI` = exp(`0.25 %`)) |> 
+  mutate (`OR HCI` = exp(`99.75 %`))
+
+covs_4_EWL_girls_pooled <- pool(covs_4_ewl_girls)
+covs_4_EWL_girls_ORs <- summary(covs_4_EWL_girls_pooled, conf.int = TRUE, exponentiate = FALSE) |> 
+  mutate(`0.25 %` = estimate - std.error*2.81) |> 
+  mutate(`99.75 %` = estimate + std.error*2.81) |> 
+  mutate (OR = exp(estimate)) |> 
+  mutate (`OR LCI` = exp(`0.25 %`)) |> 
+  mutate (`OR HCI` = exp(`99.75 %`))
+
+
+
+```
+
+
+```{r, label = 'EWL Poled Coeffs Table - Girls'}
+
+dfnames <- c('age_1_EWL_girls_ORs', 'covs_2_EWL_girls_ORs', 'covs_3_EWL_girls_ORs', 'covs_4_EWL_girls_ORs')
+pooled_coefs <- do.call(rbind, lapply(dfnames, function(x) cbind(get(x), Model=x))) |> 
+  relocate(Model) %>% 
+  select(-c(p.value, statistic, df, `2.5 %`, `97.5 %`, `0.25 %`, `99.75 %`, std.error, estimate))
+
+for (i in 3:ncol(pooled_coefs) ) {
+  pooled_coefs[i] <- round(pooled_coefs[i], digits = 3)
+}
+
+pooled_coefs['Model'][pooled_coefs['Model'] == 'age_1_EWL_girls_ORs'] <- 'Age Effect Model'
+pooled_coefs['Model'][pooled_coefs['Model'] == 'covs_2_EWL_girls_ORs'] <- 'Step 1 Covariates'
+pooled_coefs['Model'][pooled_coefs['Model'] == 'covs_3_EWL_girls_ORs'] <- 'Step 2 Covariates'
+pooled_coefs['Model'][pooled_coefs['Model'] == 'covs_4_EWL_girls_ORs'] <- 'Step 3 Age x Cov Interactions'
+
+pooled_coefs <- pooled_coefs |> mutate(term = as.character(term))
+pooled_coefs['term'][pooled_coefs['term'] == 'parent_highest_occupation'] <- 'Parent SES'
+pooled_coefs['term'][pooled_coefs['term'] == 'bmi_z_bestavail'] <- 'BMI Z - Age 13'
+pooled_coefs['term'][pooled_coefs['term'] == 'age_adjust'] <- 'Age'
+pooled_coefs['term'][pooled_coefs['term'] == 'fear_wtgain_14'] <- 'Fear of Wt Gain - Age 14'
+pooled_coefs['term'][pooled_coefs['term'] == 'body_sat_mean_14_std'] <- 'Body Satisifaction - Age 14'
+pooled_coefs['term'][pooled_coefs['term'] == 'ti_mean_14_std'] <- 'Thin-ideal Internalization - Age 14'
+pooled_coefs['term'][pooled_coefs['term'] == 'age_adjust:bmi_z_bestavail'] <- 'Age x BMI (13)'
+pooled_coefs['term'][pooled_coefs['term'] == 'age_adjust:fear_wtgain_14'] <- 'Age x Fear of Wt Gain (14)'
+pooled_coefs['term'][pooled_coefs['term'] == 'age_adjust:body_sat_mean_14_std'] <- 'Age x Body Satisfaction (14)'
+pooled_coefs['term'][pooled_coefs['term'] == 'age_adjust:ti_mean_14_std'] <- 'Age x Thin-Ideal Internalization (14)'
+
+
+pooled_coefs_ewl_girls <- pooled_coefs|> 
+  kbl(caption = 'Table 1: Parameter Estimates for Models Predicting Driven Exercise in Girls') %>% 
+  row_spec(c(4:8, 17:28), background = '#E0E0E0') %>% 
+  column_spec(2:3, color = case_when(pooled_coefs$`OR LCI` > 1  ~ "blue",
+                                   pooled_coefs$`OR HCI`< 1  ~ "red", 
+                                   TRUE ~ 'black')) |> 
+  kable_paper(full_width = T)
+
+pooled_coefs_ewl_girls
+
+```
+
+```{r}
+
+#make nested loop function to: 
+
+#Obtain Average AIC
+m1 <- anova(age_1_ewl_girls$analyses[[1]], covs_2_ewl_girls$analyses[[1]])
+
+#Obtain Average LogLik s
+
+#Obtain Average LR Test Statistic and p-value
+
+#Pull into a table
+```
+
+
 ### Boys
 
-m1 <- as.list(mcomp_rand_int_x_bl$result) 
-m1 <- data.frame(t(unlist(m1)))
+```{r}
+load('models/Age_1_EWL_boy_model')
+load('models/Covs_2_EWL_boy_model')
+load('models/Covs_3_EWL_boy_model')
+load('models/Covs_4_EWL_boy_model')
 
-m2 <- as.list(mcomp_cov1_x_rand_int$result)
-dfnames<- c('m1', 'm2')
-pooled_coefs_1 <- do.call(rbind, lapply(dfnames, function(x) cbind(get(x), Model=x))) 
+age_1_EWL_boys_pooled <- pool(age_1_ewl_boys)
+age_1_EWL_boys_ORs <- summary(age_1_EWL_boys_pooled, conf.int = TRUE, exponentiate = FALSE) |> 
+  mutate(`0.25 %` = estimate - std.error*2.81) |> 
+  mutate(`99.75 %` = estimate + std.error*2.81) |> 
+  mutate (OR = exp(estimate)) |> 
+  mutate (`OR LCI` = exp(`0.25 %`)) |> 
+  mutate (`OR HCI` = exp(`99.75 %`))
+
+covs_2_EWL_boys_pooled <- pool(covs_2_ewl_boys)
+covs_2_EWL_boys_ORs <- summary(covs_2_EWL_boys_pooled, conf.int = TRUE, exponentiate = FALSE) |> 
+  mutate(`0.25 %` = estimate - std.error*2.81) |> 
+  mutate(`99.75 %` = estimate + std.error*2.81) |> 
+  mutate (OR = exp(estimate)) |> 
+  mutate (`OR LCI` = exp(`0.25 %`)) |> 
+  mutate (`OR HCI` = exp(`99.75 %`))
+
+covs_3_EWL_boys_pooled <- pool(covs_3_ewl_boys)
+covs_3_EWL_boys_ORs <- summary(covs_3_EWL_boys_pooled, conf.int = TRUE, exponentiate = FALSE) |> 
+  mutate(`0.25 %` = estimate - std.error*2.81) |> 
+  mutate(`99.75 %` = estimate + std.error*2.81) |> 
+  mutate (OR = exp(estimate)) |> 
+  mutate (`OR LCI` = exp(`0.25 %`)) |> 
+  mutate (`OR HCI` = exp(`99.75 %`))
+
+covs_4_EWL_boys_pooled <- pool(covs_4_ewl_boys)
+covs_4_EWL_boys_ORs <- summary(covs_4_EWL_boys_pooled, conf.int = TRUE, exponentiate = FALSE) |> 
+  mutate(`0.25 %` = estimate - std.error*2.81) |> 
+  mutate(`99.75 %` = estimate + std.error*2.81) |> 
+  mutate (OR = exp(estimate)) |> 
+  mutate (`OR LCI` = exp(`0.25 %`)) |> 
+  mutate (`OR HCI` = exp(`99.75 %`))
+
+
+
+```
+
+
+```{r, label = 'EWL Poled Coeffs Table - boys'}
+
+dfnames <- c('age_1_EWL_boys_ORs', 'covs_2_EWL_boys_ORs', 'covs_3_EWL_boys_ORs', 'covs_4_EWL_boys_ORs')
+pooled_coefs <- do.call(rbind, lapply(dfnames, function(x) cbind(get(x), Model=x))) |> 
+  relocate(Model) %>% 
+  select(-c(p.value, statistic, df, `2.5 %`, `97.5 %`, `0.25 %`, `99.75 %`, std.error, estimate))
+
+for (i in 3:ncol(pooled_coefs) ) {
+  pooled_coefs[i] <- round(pooled_coefs[i], digits = 3)
+}
+
+pooled_coefs['Model'][pooled_coefs['Model'] == 'age_1_EWL_boys_ORs'] <- 'Age Effect Model'
+pooled_coefs['Model'][pooled_coefs['Model'] == 'covs_2_EWL_boys_ORs'] <- 'Step 1 Covariates'
+pooled_coefs['Model'][pooled_coefs['Model'] == 'covs_3_EWL_boys_ORs'] <- 'Step 2 Covariates'
+pooled_coefs['Model'][pooled_coefs['Model'] == 'covs_4_EWL_boys_ORs'] <- 'Step 3 Age x Cov Interactions'
+
+pooled_coefs <- pooled_coefs |> mutate(term = as.character(term))
+pooled_coefs['term'][pooled_coefs['term'] == 'parent_highest_occupation'] <- 'Parent SES'
+pooled_coefs['term'][pooled_coefs['term'] == 'bmi_z_bestavail'] <- 'BMI Z - Age 13'
+pooled_coefs['term'][pooled_coefs['term'] == 'age_adjust'] <- 'Age'
+pooled_coefs['term'][pooled_coefs['term'] == 'fear_wtgain_14'] <- 'Fear of Wt Gain - Age 14'
+pooled_coefs['term'][pooled_coefs['term'] == 'body_sat_mean_14_std'] <- 'Body Satisifaction - Age 14'
+pooled_coefs['term'][pooled_coefs['term'] == 'ti_mean_14_std'] <- 'Thin-ideal Internalization - Age 14'
+pooled_coefs['term'][pooled_coefs['term'] == 'age_adjust:bmi_z_bestavail'] <- 'Age x BMI (13)'
+pooled_coefs['term'][pooled_coefs['term'] == 'age_adjust:fear_wtgain_14'] <- 'Age x Fear of Wt Gain (14)'
+pooled_coefs['term'][pooled_coefs['term'] == 'age_adjust:body_sat_mean_14_std'] <- 'Age x Body Satisfaction (14)'
+pooled_coefs['term'][pooled_coefs['term'] == 'age_adjust:ti_mean_14_std'] <- 'Age x Thin-Ideal Internalization (14)'
+
+
+pooled_coefs_ewl_boys <- pooled_coefs|> 
+  kbl(caption = 'Table 1: Parameter Estimates for Models Predicting Driven Exercise in boys') %>% 
+  row_spec(c(4:8, 17:28), background = '#E0E0E0') %>% 
+  column_spec(2:3, color = case_when(pooled_coefs$`OR LCI` > 1  ~ "blue",
+                                   pooled_coefs$`OR HCI`< 1  ~ "red", 
+                                   TRUE ~ 'black')) |> 
+  kable_paper(full_width = T)
+
+pooled_coefs_ewl_boys
+
+```
 
