@@ -3,6 +3,7 @@
 ## Transitions in Exercise Groups Over Time
 ```{r}
 load('models/transition_models')
+load('data/transition_data.RData')
 ```
 
 
@@ -92,7 +93,7 @@ ses_girls_hazard <- hr_1_girls[[5]]
 
 ```
 
-```{r, label = Girls Hazard Ratios}
+```{r, label = 'Girls Hazard Ratios'}
 
 dfnames <- c('ti_girls_hazard', 'bd_girls_hazard', 'fear_wt_girls_hazard', 'bmi_z_girls_hazard', 'ses_girls_hazard')
 Girl_HRs <- do.call(rbind, lapply(dfnames, function(x) cbind(get(x), Covariate=x))) |> 
@@ -195,7 +196,7 @@ bmi_boys_hazard <- hr_1_boys[[2]]
 fear_wt_boys_hazard <- hr_1_boys[[3]] 
 ```
 
-```{r, label = Boys Hazard Ratios}
+```{r, label = 'Boys Hazard Ratios'}
 
 dfnames <- c('fear_wt_boys_hazard', 'bmi_boys_hazard', 'ti_boys_hazard')
 Boy_HRs <- do.call(rbind, lapply(dfnames, function(x) cbind(get(x), Covariate=x))) |> 
