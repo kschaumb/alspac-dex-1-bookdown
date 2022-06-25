@@ -86,9 +86,10 @@ The ALSPAC Cohort [@boydCohortProfileChildren2013; @fraserCohortProfileAvon2013]
 
 A fully searchable ALSPAC data dictionary is available [here](http://www.bris.ac.uk/alspac/researchers/data-access/data-dictionary/).
 
-The sample size is defined for the current study as the number of individuals of each gender reporting exercise for weight loss data from ages 14-24 years. Sample size ranged from 3229 (age 18) to 5950 (age 14), with slightly more female than male participants responding at all time points. Across all time points, 3319 Male, 4360 Female, and 9 participants not reporting gender completed at least one assessment of exercise for weight loss (**Total N = 7688**). Participants reporting exercise for weight loss data at one or more time points were included in analyses. A graph of sample size at each age is presented below:
+The sample size is defined for the current study as the number of individuals of each gender reporting exercise for weight loss data from ages 14-24 years. Sample size ranged from 3229 (age 18) to 5950 (age 14), with slightly more female than male participants responding at all time points. Across all time points, 3319 Male, 4360 Female, and 9 participants not reporting gender completed at least one assessment of exercise for weight loss (**Total N = 7688**). Participants reporting exercise for weight loss data at one or more time points were included in analyses. A graph of sample size at each age is presented in @ref(fig:SampSize):
 
-```{r}
+```{r SampSize, fig.cap= "Sample Size Across Age"}
+
 #The first chunk of code defines the table for evaluation
 
 exercise_wtloss_df  <- pivot_longer(demo_ed, cols = c('exercise_wtloss.14', 'exercise_wtloss.16', 'exercise_wtloss.18', 'exercise_wtloss.24'), names_to = 'age', names_prefix = 'exercise_wtloss.', values_to = 'exercise_wtloss') 
@@ -138,19 +139,39 @@ ss_plot
 
 ## Measures
 
-### Exercise Measures Across Age
+### Socioeconomic Status
 
+A measure of parent socioeconomic status was obtained during child gestation. 
+
+### Eating Disorder Cognitions
+
+Several eating disorder cognitions were assessed when children were 14 years of age. Relevant eating disorder cognitions for the current analyses are: body dissatisfaction, thin-ideal internalization, and fear of weight gain. 
+
+#### Body Dissatisfaction
+Body dissatisfaction was assessed via the xxx
+
+#### Thin-ideal Internalization
+
+#### Fear of Weight Gain
+
+### Body Mass Index Z-score (BMI-Z)
+
+Child BMI-Z was assessed via two indices at age 13 years. First, objective height and weight were obtained for those who completed a clinic visit at age 13
+
+### Exercise Measures Across Age
 
 Questions related to driven exercise were self-reported at ages 14, 16, 18, and 24 years. Questions were adapted from the Youth Risk Behavior Survelliance System [@kannYouthRiskBehavior1995].
 
-**Exercise for Weight Loss**
-
-At ages 14, 16, and 18 years, individuals were asked if they exercised to lose weight or avoid againing weight, with response options of: No, Yes-Sometimes, and Yes-Frequently. 
+#### Exercise for Weight Loss
+At ages 14, 16, and 18 years, individuals were asked if they exercised to lose weight or avoid gaining weight, with response options of: No, Yes-Sometimes, and Yes-Frequently. 
 
 At age 24, individuals were asked the frequency with which they exercised to lose weight or avoid gaining weight, with response options of: Never, <1x/mo, 1-3x/mo, 1-4x/wk, and 5 or more times per week. For the purposes of this analysis, responses at age 24 were harmonized with age 14, 16, and 18.  Responses of Never and <1x/mo were binned as "No";  1x/mo to 4x/wk as 'Yes - Sometimes', and 5x/wk or more as 'Yes - Frequently'. 
 
-**Exercise Issues**
-Issues that are associated with exercise were also reported at ages 14,16, 18, and 24 years. At all ages, participants reported whether exercise interferes with work/school (14,16,18), or their daily routine (24). At ages 14 and 24, participants also reported whether they exercised to lose weight even when sick or injured. At ages 16 and 18, participants reported whether they felt guilty about missing an exercise session. 
+#### Exercise Issues
+Issues that are associated with exercise were also reported at ages 14,16, 18, and 24 years. At all ages, participants reported whether exercise interferes with work/school (14,16,18), or their daily routine (24). At ages 14 and 24, participants also reported whether they exercised to lose weight even when sick or injured. At ages 16 and 18 years, participants reported whether they felt guilty about missing an exercise session (see Table 1).
+
+
+Table 1: Exercise Issues Assessed at Ages 14-24
 
 |Age| Interferes| Sick/Injured | Guilt|
 |--|--|--|--|
@@ -159,9 +180,8 @@ Issues that are associated with exercise were also reported at ages 14,16, 18, a
 |18| x |  | x|
 |24| x |x |  |
 
-### Eating Disorder Behaviors Across Age
 
-Eating Disorder behaviors were assessed using adapted questions from the Youth Risk Behavior Surveillance System[@kannYouthRiskBehavior1995], at ages 14, 16, 18, and 24 years. 
+
 
 <!--chapter:end:02-Method_Measures.Rmd-->
 

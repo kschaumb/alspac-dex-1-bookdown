@@ -11,12 +11,10 @@ load('data/transition_data.RData')
 Below, we examine shifts in exercise for weight loss and driven exercise
 over time:
 
-The first plot shows exercise status at ages 14-24 years in girls and
-boys, as a percentage of the total number of boys and girls. Total
-numbers of boys and girls differ across timepoints in this graph, and we
-show raw percentages within timepoint.
+\@ref(fig:freq_table1) shows exercise status at ages 14-24 years in girls and
+boys, as a percentage of the total number of boys and girls who reported exercise data at the timepoint.
 
-```{r}
+```{r freq_table 1, fig.caption = 'Frequency of Exercise Groups Across Age'}
 exercise_group_data <- frq_table_by_age_sex(demo_ed.lf, exercise_group)
 
 exercise_status_plot_1 <- ggplot(data = exercise_group_data, 
@@ -33,7 +31,7 @@ exercise_status_plot_1
 ```
 
 Overall, it appears that percentage of males and female in the three
-exercise groups is relatively stable from ages 14-18, with a possible
+exercise groups is relatively stable from ages 14-18 years, with a possible
 increase in exercise for weight loss at age 18 among girls, and a more
 substantive increase in exercise for weight loss among men at age 24 and
 an increase in driven exercise across gender at age 24.
