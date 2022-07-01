@@ -1,0 +1,8 @@
+
+
+```{r imp_table1}
+Imputation_Data <- tibble(Variable = c('Parent SES', 'BMI Z-score (13)', 'Thin-ideal Internalization Z-score (14)', 'Body Dissatisfaction Z-score (14)', 'Fear of Weight Gain (14)', 'Exercise for Weight Loss', 'Driven Exercise'), Data_Type = c('Ordinal', 'Continuous', 'Continuous', 'Continuous', 'Ordinal', 'Ordinal', 'Binary'), Method = c('PMM - Level 2', 'PMM - Level 2', 'PMM - Level 2', 'PMM - Level 2' , 'PMM - Level 2', '2-level PMM', '2-level Binary'))
+
+knitr::kable(Imputation_Data, caption = 'Imputation Data')
+```
+Note. PMM = 'Predictive Mean Matching'

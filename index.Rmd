@@ -2,14 +2,15 @@
 title: "ALSPAC Longitudinal Driven Exercise Anlysis"
 author: "Katherine Schaumberg"
 date: "`r Sys.Date()`"
-site: bookdown::bookdown_site
-output: bookdown::gitbook
+output: bookdown::word_document2
 documentclass: book
+site: bookdown::bookdown_site
 bibliography: [DEx_ALSPAC.bib, packages.bib]
 biblio-style: apalike
 link-citations: yes
 github-repo: kschaumb/alspac-dex-bookdown
 description: "This is a bookdown for ALSPAC Longitudinal DEx analyses"
+always_allow_html: true
 resource_files: 
  -data/ed_data.RData
  -R/plot_by_age_sex.R
@@ -19,6 +20,7 @@ resource_files:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+
 library(dplyr)
 library(wesanderson)
 library(ordinal)
@@ -35,7 +37,6 @@ library(viridis)
 library(lme4)
 library(flexplot)
 library(jtools)
-library(kableExtra)
 library(docxtools)
 library(msm)
 library(mice)
@@ -52,7 +53,7 @@ source("R/transitions_plot.R", local = knitr::knit_global())
 ```
 
 
-```{r}
+```{r load data}
 #Loads data
 load('data/ed_data.RData')
 ```

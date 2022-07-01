@@ -20,7 +20,8 @@ demo_ed <-full_join(ed_cog_beh_bmi, demographics)
 
 #create dataset with at least one ED timepoint
 demo_ed.f <- demo_ed %>%
-  filter_at(vars(ends_with(c('.14', '.16', '.18', '.24'))), any_vars(!is.na(.)))
+  filter_at(vars(ends_with(c('.14', '.16', '.18', '.24'))), any_vars(!is.na(.))) |> 
+  filter_at(vars(c(exercise_wtloss.14, exercise_wtloss.16, exercise_wtloss.18, exercise_wtloss.24)), any_vars(!is.na(.)))
 
 #create long dataset
 demo_ed.l <- demo_ed %>%

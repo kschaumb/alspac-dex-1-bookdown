@@ -22,7 +22,7 @@ glm_girls_data <- demo_ed.l.girls %>%
 
 
 
-#MICE data - this preps up an imputation dataset with predictor variables. Since we are only imputing fixed (baseline) predictors, we'll impute them in the wide-form dataset and then
+#MICE data - this preps up an imputation dataset with predictor variables.
 pred <- make.predictorMatrix(glm_girls_data)
 pred[,'education_mum'] <- 0
 pred['education_mum',] <- 0

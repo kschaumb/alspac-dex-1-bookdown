@@ -1,0 +1,34 @@
+
+# Supplement 1 - Mixed Models
+
+### 1. Baseline Model
+
+$$Driven\ Exercise_{ij} = b_{0j} + e_{ij}\\ 
+
+b_{0j} = \gamma_{00} + u_{0j}$$
+
+&
+
+$$Exercise\ for\ Weight\ Loss_{ij} = b_{0j} + e_{ij}\\ 
+
+b_{0j} = \gamma_{00} + u_{0j}$$
+
+
+### 2. Random Effect of Time
+
+
+### 3. Main Effects of Predictors and Covariates
+
+
+### 4. Time x Predictor Interactions
+
+
+
+$$
+Driven\ Exercise_{ij} = b_{0j} + b_1Age + e_{ij} \\
+b_{0j} = \gamma_{00} + u_{0j}
+$$
+$$
+Driven\ Exercise_{ij} = b_{0j} + b_1Age + b_2ParentSES + b_3BMI13 + b_4TI14 + b_5BodyDissat14 + b_6FearWt14 + e_{ij} \\
+b_{0j} = \gamma_{00} + u_{0j}
+$$
