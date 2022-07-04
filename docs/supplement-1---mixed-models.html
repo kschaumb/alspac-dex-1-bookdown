@@ -4,26 +4,25 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 6 Supplement 1 - Mixed Models | ALSPAC Longitudinal Driven Exercise Anlysis</title>
+  <title>Chapter 6 Supplement 1 - Mixed Models | Patterns of Maladaptive Exercise Behavior from ages 14-24 in a Longitudinal Cohort</title>
   <meta name="description" content="This is a bookdown for ALSPAC Longitudinal DEx analyses" />
   <meta name="generator" content="bookdown 0.25 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 6 Supplement 1 - Mixed Models | ALSPAC Longitudinal Driven Exercise Anlysis" />
+  <meta property="og:title" content="Chapter 6 Supplement 1 - Mixed Models | Patterns of Maladaptive Exercise Behavior from ages 14-24 in a Longitudinal Cohort" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is a bookdown for ALSPAC Longitudinal DEx analyses" />
   <meta name="github-repo" content="kschaumb/alspac-dex-bookdown" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 6 Supplement 1 - Mixed Models | ALSPAC Longitudinal Driven Exercise Anlysis" />
+  <meta name="twitter:title" content="Chapter 6 Supplement 1 - Mixed Models | Patterns of Maladaptive Exercise Behavior from ages 14-24 in a Longitudinal Cohort" />
   
   <meta name="twitter:description" content="This is a bookdown for ALSPAC Longitudinal DEx analyses" />
   
 
-<meta name="author" content="Katherine Schaumberg" />
 
 
-<meta name="date" content="2022-06-30" />
+<meta name="date" content="2022-07-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -31,7 +30,7 @@
   
   
 <link rel="prev" href="references.html"/>
-
+<link rel="next" href="supplemental-tables.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -54,6 +53,8 @@
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
 
 
 
@@ -92,10 +93,10 @@ div.csl-indent {
       <nav role="navigation">
 
 <ul class="summary">
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction<span></span></a>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction<span></span></a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#driven-exercise-in-alspac"><i class="fa fa-check"></i><b>1.1</b> Driven Exercise in ALSPAC<span></span></a></li>
-<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#current-study"><i class="fa fa-check"></i><b>1.2</b> Current Study<span></span></a></li>
+<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#driven-exercise-in-alspac"><i class="fa fa-check"></i><b>1.1</b> Driven Exercise in ALSPAC<span></span></a></li>
+<li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#current-study"><i class="fa fa-check"></i><b>1.2</b> Current Study<span></span></a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="method.html"><a href="method.html"><i class="fa fa-check"></i><b>2</b> Method<span></span></a>
 <ul>
@@ -146,6 +147,7 @@ div.csl-indent {
 <li class="chapter" data-level="6.0.3" data-path="supplement-1---mixed-models.html"><a href="supplement-1---mixed-models.html#main-effects-of-predictors-and-covariates"><i class="fa fa-check"></i><b>6.0.3</b> 3. Main Effects of Predictors and Covariates<span></span></a></li>
 <li class="chapter" data-level="6.0.4" data-path="supplement-1---mixed-models.html"><a href="supplement-1---mixed-models.html#time-x-predictor-interactions"><i class="fa fa-check"></i><b>6.0.4</b> 4. Time x Predictor Interactions<span></span></a></li>
 </ul></li>
+<li class="chapter" data-level="7" data-path="supplemental-tables.html"><a href="supplemental-tables.html"><i class="fa fa-check"></i><b>7</b> Supplemental Tables<span></span></a></li>
 </ul>
 
       </nav>
@@ -155,7 +157,7 @@ div.csl-indent {
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">ALSPAC Longitudinal Driven Exercise Anlysis</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Patterns of Maladaptive Exercise Behavior from ages 14-24 in a Longitudinal Cohort</a>
           </h1>
         </div>
 
@@ -191,170 +193,6 @@ b_{0j} = \gamma_{00} + u_{0j}
 \]</span></p>
 
 
-<table>
-<caption>
-(#tab:imp_table1)Imputation Data
-</caption>
-<thead>
-<tr>
-<th style="text-align:left;">
-Variable
-</th>
-<th style="text-align:left;">
-Data_Type
-</th>
-<th style="text-align:left;">
-Method
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-Parent SES
-</td>
-<td style="text-align:left;">
-Ordinal
-</td>
-<td style="text-align:left;">
-PMM - Level 2
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-BMI Z-score (13)
-</td>
-<td style="text-align:left;">
-Continuous
-</td>
-<td style="text-align:left;">
-PMM - Level 2
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Thin-ideal Internalization Z-score (14)
-</td>
-<td style="text-align:left;">
-Continuous
-</td>
-<td style="text-align:left;">
-PMM - Level 2
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Body Dissatisfaction Z-score (14)
-</td>
-<td style="text-align:left;">
-Continuous
-</td>
-<td style="text-align:left;">
-PMM - Level 2
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Fear of Weight Gain (14)
-</td>
-<td style="text-align:left;">
-Ordinal
-</td>
-<td style="text-align:left;">
-PMM - Level 2
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Exercise for Weight Loss
-</td>
-<td style="text-align:left;">
-Ordinal
-</td>
-<td style="text-align:left;">
-2-level PMM
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Driven Exercise
-</td>
-<td style="text-align:left;">
-Binary
-</td>
-<td style="text-align:left;">
-2-level Binary
-</td>
-</tr>
-</tbody>
-</table>
-<p>Note. PMM = ‘Predictive Mean Matching’</p>
-
-<div id="refs" class="references csl-bib-body hanging-indent">
-<div id="ref-adkinsDoesExcessiveCompulsive2005" class="csl-entry">
-Adkins, E. C., and P. K. Keel. 2005. <span>“Does "<span>Excessive</span>" or "<span>Compulsive</span>" Best Describe Exercise as a Symptom of Bulimia Nervosa.”</span> <em>Int J Eat Disord</em> 38 (July): 24–29. <a href="https://doi.org/10.1002/eat.20140">https://doi.org/10.1002/eat.20140</a>.
-</div>
-<div id="ref-americanpsychiatricassociationDiagnosticStatisticalManual2013" class="csl-entry">
-American Psychiatric Association. 2013. <em>Diagnostic and <span>Statistical Manual</span> of <span>Mental Disorders</span></em>. <span>American Psychiatric Publishing</span>.
-</div>
-<div id="ref-bornioliBodyDissatisfactionPredicts2021" class="csl-entry">
-Bornioli, A., Helena Lewis-Smith, Amy Slater, and Isabelle Bray. 2021. <span>“Body Dissatisfaction Predicts the Onset of Depression Among Adolescent Females and Males: <span>A</span> Prospective Study.”</span> <em>J Epidemiol Community Health</em> 75 (4): 343–48. <a href="https://doi.org/10.1136/jech-2019-213033">https://doi.org/10.1136/jech-2019-213033</a>.
-</div>
-<div id="ref-bornioliAdolescentBodyDissatisfaction2019" class="csl-entry">
-Bornioli, A., Helena Lewis-Smith, Andrew Smith, Amy Slater, and Isabelle Bray. 2019. <span>“Adolescent Body Dissatisfaction and Disordered Eating: <span>Predictors</span> of Later Risky Health Behaviours.”</span> <em>Social Science &amp; Medicine</em> 238 (October): 112458. <a href="https://doi.org/10.1016/j.socscimed.2019.112458">https://doi.org/10.1016/j.socscimed.2019.112458</a>.
-</div>
-<div id="ref-boydCohortProfileChildren2013" class="csl-entry">
-Boyd, A., J. Golding, J. Macleod, D. A. Lawlor, A. Fraser, J. Henderson, L. Molloy, A. Ness, S. Ring, and G. Davey Smith. 2013. <span>“Cohort <span>Profile</span>: <span>The</span> ’Children of the 90s’the Index Offspring of the <span>Avon Longitudinal Study</span> of <span>Parents</span> and <span>Children</span>.”</span> <em>Int J Epidemiol</em> 42 (1): 111–27. <a href="https://doi.org/10.1093/ije/dys064">https://doi.org/10.1093/ije/dys064</a>.
-</div>
-<div id="ref-calzoSexualOrientationDisparities2018" class="csl-entry">
-Calzo, J. P., S. B. Austin, and N. Micali. 2018. <span>“Sexual Orientation Disparities in Eating Disorder Symptoms Among Adolescent Boys and Girls in the <span>UK</span>.”</span> <em>Eur Child Adolesc Psychiatry</em>, March. <a href="https://doi.org/10.1007/s00787-018-1145-9">https://doi.org/10.1007/s00787-018-1145-9</a>.
-</div>
-<div id="ref-cernatVisualizingTransitionsTime2021" class="csl-entry">
-Cernat, Alexandru. 2021. <span>“Visualizing Transitions in Time Using <span>R</span>.”</span>
-</div>
-<div id="ref-christensenAnalysisOrdinalData2015" class="csl-entry">
-Christensen, Rune Haubo B. 2015. <span>“Analysis of Ordinal Data with Cumulative Link Models Estimation with the <span class="nocase">R-package</span> Ordinal.”</span> <em>R-Package Version</em>, no. 28: 31.
-</div>
-<div id="ref-christensenTutorialFittingCumulative2019" class="csl-entry">
-———. 2019. <span>“A <span>Tutorial</span> on Fitting <span>Cumulative Link Mixed Models</span> with Clmm2 from the Ordinal <span>Package</span>.”</span> <em>Https://Cran. R-Project. Org/Web/Packages/Ordinal/Accessed</em>, 10.
-</div>
-<div id="ref-fraserCohortProfileAvon2013" class="csl-entry">
-Fraser, Abigail, Corrie Macdonald-Wallis, Kate Tilling, Andy Boyd, Jean Golding, George Davey Smith, John Henderson, et al. 2013. <span>“Cohort <span>Profile</span>: <span>The Avon Longitudinal Study</span> of <span>Parents</span> and <span>Children</span>: <span>ALSPAC</span> Mothers Cohort.”</span> <em>Int J Epidemiol</em> 42 (1): 97–110. <a href="https://doi.org/10.1093/ije/dys066">https://doi.org/10.1093/ije/dys066</a>.
-</div>
-<div id="ref-jacksonMultistateModellingMsm" class="csl-entry">
-Jackson, Christopher. 2021. <span>“Multi-State Modelling with <span>R</span>: <span>The</span> Msm Package.”</span>
-</div>
-<div id="ref-kannYouthRiskBehavior1995" class="csl-entry">
-Kann, L., C. W. Warren, W. A. Harris, J. L. Collins, K. A. Douglas, M. E. Collins, B. I. Williams, J. G. Ross, and L. J. Kolbe. 1995. <span>“Youth Risk Behavior Surveillance, 1993.”</span> <em>J Sch Health</em> 65 (5): 163–71.
-</div>
-<div id="ref-landermanModelingRepeatedMeasures2011" class="csl-entry">
-Landerman, Lawrence R., Sarah A. Mustillo, and Kenneth C. Land. 2011. <span>“Modeling Repeated Measures of Dichotomous Data.”</span> <em>Soc Sci Res</em> 40 (5): 1456–64. <a href="https://doi.org/10.1016/j.ssresearch.2011.05.006">https://doi.org/10.1016/j.ssresearch.2011.05.006</a>.
-</div>
-<div id="ref-mondUpdateDefinitionExcessive2006" class="csl-entry">
-Mond, J. M., P. J. Hay, B. Rodgers, and C. Owen. 2006. <span>“An Update on the Definition of "<span>Excessive Exercise</span>" in Eating Disorders Research.”</span> <em>Int J Eat Disord</em> 39 (March): 147–53. <a href="https://doi.org/10.1002/eat.20214">https://doi.org/10.1002/eat.20214</a>.
-</div>
-<div id="ref-R-miceadds" class="csl-entry">
-Robitzsch, Alexander, Simon Grund, and Thorsten Henke. 2022. <em>Miceadds: Some Additional Multiple Imputation Functions, Especially for Mice</em>. <a href="https://CRAN.R-project.org/package=miceadds">https://CRAN.R-project.org/package=miceadds</a>.
-</div>
-<div id="ref-schaumbergProspectiveAssociationsDriven2022" class="csl-entry">
-Schaumberg, K., Lauren Robinson, Ayelet Hochman, and Nadia Micali. 2022. <span>“Prospective <span>Associations Between Driven Exercise</span> and <span>Other Eating Disorder Behaviors</span> in <span>Adolescence</span>: <span>A Longitudinal Cohort Study</span>.”</span> <em>J Adolesc Health</em>, January, S1054-139X(21)00635-2. <a href="https://doi.org/10.1016/j.jadohealth.2021.11.022">https://doi.org/10.1016/j.jadohealth.2021.11.022</a>.
-</div>
-<div id="ref-schaumbergProspectiveAssociationsChildhood2021" class="csl-entry">
-Schaumberg, K., Stephanie C. Zerwas, Cynthia M. Bulik, Chiara Fiorentini, and Nadia Micali. 2021. <span>“Prospective Associations Between Childhood Social Communication Processes and Adolescent Eating Disorder Symptoms in an Epidemiological Sample.”</span> <em>Eur Child Adolesc Psychiatry</em> 30 (12): 1929–38. <a href="https://doi.org/10.1007/s00787-020-01655-9">https://doi.org/10.1007/s00787-020-01655-9</a>.
-</div>
-<div id="ref-schaumbergAnxietyDisorderSymptoms2019" class="csl-entry">
-Schaumberg, K., Stephanie Zerwas, Erica Goodman, Zeynep Yilmaz, Cynthia M. Bulik, and Nadia Micali. 2019. <span>“Anxiety Disorder Symptoms at Age 10 Predict Eating Disorder Symptoms and Diagnoses in Adolescence.”</span> <em>Journal of Child Psychology and Psychiatry</em> 60 (6): 686–96. <a href="https://doi.org/10.1111/jcpp.12984">https://doi.org/10.1111/jcpp.12984</a>.
-</div>
-<div id="ref-sticeProspectiveTestDualpathway2001" class="csl-entry">
-Stice, E. 2001. <span>“A Prospective Test of the Dual-Pathway Model of Bulimic Pathology: <span>Mediating</span> Effects of Dieting and Negative Affect.”</span> <em>Journal of Abnormal Psychology</em> 110 (1): 124. <a href="https://doi.org/10.1037//0021-843X.110.1.124">https://doi.org/10.1037//0021-843X.110.1.124</a>.
-</div>
-<div id="ref-sticeTestDualPathway1996" class="csl-entry">
-Stice, E., C. Nemeroff, and H Shaw. 1996. <span>“Test of the Dual Pathway Model of Bulimia Nervosa: <span>Evidence</span> for Dietary Restraint and Affect Regulation Mechanisms.”</span> <em>Journal of Social &amp; Clinical Psychology</em> 15 (3): 340–63.
-</div>
-<div id="ref-R-mice" class="csl-entry">
-van Buuren, Stef, and Karin Groothuis-Oudshoorn. 2021. <em>Mice: Multivariate Imputation by Chained Equations</em>. <a href="https://CRAN.R-project.org/package=mice">https://CRAN.R-project.org/package=mice</a>.
-</div>
-</div>
 </div>
 </div>
             </section>
@@ -362,8 +200,8 @@ van Buuren, Stef, and Karin Groothuis-Oudshoorn. 2021. <em>Mice: Multivariate Im
           </div>
         </div>
       </div>
-<a href="references.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="references.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="supplemental-tables.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

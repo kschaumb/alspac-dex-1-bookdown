@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 5 Discussion | Patterns of Maladaptive Exercise Behavior from ages 14-24 in a Longitudinal Cohort</title>
+  <title>Chapter 6 Supplement 1 - Mixed Models | Patterns of Maladaptive Exercise Behavior from ages 14-24 in a Longitudinal Cohort</title>
   <meta name="description" content="This is a bookdown for ALSPAC Longitudinal DEx analyses" />
   <meta name="generator" content="bookdown 0.25 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 5 Discussion | Patterns of Maladaptive Exercise Behavior from ages 14-24 in a Longitudinal Cohort" />
+  <meta property="og:title" content="Chapter 6 Supplement 1 - Mixed Models | Patterns of Maladaptive Exercise Behavior from ages 14-24 in a Longitudinal Cohort" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is a bookdown for ALSPAC Longitudinal DEx analyses" />
   <meta name="github-repo" content="kschaumb/alspac-dex-bookdown" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 5 Discussion | Patterns of Maladaptive Exercise Behavior from ages 14-24 in a Longitudinal Cohort" />
+  <meta name="twitter:title" content="Chapter 6 Supplement 1 - Mixed Models | Patterns of Maladaptive Exercise Behavior from ages 14-24 in a Longitudinal Cohort" />
   
   <meta name="twitter:description" content="This is a bookdown for ALSPAC Longitudinal DEx analyses" />
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="results.html"/>
-<link rel="next" href="supp1.html"/>
+<link rel="prev" href="discussion.html"/>
+<link rel="next" href="supplemental-figures.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -162,8 +162,28 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="discussion" class="section level1 hasAnchor" number="5">
-<h1><span class="header-section-number">Chapter 5</span> Discussion<a href="discussion.html#discussion" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="supp1" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">Chapter 6</span> Supplement 1 - Mixed Models<a href="supp1.html#supp1" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><em>Baseline Model for Driven Exercise</em></p>
+<p><span class="math display">\[Driven\ Exercise_{ij} = b_{0j} + e_{ij}\\
+b_{0j} = \gamma_{00} + u_{0j}
+\]</span></p>
+<p><em>Random Effect of Time</em></p>
+<p><span class="math display">\[
+Driven\ Exercise_{ij} = b_{0j} + b_1Age + e_{ij} \\
+b_{0j} = \gamma_{00} + u_{0j}
+\]</span></p>
+<p>The model including the random effect of time also serves as the baseline model for Exercise for Weight Loss, as the ordinal package requires at least one random effect predictor in a model</p>
+<p><span class="math display">\[
+Exercise\ for\ Weight\ Loss_{ij} = b_{0j} + b_1Age + e_{ij}\\
+b_{0j} = \gamma_{00} + u_{0j}
+\]</span>
+<em>Main Effects of Predictors and Covariates</em></p>
+<p><span class="math display">\[
+Driven\ Exercise_{ij} = b_{0j} + b_1Age + b_2ParentSES + b_3BMI13 + b_4TI14 + b_5BodyDissat14 + b_6FearWt14 + e_{ij} \\
+b_{0j} = \gamma_{00} + u_{0j}
+\]</span></p>
+<p><em>Time x Predictor Interactions</em></p>
 
 </div>
             </section>
@@ -171,8 +191,8 @@ div.csl-indent {
           </div>
         </div>
       </div>
-<a href="results.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="supp1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="discussion.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="supplemental-figures.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

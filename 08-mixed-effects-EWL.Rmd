@@ -91,19 +91,13 @@ pooled_coefs_ewl_girls
 ```
 
 ```{r}
-
 #make nested loop function to: 
-
 #Obtain Average AIC
 m1 <- anova(age_1_ewl_girls$analyses[[1]], covs_2_ewl_girls$analyses[[1]])
-
 #Obtain Average LogLik s
-
 #Obtain Average LR Test Statistic and p-value
-
 #Pull into a table
 ```
-
 
 ### Boys
 

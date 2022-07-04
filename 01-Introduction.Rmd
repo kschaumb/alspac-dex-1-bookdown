@@ -1,0 +1,18 @@
+# Introduction
+
+## Driven Exercise in ALSPAC
+
+Driven exercise is a common, debilitating symptom across eating disorders (ED). Up to 40% of individuals with bulimia nervosa and 80% of those with anorexia nervosa experience driven exercise. Driven exercise relates to high levels of ED symptoms and poor ED treatment outcomes, and has been purported to be an early ED symptom via retrospective reports. A previous study examined exercise for weight loss and driven exercise at age 14 in the ALSPAC cohort, identifying whether groups at age 14 were associated with ED behaviors at ages 14 and 16 [@schaumbergProspectiveAssociationsDriven2022] Results found that both exercise for weight loss and driven exercise groups at age 14 were demonstrated higher levels of other ED behaviors (binge eating, fasting, purging) at age 16. In the current study, we extend a longitudinal investigation of exercise for weight loss and driven exercise as predictors of other ED behaviors across a larger developmental window (ages 14-24), and further clarify directionality of effects.
+
+## Current Study
+
+The current study examines data from the ALSPAC Cohort at ages 14,16,18, and 24 years
+
+**Aim 1:** To investigate rates of transition between 'no exercise for weight loss', 'exercise for weight loss', and 'driven exercise' groups between ages 14-24, and characterize initial predictors of transitions to driven exercise amongst boys and girls.
+
+H1: Driven Exercise will be the most stable category, and transitions between the driven exercise and exercise for weight loss categories will be more common than transitions between the driven exercise and no exercise for weight loss category.
+
+**Aim 2:** To examine overall changes in probability of driven exercise and exercise for weight loss from ages 14-24 and characterize initial predictors of changes in probability of driven exercise and exercise for weight loss over time
+
+H2: ED cognitions at age 14 will predict driven exercise during ages 14-24
+

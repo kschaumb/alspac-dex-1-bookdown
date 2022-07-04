@@ -1,11 +1,17 @@
+
+
 Rates of exercise for weight loss are presented in the graph below:
 
 ```{r}
+load('data/ed_data.RData')
+source('R/plot_by_age_sex.R')
 exercise_wtloss_df  <- pivot_longer(demo_ed, cols = c('exercise_wtloss.14', 'exercise_wtloss.16', 'exercise_wtloss.18', 'exercise_wtloss.24'), names_to = 'age', names_prefix = 'exercise_wtloss.', values_to = 'exercise_wtloss') 
 
 ewl_plot <- hist_by_age_sex(exercise_wtloss_df, exercise_wtloss, 'Exercise for Weight Loss Across Age')
 
 ewl_plot
+
+
 ```
 
 By visual examination, it appears that females report exercise for weight loss more frequently across adolescent and young adult (AYA) development, though discrepancies in exercise for weight loss between males and females may be reduced at age 24 as compared to younger ages. Overall, rates of frequent exercise for weight loss appear to increase steadily from ages 14-18 amongst girls and stay roughly the same amongst boys. It appears that there may be an uptick in reporting of exercise for weight loss in general at age 24, though it is somewhet unclear whether this represents a true increase, given that response options for the question differ somewhat at this timepoint.

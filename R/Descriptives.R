@@ -88,10 +88,10 @@ colnames(pses_table) <- c('Response - Girls', 'N - Girls', 'Percent- Girls', 'Re
 pses_table <- pses_table |> select (-4)
 
 library(cgwtools)
-setwd("/Volumes/kschaumberg/ALSPAC/Data Cleaning and Analysis/analysis/alspac-dex-1-bookdown/data")
+# setwd("/Volumes/kschaumberg/ALSPAC/Data Cleaning and Analysis/analysis/alspac-dex-1-bookdown") - my personal working directory for the project. Just make sure you are in your project directory.
 
-save(pses_table, file = 'demo_tables.Rdata')
-resave(fear_wt_table, file = 'demo_tables.Rdata')
-resave(cont_vars, file = 'demo_tables.Rdata')
+save(pses_table, file = 'data/demo_tables.Rdata')
+resave(fear_wt_table, file = 'data/demo_tables.Rdata')
+resave(cont_vars, file = 'data/demo_tables.Rdata')
 
            

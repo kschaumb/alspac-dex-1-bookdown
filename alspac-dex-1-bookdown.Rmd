@@ -1,22 +1,30 @@
 --- 
-title: "ALSPAC Longitudinal Driven Exercise Anlysis"
-author: "Katherine Schaumberg"
+title: "Patterns of Maladaptive Exercise Behavior from ages 14-24 in a Longitudinal Cohort"
+shorttitle: 'ALSPAC Driven Exercise'
+author: 
+- name: "Katherine Schaumberg"
+  affiliation : '1'
+  corresponding: yes
+  address: '6001 Research Park Blvd, Madison, WI, USA, 53719'
+  role: 
+  - Conceptualization
+  - Writing - Original Draft Preparation 
+  - Writing - Review & Editing
 date: "`r Sys.Date()`"
-output: bookdown::word_document2
-documentclass: book
+documentclass: 'apa6'
 site: bookdown::bookdown_site
 bibliography: [DEx_ALSPAC.bib, packages.bib]
-biblio-style: apalike
+biblio-style: apa
 link-citations: yes
 github-repo: kschaumb/alspac-dex-bookdown
 description: "This is a bookdown for ALSPAC Longitudinal DEx analyses"
-always_allow_html: true
 resource_files: 
  -data/ed_data.RData
  -R/plot_by_age_sex.R
  -R/transitions_plot.R
+output: bookdown::gitbook
+
 ---
-# Introduction
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
@@ -46,17 +54,16 @@ library(purrr)
 library(labelled)
 library(broom.mixed)
 library(mitml)
-
-
+library(kableExtra)
 source("R/plot_by_age_sex.R", local = knitr::knit_global())
 source("R/transitions_plot.R", local = knitr::knit_global())
-```
-
-
-```{r load data}
-#Loads data
 load('data/ed_data.RData')
 ```
+
+
+<!--chapter:end:index.Rmd-->
+
+# Introduction
 
 ## Driven Exercise in ALSPAC
 
@@ -75,7 +82,7 @@ H1: Driven Exercise will be the most stable category, and transitions between th
 H2: ED cognitions at age 14 will predict driven exercise during ages 14-24
 
 
-<!--chapter:end:index.Rmd-->
+<!--chapter:end:01-Introduction.Rmd-->
 
 
 # Method
@@ -125,16 +132,16 @@ ss_plot <- ggplot(data = ewl_sample_size, aes(x = age, y = sample_size, color = 
       labs (x = 'Age', y = element_blank(), title = 'Sample Size Reporting Exercise Data Across Age') +
       scale_color_manual(values = c('Male' = 'darkgreen', 'Female' = 'orange', 'Combined' = 'purple'))+
       geom_text(aes(y = sample_size, label = sample_size,
-              vjust = 2, color = 'black')) +
+              vjust = 2, color = 'black'), size = 3.5) +
       scale_y_continuous(limits = c(500,8000)) +
       theme_classic() +
-      theme (legend.title = element_blank(), text = element_text(size = 14)) 
+      theme (legend.title = element_blank(), text = element_text(size = 10)) 
 
 ss_plot
 ```
 
 
-<!--chapter:end:01-Method_Sample.Rmd-->
+<!--chapter:end:02-Method_Sample.Rmd-->
 
 
 ## Measures
@@ -168,7 +175,6 @@ boy_bd_alpha <- demo_ed.f |>
   performance::cronbachs_alpha() %>% 
   round(3)
 ```
-
 
 Body Dissatisfaction was assessed via an 11-item scale adapted from the satisfaction and dissatisfaction with body parts scale [@sticeProspectiveTestDualpathway2001], which has been used in several previous studies involving the ALSPAC Cohort [@bornioliAdolescentBodyDissatisfaction2019; @bornioliBodyDissatisfactionPredicts2021; @schaumbergAnxietyDisorderSymptoms2019; @schaumbergProspectiveAssociationsChildhood2021]. Among the 11 items, one item differs between the sexes (satisfaction with 'breasts' is specified for girls and 'build' for boys). Two items address overall body satisfaction with weight and figure, and the remaining items evaluate satisfaction with specific body parts. Responses are graded on a 5 point likert scale from "Extremely Satisfied" (1) to "Extremely Dissatisfied" (5). Reliability was high in both girls (Cronbach's $\alpha$ = `r girl_bd_alpha`) and boys (Cronbach's $\alpha$ = `r boy_bd_alpha`)  In the current study, body dissatisfaction was scored using the mean of all 11 items, with higher scores indicating greater body dissatisfaction, which was standardized within gender prior to analyses.
 
@@ -214,7 +220,6 @@ pr_percent <- round((best_avail-clinic)/7688*100, 2)
 
 ```
 
-
 Child BMI-Z was assessed via two indices at age 13 years. First, objective height and weight were obtained for those who completed a clinic visit at age 13 (median age at clinic visit = 13.8 years). Second, parents reported child height and weight via questionnaire (median age = 13.1). An age and sex adjusted BMI-Z score was obtained from these self-report and clinic-recorded measurments. In order to maximize accuracy, when clinic-obtained measurements were obtained, this BMI-Z score was used (n = `r clinic`; `r clinic_percent`%). BMI-Z from parent report was used when clinic measurement was not available (n = `r pr_n`; `r pr_percent`%). A portion of the sample had neither measurement available (n = `r missing_n`; `r missing_percent`%)
 
 ### Exercise Measures
@@ -225,8 +230,7 @@ Questions related to driven exercise were self-reported at ages 14, 16, 18, and 
 
 At ages 14, 16, and 18 years, participants were asked if they exercised to lose weight or avoid gaining weight, with response options of: No(0), Yes-Sometimes(1), and Yes-Frequently(2).
 
-At age 24, participants were asked the frequency with which they exercised to lose weight or avoid gaining weight, with response options of: Never, \<1x/mo, 1-3x/mo, 1-4x/wk, and 5 or more times per week. For the purposes of analysis, responses at age 24 were harmonized with age 14, 16, and 18. Responses of Never were binned as "No" (0); 1x/mo - <1x/week were binned as 'Yes - Sometimes'(1), and 1x/wk or more as 'Yes - Frequently'(2). Once a week or more was chosen as the threshold for 'frequent' exercise for weight loss at age 24 to align with DSM-V diagnostic frequency thresholds for other eating disorder behaviors (i.e. binge eating, purging)[@americanpsychiatricassociationDiagnosticStatisticalManual2013]. The primary derived outcome variable of analysis for exericse for weight loss is an ordinal variable, defined as 0 = No, 1 = Sometimes, and 2 = Frequently. 
-
+At age 24, participants were asked the frequency with which they exercised to lose weight or avoid gaining weight, with response options of: Never, \<1x/mo, 1-3x/mo, 1-4x/wk, and 5 or more times per week. For the purposes of analysis, responses at age 24 were harmonized with age 14, 16, and 18. Responses of Never were binned as "No" (0); 1x/mo - <1x/week were binned as 'Yes - Sometimes'(1), and 1x/wk or more as 'Yes - Frequently'(2). Once a week or more was chosen as the threshold for 'frequent' exercise for weight loss at age 24 to align with DSM-V diagnostic frequency thresholds for other eating disorder behaviors, including binge eating and purging [@americanpsychiatricassociationDiagnosticStatisticalManual2013]. The primary derived outcome variable of analysis for exercise for weight loss is an ordinal variable, defined as 0 = No, 1 = Sometimes, and 2 = Frequently. 
 
 #### Driven Exercise
 
@@ -247,7 +251,7 @@ The presence of driven exercise in this study was defined as exercising for weig
 
 Exericse groups over time are defined for descriptive analyses and transition states, replicating groups defined in @schaumbergProspectiveAssociationsDriven2022. Those who report no exericse for weight loss at each time point are placed in a 'No Exercise for Weight Loss' (No EWL) group, those who report exercise for weight loss at least sometimes, but do not meet criteria for driven exercise are placed in an 'Exercise for Weight Loss'(EWL) group, and those meeting driven exercise criteria are placed in the 'Driven Exercise' (DEx) group.
 
-<!--chapter:end:02-Method_Measures.Rmd-->
+<!--chapter:end:03-Method_Measures.Rmd-->
 
 
 # Analytic Plan
@@ -256,21 +260,25 @@ Analyses will be gender stratified. The primary predictor variable of interest i
 
 ## Multi-State Transition Analyses
 
-The first step in analyses will evaluate overall changes in the presence of exercise for weight loss and driven exercise over time in the sample. Visualization will be completed with transition plots [@cernatVisualizingTransitionsTime2021] for those completing all four assessment points. For those completing at least two assessment points, transition analysis will include multi-state Markov models [@jacksonMultistateModellingMsm], which will describe how individuals move between the 'No EWL', 'EWL', and 'DEx' groups over time. $$
-q_{r s}(t, z(t))=\lim _{\delta t \rightarrow 0} \mathrm{P}(S(t+\delta t)=s \mid S(t)=r) / \delta t
-$$. Exploratory analysis of transition states will examine whether baseline covariates (Parent SES, BMI-Z at age 13 years, eating disorder cognitions at age 14 years) predict transition amongst the three exercise states.  
+The first step in analyses will evaluate overall changes in the presence of exercise for weight loss and driven exercise over time in the sample. Visualization will be completed with transition plots [@cernatVisualizingTransitionsTime2021] for those completing all four assessment points. For those completing at least two assessment points, transition analysis will include multi-state Markov models for panel data [@jacksonMultistateModellingMsm], the implementation of which on the current data will describe how individuals move between the 'No EWL', 'EWL', and 'DEx' groups over time, with transition intensities representing the instantaneous risk of moving between these three groups. An initial transition matrix will be specified in which instantaneous transitions between adjacent states are permitted, as well as transitions between the DEx-No EWL state (direct transition to exercise abstinence). If initial models do not converge, direct transitions from DEx to No-EWL will also be constrained to 0, such that a sojurn through the EWL state is required (See \@ref(fig:transfig)) Transition analyses will be completed separately for boys and girls, and the fitted transition probability matrix, $P(t)$ will be reported over an interval of 1-year, which will describe the liklihood of transition between exercise groups in a given year during the study time frame. Exploratory analysis of transition states will examine whether baseline covariates (Parent SES, BMI-Z at age 13 years, eating disorder cognitions at age 14 years) impact transition intensities amongst the three exercise groups.  
+
+```{r transfig, fig.cap = 'Transitions between Exercise Groups', out.width= '90%'}
+knitr::include_graphics('figs/Transition-Diagram.png')
+```
+
 
 ## Missing Data
 
-Prior to mixed-effects modeling, missing data will be imputed using the `mice` and `miceadds` packages [@R-mice; @R-miceadds]. Data to be imputed is included in Supplemental Table \@ref(tab:imptab). A mixed-model approach to imputation will be used. Time-invariant variables will be imputed at level-2 only using a Predictive Mean Matching (PMM) approach, and outcome variables will be imputed using 2-level approaches, which consider time (see Supplemental Table \@ref(tab:imptab)).
+Prior to mixed-effects modeling, missing data will be imputed using the `mice` and `miceadds` packages [@R-mice; @R-miceadds]. Data to be imputed is included in Supplemental Table \@ref(tab:imptab). A mixed-model approach to imputation will be used. Time-invariant variables will be imputed at level-2 only using a Predictive Mean Matching (PMM) approach, and outcome variables will be imputed using 2-level approaches, which consider time (see Supplemental Table \@ref(tab:imptab)). Datasets for girls and boys will be imputed separately, with 20 imputed datasets 
 
 ## Mixed Effects Modeling
-Mixed Effects Models will examine whether levels of exercise for weight loss (Oridnal; [@christensenAnalysisOrdinalData2015; @christensenTutorialFittingCumulative2019]) and driven exercise (Binary; [@landermanModelingRepeatedMeasures2011]) change across age, using parameter pooling to combine models fit to the imputed datasets.
 
-Nested models will be built  will allow for a random intercept for each individual, then a fixed effect of Time (assessment point - with baseline set to 14 years), followed by fixed effects for all baseline predictors and covariates, and, finally, all Predictor x Time interactions. Models will be compared via the multivariate Wald test (using the D3 statistic, as recommended) (cite StefVanBuren). Parameters for each model are presented in [Supplement 1][Supplement 1]
+Mixed Effects Models for ordinal and binary data [@christensenAnalysisOrdinalData2015; @christensenTutorialFittingCumulative2019; @landermanModelingRepeatedMeasures2011] will examine whether levels of exercise for weight loss and driven exercise change across age. Parameter pooling will be utilized to combine models fit to the imputed datasets.
+
+Nested models will be built  will allow for a random intercept for each individual, then a fixed effect of Time (assessment point - with baseline set to 14 years), followed by fixed effects for all baseline predictors and covariates, and, finally, all Predictor x Time interactions. Models will be compared via the multivariate Wald test (using the D3 statistic, as recommended) [@buurenMiceMultivariateImputation2011]. Parameters for each model are presented in Supplement (Chapter \@ref(supp1) ). 
 
 
-<!--chapter:end:03-Analytic_Plan.Rmd-->
+<!--chapter:end:04-Analytic_Plan.Rmd-->
 
 
 # Results
@@ -279,31 +287,24 @@ Nested models will be built  will allow for a random intercept for each individu
 
 ### Covariates: SES, BMIZ at Age 13, ED Cognitions at age 14
 
-Descriptives for continuous variables are provided in \@ref(tab:continuous)
-
-```{r continuous}
-load('data/demo_tables.Rdata')
-knitr::kable(cont_vars, caption = 'Continuous Variable Descriptives')
-```
+Descriptive information for continuous variables are provided in \@ref(tab:continuous)
 
 Descriptives for ordinal variables (Parent SES and Fear of Weight Gain) are provided in Table \@ref(tab:pses) and Table \@ref(tab:fearwt)
 
-```{r pses}
-knitr::kable(pses_table, caption = 'Parent Highest Occupational Class - Responses Frequencies')
-```
-```{r fearwt}
-knitr::kable(fear_wt_table, caption = 'Fear of Weight Gain at Age 14 - Responses Frequencies')
-```
+### Exercise for Weight Loss Frequency
+
+Exercise for weight loss frequency across age and gender is presented in Figure \@ref(fig:ewl-plot), with a plot of the raw frequencies at age 24 presented in Supplement (Figure \@ref(fig:age24-raw-ewl)). Visual inspection of plots suggests a potential increase in frequency of exercise for weight loss across age, with a consistent increase over time amongst girls and an increase in frequency particularly between ages 18 and 24 years amongst boys.
 
 
+### Exercise Issues Frequency
 
+With regards to exercise issues across time, the percentage of participants reporting any exercise issues as present at each age was relatively stable, as seen in Figure \@ref(fig:ex-issues). Although there was some variation in reporting of the secondary question regarding exercise issues across age which could influence the detection of exercise issues at different ages, the question of whether exercise interfered with work, school, or one's daily routine was assessed at all four timepoints. Endorsement of this question, specifically, was relatively consistent across age and gender (See Supplemental Figure \@ref(fig:ex-interfere)), with 9.5 - 14.5% of individuals reporting that exercise interfered with work, school, or their daily routine across age and gender. 
 
-
-### Exercise for Weight Loss
+### Exercise Groups
 
 Figure \@ref(fig:freqfig) shows exercise status at ages 14-24 years in girls and boys, as a percentage of the total number of boys and girls who reported exercise data at the timepoint.
 
-```{r freqfig, fig.caption = 'Frequency of Exercise Groups Across Age'}
+```{r freqfig, fig.cap = 'Frequency of Exercise Groups Across Age'}
 exercise_group_data <- frq_table_by_age_sex(demo_ed.lf, exercise_group)
 
 exercise_status_plot_1 <- ggplot(data = exercise_group_data, 
@@ -312,18 +313,20 @@ exercise_status_plot_1 <- ggplot(data = exercise_group_data,
     scale_y_continuous(labels = scales::percent, limits = c(0,1))+ #set the lower and upper limits of the y axis ( 0-100 percent); 
     theme(legend.title = element_blank(), axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1), text = element_text(size = 15))+ #make legend text a bit bigger
     labs(x = element_blank(), y = 'Percent (within gender)', title = 'Exercise Groups Across Age') +
+     geom_text(aes(label = sprintf('%0.1f%%', pct*100)), position = position_stack(reverse = TRUE, vjust = 0.5), color = 'white', size = 2.5, fontface = 'bold') +
     facet_wrap(~age) + 
     theme_classic()+
     theme(legend.title = element_blank(), axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1), text = element_text(size = 15)) + #make legend text a bit bigger 
    scale_fill_manual(values = wes_palette(name = 'GrandBudapest1', n = 3 ))
+
 exercise_status_plot_1
 ```
 
-Overall, it appears that percentage of males and female in the three exercise groups is relatively stable from ages 14-18 years, with a possible increase in exercise for weight loss at age 18 among girls, and a more substantive increase in exercise for weight loss among men at age 24 along with an increase in driven exercise across gender at age 24.
+Visual inspection and raw percentage comparison indicates that percentage of males and female in the three exercise groups is relatively stable from ages 14-16 years, with a possible increase in exercise for weight loss at age 18 among girls, an increase in exercise for weight loss among men at age 24, and an increase in driven exercise across gender at age 24.
 
 
 
-<!--chapter:end:04-EX_behavior_descriptives.Rmd-->
+<!--chapter:end:05-Descriptives.Rmd-->
 
 
 
@@ -333,74 +336,105 @@ load('models/transition_models')
 load('data/transition_data.RData')
 ```
 
+A subset of girls (N = 1169) and boys (N = 568) who completed all assessments, ages 14-24. To aid with visualizing transition intensities across exercise groups and age, Figure \@ref(fig:transition-girlplot) and Figure (\@ref(fig:transition-boyplot) show the frequency of individuals amongst those those completing all assessments who transitioned from each of the three exercise groups to the other groups at each age. 
 
-
-
-In the next two graphs, we examine transitions over time amongst the
-subset of girls (N = 1169) and boys (N = 568) who completed all
-assessments, ages 14-24. Transition plot code derived from
-@cernatVisualizingTransitionsTime2021.
-
-```{r}
+```{r transition-girlplot, fig.cap = 'Transitions Across Exercise Groups in Girls'}
 ex_status_girl_plot <- transition_plot(demo_ed_girls, 'exercise_group.', 'Exercise Status Across Age in Girls', na.rm = TRUE)
 ex_status_girl_plot  + 
     theme(legend.text = element_text(size = 12),
           legend.title = element_blank())
 ```
+Amongst girls, transitions are common across all groups (no EWL, EWL, DEx). Among those in the DEx group, at each age, transition to EWL appears common, as does remaining in the DEx group, with transition to the no-EWL group being a more rare transition. Overall, stability in a group remains common, as does transition to-and-from groups that are a single step (e.g. transition from no-EWL to EWL). 
 
-```{r}
+
+```{r transition-boyplot, fig.cap= 'Transitions Across Exercise Groups in Boys'}
 ex_status_boy_plot <- transition_plot(demo_ed_boys, 'exercise_group.', 'Exercise Status Across Age in Boys', na.rm = TRUE)
 ex_status_boy_plot  + 
     theme(legend.text = element_text(size = 12),
           legend.title = element_blank())
 ```
 
-A multi-state model to panel data relies on a Markov assumption, that future evelolution only depends on the current state. 
-
-The likelihood for this basic model, used in msm, is calculated from the transition probability matrix $P(u; t + u)$. The $(r, s)$ entry of $P(u; t + u)$, $prs(u; t + u)$, is the
-probability of being in state s at a time t + u, given the state at time u is r.
-
-Sampling times are ignorable if they are fixed in advance, or otherwise chosen independently of the outcome of the process
-
-The subject id variable does not need to be numeric, but observations from the same subject must be adjacent in the dataset, and observations must be ordered by time within subjects
-
-Below is the state table for exercise group, indicating transitions between each state. Transitions from 'no exercise for weight loss' to 'driven exercise' appear to be the least common of all transitions, wtih 164 instances of this transition. 
+Amongst boys, transitions across groups also appears common, with somewhat less stability in the DEx group, as compared to girls. While there is an increase in DEx at age 24, as discussed in descriptive analyses, relatively few of these men also reported DEx at age 18, and a moderate portion of these men reported no-EWL at age 18.
 
 ### Girls
 
-```{r}
-library(kableExtra)
+When examining overall transitions amongst girls, visual impressions from the transition plot is confirmed, with the transition from DEx to the no-EWL group being relatively rare (n = 182). Stability in the no-EWL and EWL groups was common based on raw numbers, as was transition from the no-EWL to the EWL group (raw numbers presented in Supplemental Table \@ref(tab:state-table-girls). The transition probabilities across 1-year based on the Q-matrix allowing direct transitions across all groups with the exception of instantaneous transition from 'No EWL' to 'DEx' are presented in Table \@ref(tab:pmat-girls2). As expected, the highest probability outcome for each group over the course of a 1-year period was staying in that group, followed by transition to a neighboring group, with transitions between 'No EWL' and 'DEx' groups being the least likely transitions. The model with the additional constraint on instantaeneous transitions from 'DEx' to 'No EWL' (used for covariate analyses due to convergence issues), along with covariates included in the model, is presented in Supplementary Table (\@ref(tab:pmat-girls1-covs)). 
 
-#state table for girls
-statetable.msm(exercise_group, id, data = transition_data_girls)
-
-#identify possible transitions - in our model, it is assumed that individuals do not need to 'pass through' exercise for weight loss when transitioning in and out of driven exercise, thus; all possible transitions are allowed
-
-plot_2_girls <- plot.prevalence.msm(ex_group_girls_2, mintime = 14, maxtime = 24, xlab = 'age', legend.pos = c(19, 90))
-plot_1_girls <- plot.prevalence.msm(ex_group_girls_1, mintime = 14, maxtime = 24, xlab = 'age', legend.pos = c(19, 90))
-
+```{r pmat-girls2}
 #Markov model with covariates
-hr_1_girls <- hazard.msm(ex_group_girls_covs_1)
-ex_group_girls_1_pmat <- pmatrix.msm(ex_group_girls_1, t = 1, ci = 'normal')
-ex_group_girls_1_covs_pmat <- pmatrix.msm(ex_group_girls_covs_1, t = 1, ci = 'normal')
 
+ex_group_girls_2_pmat <- pmatrix.msm(ex_group_girls_2, t = 1, ci = 'normal')
+
+estimate <- as.data.frame(ex_group_girls_2_pmat[['estimates']]) %>% 
+  rownames_to_column('From') %>% 
+  pivot_longer(c('No EWL', 'EWL', 'DEx'), names_to = 'To', values_to = 'P' ) %>% 
+  mutate(P = sprintf("%.3f", as.numeric(P))) 
+
+
+l <- as.data.frame(ex_group_girls_2_pmat[['L']]) %>%   
+  mutate('From' = c('No EWL', 'EWL', 'DEx')) %>% 
+  rename('No EWL' = V1) %>% 
+  rename('EWL' = V2) %>% 
+  rename('DEx' = V3) %>% 
+  pivot_longer(c('No EWL', 'EWL', 'DEx'), names_to = 'To', values_to = 'L' ) %>% 
+  mutate(L = sprintf("%.3f", as.numeric(L))) 
+
+
+u <- as.data.frame(ex_group_girls_2_pmat[['U']]) %>% round(3)  %>% 
+  mutate('From' = c('No EWL', 'EWL', 'DEx')) %>% 
+  rename('No EWL' = V1) %>% 
+  rename('EWL' = V2) %>% 
+  rename('DEx' = V3) %>% 
+  pivot_longer(c('No EWL', 'EWL', 'DEx'), names_to = 'To', values_to = 'U' ) %>% 
+  mutate(U = sprintf("%.3f", as.numeric(U))) 
+
+estimate <- cbind(estimate, l$L) 
+estimate <- cbind(estimate, u$U)
+
+estimate <- estimate %>% 
+  rename('l' = `l$L`) %>% 
+  rename('u' = `u$U`)
+
+ 
+estimate$CI <- paste(estimate$l, estimate$u, sep = ', ')
+addparens <- function(x){paste('(',x,')')}
+estimate$CI <- addparens(estimate$CI)
+estimate$P <- paste(estimate$P, estimate$CI, sep = ' ')
+
+estimate <- estimate %>% 
+  select (c('To', 'From', 'P')) %>% 
+  pivot_wider(names_from = 'To', values_from = 'P') %>% 
+  rename(' ' = From)
+
+knitr::kable(estimate, 
+             caption  = 'Estimates of Transition Probabilities Across 1-year amongst Girls: From (rows) - To (cols)')
+
+# Note - From in Rows to in Columns
+```
+
+Covariates were next introduced into the model, to determine whether eating disorder cognitions, BMI, and parent SES predicted transitions between exercise groups during late adolescence. To account for multiple comparisons, a 99.5% confidence interval is presented. Overall, higher BMI Z-score at age 13 appears to relate to increased likelihood of transition from 'No EWL' to 'EWL' over the course of a year, with a one standard deviation increase in BMI being associated with a 43% increase in likelihood of transition in a given year. Fear of weight gain, though not meeting corrected signifcance, also indicated potential association with increased likelhood of transition from 'No EWL' to 'EWL' over the course of a year. 
+
+```{r, label = 'GirlHRs'}
+hr_1_girls <- hazard.msm(ex_group_girls_covs_1)
 ti_girls_hazard <- hr_1_girls[[1]]  
 bd_girls_hazard <- hr_1_girls[[2]] 
 fear_wt_girls_hazard <- hr_1_girls[[3]] 
 bmi_z_girls_hazard <- hr_1_girls[[4]]
 ses_girls_hazard <- hr_1_girls[[5]]
 
-```
-
-```{r, label = 'GirlHRs'}
-
 dfnames <- c('ti_girls_hazard', 'bd_girls_hazard', 'fear_wt_girls_hazard', 'bmi_z_girls_hazard', 'ses_girls_hazard')
 Girl_HRs <- do.call(rbind, lapply(dfnames, function(x) cbind(get(x), Covariate=x))) |> 
   as.data.frame() |> 
-  rownames_to_column(var = 'transition') %>% 
+  rownames_to_column(var = 'transition')
+
+Girl_HRs$L <- (as.numeric(Girl_HRs$HR)-((2.807)*((as.numeric(Girl_HRs$U)-as.numeric(Girl_HRs$HR))/1.96)))
+Girl_HRs$U <- (as.numeric(Girl_HRs$HR)+((2.807)*((as.numeric(Girl_HRs$U)-as.numeric(Girl_HRs$HR))/1.96)))
+
+Girl_HRs <- Girl_HRs %>% 
  mutate(HR = sprintf("%.3f", as.numeric(HR))) %>% 
  mutate(L = sprintf("%.3f", as.numeric(L))) %>% 
- mutate(U = sprintf("%.3f", as.numeric(U)))
+ mutate(U = sprintf("%.3f", as.numeric(U))) 
+
 
 Girl_HRs$transition <- gsub('\\No.', 'No ', Girl_HRs$transition)
 Girl_HRs$transition <- gsub('\\...', ' to ', Girl_HRs$transition)
@@ -421,169 +455,77 @@ Girl_HRs['Covariate'][Girl_HRs['Covariate'] == 'bmi_z_girls_hazard'] <- 'BMI Z-s
 Girl_HRs['Covariate'][Girl_HRs['Covariate'] == 'ses_girls_hazard'] <- 'Parent Occupation'
 
 Girl_HRs %>% 
-  kbl(caption = 'Hazard Ratios for Transitions with Baseline Covariates - Girls', format = 'html')  %>% 
+  kbl(caption = 'Hazard Ratios for Transitions with Baseline Covariates with Transitions between DEx and No EWL Constrained - Girls', format = 'html')  %>% 
   kable_paper(full_width = T)   %>% 
-  column_spec(2, color = case_when(Girl_HRs$Covariate %in% c('Body Satisfaction [14]', 'Fear of Weight Gain [14]', 'BMI Z-score [13]') ~ 'blue', 
-                                    TRUE ~'black')) %>% 
-  column_spec(3, color = case_when(Girl_HRs$Covariate %in% c('Body Satisfaction [14]') ~ 'blue', 
-                                   Girl_HRs$Covariate %in% c('Parent Occupation') ~ 'red',
-                                    TRUE ~'black'))
+  column_spec(2, color = case_when(Girl_HRs$Covariate %in% c('BMI Z-score [13]') ~ 'blue', 
+                                    TRUE ~'black')) 
+  
 
   
 
 
-
-```
-
-```{r}
-hr_2_girls <- hazard.msm(ex_group_girls_covs_2)
-ti_girls_hazard_2 <-hr_2_girls[[1]]
-bmi_girls_hazard_2<- hr_2_girls[[2]] 
-fear_wt_girls_hazard_2 <- hr_2_girls[[3]] 
-bd_girls_hazard <-hr_2_girls[[4]]
-ses_girls_hazard <- hr_2_girls[[5]] 
-
-
-dfnames <- c('fear_wt_girls_hazard_2', 'bmi_girls_hazard_2', 'ti_girls_hazard_2', 'bd_girls_hazard', 'ses_girls_hazard')
-girl_HRs_2 <- do.call(rbind, lapply(dfnames, function(x) cbind(get(x), Covariate=x))) |> 
-  as.data.frame() |> 
-  rownames_to_column(var = 'transition') %>% 
- mutate(HR = sprintf("%.2f", as.numeric(HR))) %>% 
- mutate(L = sprintf("%.2f", as.numeric(L))) %>% 
- mutate(U = sprintf("%.2f", as.numeric(U)))
-
-girl_HRs_2$transition <- gsub('\\No.', 'No ', girl_HRs_2$transition)
-girl_HRs_2$transition <- gsub('\\...', ' to ', girl_HRs_2$transition)
-girl_HRs_2$transition <- gsub('\\..*', '', girl_HRs_2$transition)
-girl_HRs_2$CI <- paste(girl_HRs_2$L, girl_HRs_2$U, sep = ', ')
-addparens <- function(x){paste('(',x,')')}
-girl_HRs_2$CI <- addparens(girl_HRs_2$CI)
-girl_HRs_2$HR <- paste(girl_HRs_2$HR, girl_HRs_2$CI, sep = ' ')
-
-
-girl_HRs_2 <- girl_HRs_2 |> 
-  select( - c( L, U, CI)) %>% 
-  pivot_wider(names_from = c(transition), values_from = HR)
-girl_HRs_2['Covariate'][girl_HRs_2['Covariate'] == 'ti_girls_hazard_2'] <- 'Thin Ideal Internalization [14]'
-girl_HRs_2['Covariate'][girl_HRs_2['Covariate'] == 'fear_wt_girls_hazard_2'] <- 'Fear of Weight Gain [14]'
-girl_HRs_2['Covariate'][girl_HRs_2['Covariate'] == 'bmi_girls_hazard_2'] <- 'BMI Z-score [13]'
-girl_HRs_2['Covariate'][girl_HRs_2['Covariate'] == 'bd_girls_hazard'] <- 'Body Satisfaction [14]'
-girl_HRs_2['Covariate'][girl_HRs_2['Covariate'] == 'ses_girls_hazard'] <- 'Parent Occupation'
-
-girl_HRs_2 %>% 
-  kbl(caption = 'Hazard Ratios for Transitions with Baseline Covariates and Constrained Transitions - girls')  %>% 
-  kable_paper(full_width = T) %>% 
-  kable_styling(font_size = 13)
 ```
 
 ### Boys
 
-```{r}
-#state table for boys
+Raw transitions amongst boys are presented in Supplemental Table \@ref(tab:boys-state-table). Overall, there appeared to be less stability in the DEx group, as compared to girls, by examination of raw numbers.The transition probabilities across 1-year based on the Q-matrix allowing direct transitions across all groups with the exception of instantaneous transition from 'No EWL' to 'DEx' are presented in Table \@ref(tab:pmat-boys2). Stability in the 'No EWL' group was common, and stability in all groups was the most common 1-year outcome. There was a moderate probability (~16-20%) of boys in the EWL group transitioning to either the no-EWL or DEx groups over a 1-year period. Similarly, boys in the DEx group showed a moderate probability of transitioning to either the EWL (18%) or 'No EWL' (19%) group over a 1-year period. Models includign covariates did not converge for boys, due to low base rates of some transitions.
 
-statetable.msm(exercise_group, id, data = transition_data_boys)
-plot.prevalence.msm(ex_group_boys_1, mintime = 14, maxtime = 24, xlab = 'age', legend.pos = c(19, 90))
-plot.prevalence.msm(ex_group_boys_2, mintime = 14, maxtime = 24, xlab = 'age', legend.pos = c(19, 90))
-hr_1_boys <- hazard.msm(ex_group_boys_covs)
 
-ex_group_boys_1_pmat <- pmatrix.msm(ex_group_boys_1, t = 1, ci = 'normal')
+```{r pmat-boys2}
 ex_group_boys_2_pmat <- pmatrix.msm(ex_group_boys_2, t = 1, ci = 'normal')
-ex_group_boys_covs_pmat <- pmatrix.msm(ex_group_boys_covs, t = 1, ci = 'normal')
-ti_boys_hazard <-hr_1_boys[[1]]
-bmi_boys_hazard <- hr_1_boys[[2]] 
-fear_wt_boys_hazard <- hr_1_boys[[3]] 
-```
 
-```{r, label = 'Boys Hazard Ratios'}
+estimate <- as.data.frame(ex_group_boys_2_pmat[['estimates']]) %>% 
+  rownames_to_column('From') %>% 
+  pivot_longer(c('No EWL', 'EWL', 'DEx'), names_to = 'To', values_to = 'P' ) %>% 
+  mutate(P = sprintf("%.3f", as.numeric(P))) 
 
-dfnames <- c('fear_wt_boys_hazard', 'bmi_boys_hazard', 'ti_boys_hazard')
-Boy_HRs <- do.call(rbind, lapply(dfnames, function(x) cbind(get(x), Covariate=x))) |> 
-  as.data.frame() |> 
-  rownames_to_column(var = 'transition') %>% 
- mutate(HR = sprintf("%.2f", as.numeric(HR))) %>% 
- mutate(L = sprintf("%.2f", as.numeric(L))) %>% 
- mutate(U = sprintf("%.2f", as.numeric(U)))
 
-Boy_HRs$transition <- gsub('\\No.', 'No ', Boy_HRs$transition)
-Boy_HRs$transition <- gsub('\\...', ' to ', Boy_HRs$transition)
-Boy_HRs$transition <- gsub('\\..*', '', Boy_HRs$transition)
-Boy_HRs$CI <- paste(Boy_HRs$L, Boy_HRs$U, sep = ', ')
+l <- as.data.frame(ex_group_boys_2_pmat[['L']]) %>%   
+  mutate('From' = c('No EWL', 'EWL', 'DEx')) %>% 
+  rename('No EWL' = V1) %>% 
+  rename('EWL' = V2) %>% 
+  rename('DEx' = V3) %>% 
+  pivot_longer(c('No EWL', 'EWL', 'DEx'), names_to = 'To', values_to = 'L' ) %>% 
+  mutate(L = sprintf("%.3f", as.numeric(L))) 
+
+
+u <- as.data.frame(ex_group_boys_2_pmat[['U']]) %>% round(3)  %>% 
+  mutate('From' = c('No EWL', 'EWL', 'DEx')) %>% 
+  rename('No EWL' = V1) %>% 
+  rename('EWL' = V2) %>% 
+  rename('DEx' = V3) %>% 
+  pivot_longer(c('No EWL', 'EWL', 'DEx'), names_to = 'To', values_to = 'U' ) %>% 
+  mutate(U = sprintf("%.3f", as.numeric(U))) 
+
+estimate <- cbind(estimate, l$L) 
+estimate <- cbind(estimate, u$U)
+
+estimate <- estimate %>% 
+  rename('l' = `l$L`) %>% 
+  rename('u' = `u$U`)
+
+ 
+estimate$CI <- paste(estimate$l, estimate$u, sep = ', ')
 addparens <- function(x){paste('(',x,')')}
-Boy_HRs$CI <- addparens(Boy_HRs$CI)
-Boy_HRs$HR <- paste(Boy_HRs$HR, Boy_HRs$CI, sep = ' ')
+estimate$CI <- addparens(estimate$CI)
+estimate$P <- paste(estimate$P, estimate$CI, sep = ' ')
 
+estimate <- estimate %>% 
+  select (c('To', 'From', 'P')) %>% 
+  pivot_wider(names_from = 'To', values_from = 'P') %>% 
+  rename(' ' = From)
 
-Boy_HRs <- Boy_HRs |> 
-  select( - c( L, U, CI)) %>% 
-  pivot_wider(names_from = c(transition), values_from = HR)
-Boy_HRs['Covariate'][Boy_HRs['Covariate'] == 'ti_boys_hazard'] <- 'Thin Ideal Internalization [14]'
-Boy_HRs['Covariate'][Boy_HRs['Covariate'] == 'fear_wt_boys_hazard'] <- 'Fear of Weight Gain [14]'
-Boy_HRs['Covariate'][Boy_HRs['Covariate'] == 'bmi_boys_hazard'] <- 'BMI Z-score [13]'
-
-
-Boy_HRs %>% 
-  kbl(caption = 'Hazard Ratios for Transitions with Baseline Covariates - Boys', format = 'html')  %>% 
-  kable_paper(full_width = T) 
-
-```
-
-column_spec(2, color = case_when(Girl_HRs$Covariate %in% c('Body Satisfaction [14]', 'Fear of Weight Gain [14]', 'BMI Z-score [13]') ~ 'blue', 
-                                    TRUE ~'black')) %>% 
-
-```{r}
-hr_2_boys <- hazard.msm(ex_group_boys_covs_2)
-ti_boys_hazard_2 <-hr_2_boys[[1]]
-bmi_boys_hazard_2<- hr_2_boys[[2]] 
-fear_wt_boys_hazard_2 <- hr_2_boys[[3]] 
-bd_boys_hazard <-hr_2_boys[[4]]
-ses_boys_hazard <- hr_2_boys[[5]] 
-
-
-dfnames <- c('fear_wt_boys_hazard_2', 'bmi_boys_hazard_2', 'ti_boys_hazard_2', 'bd_boys_hazard', 'ses_boys_hazard')
-Boy_HRs_2 <- do.call(rbind, lapply(dfnames, function(x) cbind(get(x), Covariate=x))) |> 
-  as.data.frame() |> 
-  rownames_to_column(var = 'transition') %>% 
- mutate(HR = sprintf("%.2f", as.numeric(HR))) %>% 
- mutate(L = sprintf("%.2f", as.numeric(L))) %>% 
- mutate(U = sprintf("%.2f", as.numeric(U)))
-
-Boy_HRs_2$transition <- gsub('\\No.', 'No ', Boy_HRs_2$transition)
-Boy_HRs_2$transition <- gsub('\\...', ' to ', Boy_HRs_2$transition)
-Boy_HRs_2$transition <- gsub('\\..*', '', Boy_HRs_2$transition)
-Boy_HRs_2$CI <- paste(Boy_HRs_2$L, Boy_HRs_2$U, sep = ', ')
-addparens <- function(x){paste('(',x,')')}
-Boy_HRs_2$CI <- addparens(Boy_HRs_2$CI)
-Boy_HRs_2$HR <- paste(Boy_HRs_2$HR, Boy_HRs_2$CI, sep = ' ')
-
-
-Boy_HRs_2 <- Boy_HRs_2 |> 
-  select( - c( L, U, CI)) %>% 
-  pivot_wider(names_from = c(transition), values_from = HR)
-Boy_HRs_2['Covariate'][Boy_HRs_2['Covariate'] == 'ti_boys_hazard_2'] <- 'Thin Ideal Internalization [14]'
-Boy_HRs_2['Covariate'][Boy_HRs_2['Covariate'] == 'fear_wt_boys_hazard_2'] <- 'Fear of Weight Gain [14]'
-Boy_HRs_2['Covariate'][Boy_HRs_2['Covariate'] == 'bmi_boys_hazard_2'] <- 'BMI Z-score [13]'
-Boy_HRs_2['Covariate'][Boy_HRs_2['Covariate'] == 'bd_boys_hazard'] <- 'Body Satisfaction [14]'
-Boy_HRs_2['Covariate'][Boy_HRs_2['Covariate'] == 'ses_boys_hazard'] <- 'Parent Occupation'
-
-Boy_HRs_2 %>% 
-  kbl(caption = 'Hazard Ratios for Transitions with Baseline Covariates and Constrained Transitions - Boys')  %>% 
-  kable_paper(full_width = T) %>% 
-  kable_styling(font_size = 13) %>% 
-  column_spec(2, color = case_when(Boy_HRs_2$Covariate %in% c('BMI Z-score [13]') ~ 'blue', 
-                              TRUE ~'black')) %>% 
-  column_spec(3, color = case_when(Boy_HRs_2$Covariate %in% c('BMI Z-score [13]') ~ 'blue', 
-                              TRUE ~'black')) %>% 
-  column_spec(4, color = case_when(Boy_HRs_2$Covariate %in% c('BMI Z-score [13]') ~ 'red', 
-                              TRUE ~'black')) %>% 
-  column_spec(5, color = case_when(Boy_HRs_2$Covariate %in% c('BMI Z-score [13]') ~ 'blue', 
-                              TRUE ~'black')) %>% 
-  column_spec(7, color = case_when(Boy_HRs_2$Covariate %in% c('BMI Z-score [13]') ~ 'blue', 
-                              TRUE ~'black'))
-
+knitr::kable(estimate, 
+             caption  = 'Estimates of Transition Probabilities Across 1-year amongst boys: From (rows) - To (cols)')
 ```
 
 
-<!--chapter:end:05-Transitions.Rmd-->
+
+
+
+
+
+<!--chapter:end:06-Transitions.Rmd-->
 
 
 ## Mixed Effects Models - Driven Exercise over Time
@@ -591,6 +533,7 @@ Boy_HRs_2 %>%
 ### Girls
 
 ```{r}
+rm(list = ls())
 load('models/Girl_Models_DEx')
 
 bl_0_dex_girls_pooled <- pool(bl_0_dex_girls)
@@ -838,7 +781,10 @@ mcomp_table_boys
 ```
 
 
-<!--chapter:end:06-mixed-effects-dex.Rmd-->
+<!--chapter:end:07-mixed-effects-dex.Rmd-->
+
+
+<!--chapter:end:08-Imputation.Rmd-->
 
 
 ## Mixed-Effect Models - Exercise for Weight Loss
@@ -932,21 +878,6 @@ pooled_coefs_ewl_girls
 
 ```
 
-```{r}
-
-#make nested loop function to: 
-
-#Obtain Average AIC
-m1 <- anova(age_1_ewl_girls$analyses[[1]], covs_2_ewl_girls$analyses[[1]])
-
-#Obtain Average LogLik s
-
-#Obtain Average LR Test Statistic and p-value
-
-#Pull into a table
-```
-
-
 ### Boys
 
 ```{r}
@@ -1034,11 +965,447 @@ pooled_coefs_ewl_boys
 ```
 
 
-<!--chapter:end:07-mixed-effects-EWL.Rmd-->
+<!--chapter:end:09-mixed-effects-EWL.Rmd-->
 
 # Discussion
 
-<!--chapter:end:08-discussion.Rmd-->
+<!--chapter:end:10-discussion.Rmd-->
+
+
+# Supplement 1 - Mixed Models {#supp1}
+
+*Baseline Model for Driven Exercise*
+
+$$Driven\ Exercise_{ij} = b_{0j} + e_{ij}\\ 
+b_{0j} = \gamma_{00} + u_{0j}
+$$
+
+
+
+*Random Effect of Time*
+
+$$
+Driven\ Exercise_{ij} = b_{0j} + b_1Age + e_{ij} \\
+b_{0j} = \gamma_{00} + u_{0j}
+$$
+
+The model including the random effect of time also serves as the baseline model for Exercise for Weight Loss, as the ordinal package requires at least one random effect predictor in a model
+
+$$
+Exercise\ for\ Weight\ Loss_{ij} = b_{0j} + b_1Age + e_{ij}\\ 
+b_{0j} = \gamma_{00} + u_{0j}
+$$
+*Main Effects of Predictors and Covariates*
+
+$$
+Driven\ Exercise_{ij} = b_{0j} + b_1Age + b_2ParentSES + b_3BMI13 + b_4TI14 + b_5BodyDissat14 + b_6FearWt14 + e_{ij} \\
+b_{0j} = \gamma_{00} + u_{0j}
+$$
+
+*Time x Predictor Interactions*
+
+
+
+
+<!--chapter:end:11-Supplement_1.Rmd-->
+
+# Supplemental Figures
+
+```{r}
+rm(list = ls())
+source("R/plot_by_age_sex.R", local = knitr::knit_global())
+source("R/transitions_plot.R", local = knitr::knit_global())
+load('data/ed_data.RData')
+load('models/transition_models')
+load('data/transition_data.RData')
+```
+
+
+```{r age24-raw-ewl, fig.cap = 'Age 24 raw Exercise for Weight Loss Percentages', out.width= '90%'}
+age_24_raw_ewl_plot <- hist_by_sex(demo_ed.f, exercise_wtloss_raw.24, 'Frequency of Exercise For Weight Loss Reported as Raw Data - Age 24')
+age_24_raw_ewl_plot
+```
+
+```{r ex-interfere, fig.cap = 'Endorsement of Exercise Interfering with Work, School or Daily Activities Across Age'}
+exercise_interfere_gf_df  <- pivot_longer(demo_ed, cols = c('exercise_interfere_present.14', 'exercise_interfere_present.16', 'exercise_interfere_present.18', 'exercise_interfere_present.24'), names_to = 'age', names_prefix = 'exercise_interfere_present.', values_to = 'exercise_interfere') 
+
+exercise_interfere_data <- frq_table_by_age_sex(exercise_interfere_gf_df, exercise_interfere)
+
+exercise_interfere_plot_1 <- ggplot(data = exercise_interfere_data, 
+                                    aes(x = sex, y = pct, fill = exercise_interfere, label = sprintf('%0.1f%%', pct*100))) + #set the aesthetic features, including the labels at one decimal place
+  geom_col(position = position_stack(reverse = TRUE)) + #add column graph, with male and female separated
+  scale_y_continuous(labels = scales::percent_format(), limits = c(0,1))+ #set the lower and upper limits of the y axis ( 0-100 percent); 
+  theme(legend.title = element_blank(), axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1), text = element_text(size = 15))+ #make legend text a bit bigger
+  labs(x = element_blank(), y = 'Percent (within gender)', title = 'Exercise Interference with Work, School, or Daily Activities Across Age') +
+  geom_text(aes(label = sprintf('%0.1f%%', pct*100)), position = position_stack(reverse = TRUE, vjust = 0.5)) + 
+  theme_classic()+
+  theme(legend.title = element_blank(), axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1), text = element_text(size = 15)) + #make legend text a bit bigger 
+  scale_fill_manual(values = wes_palette(name = 'GrandBudapest1', n = 2)) +
+  facet_wrap(~age) 
+
+exercise_interfere_plot_1
+```
+
+
+```{r ewl-plot, fig.cap = 'Exercise for Weight Loss Across Age - Girls', out.width= '90%'}
+ewl_data <- frq_table_by_age_sex(demo_ed.lf, exercise_wtloss)
+
+ewl_plot <- ggplot(data = ewl_data, 
+    aes(x = sex, y = pct, fill = exercise_wtloss, label = sprintf('%0.1f%%', pct*100))) + #set the aesthetic features, including the labels at one decimal place
+    geom_bar(position = position_stack(reverse = TRUE), stat = 'identity') + #add column graph, with male and female separated
+    scale_y_continuous(labels = scales::percent, limits = c(0,1))+ #set the lower and upper limits of the y axis ( 0-100 percent); 
+    theme(legend.title = element_blank(), axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1), text = element_text(size = 15))+ #make legend text a bit bigger
+    labs(x = element_blank(), y = 'Percent (within gender)', title = 'Exercise for Weight Loss Frequency Across Age') +
+     geom_text(aes(label = sprintf('%0.1f%%', pct*100)), position = position_stack(reverse = TRUE, vjust = 0.5), color = 'white', size = 2.5, fontface = 'bold') +
+    facet_wrap(~age) + 
+    theme_classic()+
+    theme(legend.title = element_blank(), axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1), text = element_text(size = 15)) + #make legend text a bit bigger 
+   scale_fill_manual(values = wes_palette(name = 'GrandBudapest1', n = 3 ))
+
+ewl_plot
+
+```
+
+
+```{r ex-issues, fig.cap = 'Endorsement of Exercise Issues Across Age'}
+
+exercise_issues_gf_df  <- pivot_longer(demo_ed.f, cols = c('exercise_issues.14', 'exercise_issues_gf.16', 'exercise_issues_gf.18', 'exercise_issues.24'), names_to = 'age', names_prefix = 'exercise_issues.', values_to = 'exercise_issues') %>% 
+  mutate(age = recode(age, 'gf.16' = '16', 'gf.18' = '18'))
+
+exercise_issues_data <- frq_table_by_age_sex(exercise_issues_gf_df, exercise_issues)
+
+exercise_issues_plot_1 <- ggplot(data = exercise_issues_data, 
+    aes(x = sex, y = pct, fill = exercise_issues, label = sprintf('%0.1f%%', pct*100))) + #set the aesthetic features, including the labels at one decimal place
+    geom_col(position = position_stack(reverse = TRUE)) + #add column graph, with male and female separated
+    scale_y_continuous(labels = scales::percent_format(), limits = c(0,1))+ #set the lower and upper limits of the y axis ( 0-100 percent); 
+    theme(legend.title = element_blank(), axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1), text = element_text(size = 15))+ #make legend text a bit bigger
+    labs(x = element_blank(), y = 'Percent (within gender)', title = 'Exercise Issues Across Age') +
+    geom_text(aes(label = sprintf('%0.1f%%', pct*100)), position = position_stack(reverse = TRUE, vjust = 0.5)) + 
+    theme_classic()+
+    theme(legend.title = element_blank(), axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1), text = element_text(size = 15)) + #make legend text a bit bigger 
+   scale_fill_manual(values = wes_palette(name = 'GrandBudapest1', n = 2 )) +
+    facet_wrap(~age) 
+
+
+exercise_issues_plot_1
+
+```
+
+
+```{r}
+plot_2_girls <- plot.prevalence.msm(ex_group_girls_2, mintime = 14, maxtime = 24, xlab = 'age', legend.pos = c(19, 90))
+
+```
+
+```{r plot2-boys}
+
+plot_2_boys <- plot.prevalence.msm(ex_group_boys_2, mintime = 14, maxtime = 24, xlab = 'age', legend.pos = c(19, 90))
+
+```
+
+
+
+<!--chapter:end:12-Supplemental_Figures.Rmd-->
+
+# Supplemental Tables
+
+```{r imptab}
+library(dplyr)
+Imputation_Data <- tibble(Variable = c('Parent SES', 'BMI Z-score (13)', 'Thin-ideal Internalization Z-score (14)', 'Body Dissatisfaction Z-score (14)', 'Fear of Weight Gain (14)', 'Exercise for Weight Loss', 'Driven Exercise'), Data_Type = c('Ordinal', 'Continuous', 'Continuous', 'Continuous', 'Ordinal', 'Ordinal', 'Binary'), Method = c('PMM - Level 2', 'PMM - Level 2', 'PMM - Level 2', 'PMM - Level 2' , 'PMM - Level 2', '2-level PMM', '2-level Binary'))
+
+knitr::kable(Imputation_Data, caption = 'Imputation Data')
+```
+Note. PMM = 'Predictive Mean Matching'
+
+```{r continuous}
+load('data/demo_tables.Rdata')
+knitr::kable(cont_vars, caption = 'Continuous Variable Descriptives')
+```
+
+```{r pses}
+colnames(pses_table) <-  c('Response', 'Girls N', 'Girls %', 'Boys N', 'Boys %')
+knitr::kable(pses_table, caption = 'Parent Highest Occupational Class - Responses Frequencies')
+```
+
+```{r fearwt}
+colnames(fear_wt_table) <- c('Response', 'Girls N', 'Girls %', 'Boys N', 'Boys %')
+knitr::kable(fear_wt_table, caption = 'Fear of Weight Gain at Age 14 - Responses Frequencies')
+```
+
+```{r state-table-girls, fig.cap = 'Raw number of Transitions between Exercise Groups - Girls' }
+
+#state table for girls
+state_table_girls <- as.data.frame(statetable.msm(exercise_group, id, data = transition_data_girls))
+colnames(state_table_girls) <- c('From', 'To', 'N') 
+
+state_table_girls <- as.data.frame(state_table_girls) %>% 
+  mutate(From = as.character(as.numeric(From))) %>% 
+  mutate(To = as.character(as.numeric(To)))
+
+state_table_girls[state_table_girls == '1'] <- 'no EWL'
+state_table_girls[state_table_girls == '2'] <- 'EWL'
+state_table_girls[state_table_girls == '3'] <- 'DEx'
+
+knitr::kable(state_table_girls)
+
+```
+
+
+```{r pmat-girls1}
+# #Markov model with covariates
+# 
+# ex_group_girls_1_pmat <- pmatrix.msm(ex_group_girls_1, t = 1, ci = 'normal')
+# 
+# estimate <- as.data.frame(ex_group_girls_1_pmat[['estimates']]) %>% 
+#   rownames_to_column('From') %>% 
+#   pivot_longer(c('No EWL', 'EWL', 'DEx'), names_to = 'To', values_to = 'P' ) %>% 
+#   mutate(P = sprintf("%.3f", as.numeric(P))) 
+# 
+# 
+# l <- as.data.frame(ex_group_girls_1_pmat[['L']]) %>%   
+#   mutate('From' = c('No EWL', 'EWL', 'DEx')) %>% 
+#   rename('No EWL' = V1) %>% 
+#   rename('EWL' = V2) %>% 
+#   rename('DEx' = V3) %>% 
+#   pivot_longer(c('No EWL', 'EWL', 'DEx'), names_to = 'To', values_to = 'L' ) %>% 
+#   mutate(L = sprintf("%.3f", as.numeric(L))) 
+# 
+# 
+# u <- as.data.frame(ex_group_girls_1_pmat[['U']]) %>% round(3)  %>% 
+#   mutate('From' = c('No EWL', 'EWL', 'DEx')) %>% 
+#   rename('No EWL' = V1) %>% 
+#   rename('EWL' = V2) %>% 
+#   rename('DEx' = V3) %>% 
+#   pivot_longer(c('No EWL', 'EWL', 'DEx'), names_to = 'To', values_to = 'U' ) %>% 
+#   mutate(U = sprintf("%.3f", as.numeric(U))) 
+# 
+# estimate <- cbind(estimate, l$L) 
+# estimate <- cbind(estimate, u$U)
+# 
+# estimate <- estimate %>% 
+#   rename('l' = `l$L`) %>% 
+#   rename('u' = `u$U`)
+# 
+#  
+# estimate$CI <- paste(estimate$l, estimate$u, sep = ', ')
+# addparens <- function(x){paste('(',x,')')}
+# estimate$CI <- addparens(estimate$CI)
+# estimate$P <- paste(estimate$P, estimate$CI, sep = ' ')
+# 
+# estimate <- estimate %>% 
+#   select (c('To', 'From', 'P')) %>% 
+#   pivot_wider(names_from = 'To', values_from = 'P') %>% 
+#   rename(' ' = From)
+# 
+# knitr::kable(estimate, 
+#              caption  = 'Estimates of Transition Probabilities Across 1-year amongst Girls: From (rows) - To (cols)')
+# 
+# # Note - From in Rows to in Columns
+```
+
+
+```{r pmat-girls1-covs}
+load('models/transition_models')
+
+ex_group_girls_1_covs_pmat <- pmatrix.msm(ex_group_girls_covs_1, t = 1, ci = 'normal')
+
+estimate <- as.data.frame(ex_group_girls_1_covs_pmat[['estimates']]) %>% round(3) %>% 
+  rownames_to_column('From') %>% 
+  pivot_longer(c('No EWL', 'EWL', 'DEx'), names_to = 'To', values_to = 'P' )
+
+l <- as.data.frame(ex_group_girls_1_covs_pmat[['L']]) %>% round(3) %>% 
+  mutate('From' = c('No EWL', 'EWL', 'DEx')) %>% 
+  rename('No EWL' = V1) %>% 
+  rename('EWL' = V2) %>% 
+  rename('DEx' = V3) %>% 
+  pivot_longer(c('No EWL', 'EWL', 'DEx'), names_to = 'To', values_to = 'L' )
+
+
+u <- as.data.frame(ex_group_girls_1_covs_pmat[['U']]) %>% round(3)  %>% 
+  mutate('From' = c('No EWL', 'EWL', 'DEx')) %>% 
+  rename('No EWL' = V1) %>% 
+  rename('EWL' = V2) %>% 
+  rename('DEx' = V3) %>% 
+  pivot_longer(c('No EWL', 'EWL', 'DEx'), names_to = 'To', values_to = 'U' )
+
+
+estimate <- cbind(estimate, l$L) 
+estimate <- cbind(estimate, u$U)
+
+estimate <- estimate %>% 
+  rename('l' = `l$L`) %>% 
+  rename('u' = `u$U`)
+
+ 
+estimate$CI <- paste(estimate$l, estimate$u, sep = ', ')
+addparens <- function(x){paste('(',x,')')}
+estimate$CI <- addparens(estimate$CI)
+estimate$P <- paste(estimate$P, estimate$CI, sep = ' ')
+
+estimate <- estimate %>% 
+  select (c('To', 'From', 'P')) %>% 
+  pivot_wider(names_from = 'To', values_from = 'P') %>% 
+  rename(' ' = From)
+
+knitr::kable(estimate, 
+             caption  = 'Estimates of Transition Probabilities Across 1-year amongst Girls - Covariate Model contstraining direct transitions betwen No EWL and DEx groups: From (rows) - To (cols)')
+
+```
+
+
+
+```{r}
+# Supplemental table - unconstrained covariate transitions amongst girls 
+
+# 
+# hr_2_girls <- hazard.msm(ex_group_girls_covs_2)
+# ti_girls_hazard_2 <-hr_2_girls[[1]]
+# bd_girls_hazard_2<- hr_2_girls[[2]] 
+# fear_wt_girls_hazard_2 <- hr_2_girls[[3]] 
+# bmi_girls_hazard_2 <-hr_2_girls[[4]]
+# 
+# 
+# dfnames <- c('fear_wt_girls_hazard_2', 'bd_girls_hazard_2', 'ti_girls_hazard_2', 'bmi_girls_hazard_2')
+# girl_HRs_2 <- do.call(rbind, lapply(dfnames, function(x) cbind(get(x), Covariate=x))) |> 
+#   as.data.frame() %>% 
+#   rownames_to_column(var = 'transition') %>% 
+#  mutate(HR = sprintf("%.2f", as.numeric(HR))) %>% 
+#  mutate(L = sprintf("%.2f", as.numeric(L))) %>% 
+#  mutate(U = sprintf("%.2f", as.numeric(U)))
+# 
+# girl_HRs_2$transition <- gsub('\\No.', 'No ', girl_HRs_2$transition)
+# girl_HRs_2$transition <- gsub('\\...', ' to ', girl_HRs_2$transition)
+# girl_HRs_2$transition <- gsub('\\..*', '', girl_HRs_2$transition)
+# girl_HRs_2$CI <- paste(girl_HRs_2$L, girl_HRs_2$U, sep = ', ')
+# addparens <- function(x){paste('(',x,')')}
+# girl_HRs_2$CI <- addparens(girl_HRs_2$CI)
+# girl_HRs_2$HR <- paste(girl_HRs_2$HR, girl_HRs_2$CI, sep = ' ')
+# 
+# 
+# girl_HRs_2 <- girl_HRs_2 |> 
+#   select( - c( L, U, CI)) %>% 
+#   pivot_wider(names_from = c(transition), values_from = HR)
+# girl_HRs_2['Covariate'][girl_HRs_2['Covariate'] == 'ti_girls_hazard_2'] <- 'Thin Ideal Internalization [14]'
+# girl_HRs_2['Covariate'][girl_HRs_2['Covariate'] == 'fear_wt_girls_hazard_2'] <- 'Fear of Weight Gain [14]'
+# girl_HRs_2['Covariate'][girl_HRs_2['Covariate'] == 'bmi_girls_hazard_2'] <- 'BMI Z-score [13]'
+# girl_HRs_2['Covariate'][girl_HRs_2['Covariate'] == 'bd_girls_hazard_2'] <- 'Body Satisfaction [14]'
+# 
+# girl_HRs_2 %>% 
+#   kbl(caption = 'Hazard Ratios for Transitions with Baseline Covariates (Transition from No EWL to DEx Constrained) - Girls')  %>% 
+#   kable_paper(full_width = T) %>% 
+#   kable_styling(font_size = 13)
+```
+
+```{r boys-state-table}
+#state table for boys
+
+state_table_boys <- as.data.frame(statetable.msm(exercise_group, id, data = transition_data_boys))
+
+colnames(state_table_boys) <- c('From', 'To', 'N')
+state_table_boys <- state_table_boys %>% 
+  mutate(From = as.character(as.numeric(From))) %>% 
+  mutate(To = as.character(as.numeric(To)))
+
+state_table_boys[state_table_boys == '1'] <- 'no EWL'
+state_table_boys[state_table_boys == '2'] <- 'EWL'
+state_table_boys[state_table_boys == '3'] <- 'DEx'
+
+knitr::kable(state_table_boys)
+
+```
+
+```{r, label = 'Boys Hazard Ratios'}
+# ex_group_boys_covs_1_pmat <- pmatrix.msm(ex_group_boys_covs_1, t = 1, ci = 'normal')
+# hr_1_boys <- hazard.msm(ex_group_boys_covs_1)
+# 
+# ti_boys_hazard <-hr_1_boys[[1]]
+# bmi_boys_hazard <- hr_1_boys[[2]] 
+# fear_wt_boys_hazard <- hr_1_boys[[3]] 
+# 
+# dfnames <- c('fear_wt_boys_hazard', 'bmi_boys_hazard', 'ti_boys_hazard')
+# Boy_HRs <- do.call(rbind, lapply(dfnames, function(x) cbind(get(x), Covariate=x))) |> 
+#   as.data.frame() |> 
+#   rownames_to_column(var = 'transition') %>% 
+#  mutate(HR = sprintf("%.2f", as.numeric(HR))) %>% 
+#  mutate(L = sprintf("%.2f", as.numeric(L))) %>% 
+#  mutate(U = sprintf("%.2f", as.numeric(U)))
+# 
+# Boy_HRs$transition <- gsub('\\No.', 'No ', Boy_HRs$transition)
+# Boy_HRs$transition <- gsub('\\...', ' to ', Boy_HRs$transition)
+# Boy_HRs$transition <- gsub('\\..*', '', Boy_HRs$transition)
+# Boy_HRs$CI <- paste(Boy_HRs$L, Boy_HRs$U, sep = ', ')
+# addparens <- function(x){paste('(',x,')')}
+# Boy_HRs$CI <- addparens(Boy_HRs$CI)
+# Boy_HRs$HR <- paste(Boy_HRs$HR, Boy_HRs$CI, sep = ' ')
+# 
+# 
+# Boy_HRs <- Boy_HRs |> 
+#   select( - c( L, U, CI)) %>% 
+#   pivot_wider(names_from = c(transition), values_from = HR)
+# Boy_HRs['Covariate'][Boy_HRs['Covariate'] == 'ti_boys_hazard'] <- 'Thin Ideal Internalization [14]'
+# Boy_HRs['Covariate'][Boy_HRs['Covariate'] == 'fear_wt_boys_hazard'] <- 'Fear of Weight Gain [14]'
+# Boy_HRs['Covariate'][Boy_HRs['Covariate'] == 'bmi_boys_hazard'] <- 'BMI Z-score [13]'
+# 
+# 
+# Boy_HRs %>% 
+#   kbl(caption = 'Hazard Ratios for Transitions with Baseline Covariates - Boys', format = 'html')  %>% 
+#   kable_paper(full_width = T) 
+```
+
+```{r}
+# hr_2_boys <- hazard.msm(ex_group_boys_covs_2)
+# ti_boys_hazard_2 <-hr_2_boys[[1]]
+# bmi_boys_hazard_2<- hr_2_boys[[2]] 
+# fear_wt_boys_hazard_2 <- hr_2_boys[[3]] 
+# bd_boys_hazard <-hr_2_boys[[4]]
+# ses_boys_hazard <- hr_2_boys[[5]] 
+# 
+# 
+# dfnames <- c('fear_wt_boys_hazard_2', 'bmi_boys_hazard_2', 'ti_boys_hazard_2', 'bd_boys_hazard', 'ses_boys_hazard')
+# Boy_HRs_2 <- do.call(rbind, lapply(dfnames, function(x) cbind(get(x), Covariate=x))) |> 
+#   as.data.frame() |> 
+#   rownames_to_column(var = 'transition') %>% 
+#  mutate(HR = sprintf("%.2f", as.numeric(HR))) %>% 
+#  mutate(L = sprintf("%.2f", as.numeric(L))) %>% 
+#  mutate(U = sprintf("%.2f", as.numeric(U)))
+# 
+# Boy_HRs_2$transition <- gsub('\\No.', 'No ', Boy_HRs_2$transition)
+# Boy_HRs_2$transition <- gsub('\\...', ' to ', Boy_HRs_2$transition)
+# Boy_HRs_2$transition <- gsub('\\..*', '', Boy_HRs_2$transition)
+# Boy_HRs_2$CI <- paste(Boy_HRs_2$L, Boy_HRs_2$U, sep = ', ')
+# addparens <- function(x){paste('(',x,')')}
+# Boy_HRs_2$CI <- addparens(Boy_HRs_2$CI)
+# Boy_HRs_2$HR <- paste(Boy_HRs_2$HR, Boy_HRs_2$CI, sep = ' ')
+# 
+# 
+# Boy_HRs_2 <- Boy_HRs_2 |> 
+#   select( - c( L, U, CI)) %>% 
+#   pivot_wider(names_from = c(transition), values_from = HR)
+# Boy_HRs_2['Covariate'][Boy_HRs_2['Covariate'] == 'ti_boys_hazard_2'] <- 'Thin Ideal Internalization [14]'
+# Boy_HRs_2['Covariate'][Boy_HRs_2['Covariate'] == 'fear_wt_boys_hazard_2'] <- 'Fear of Weight Gain [14]'
+# Boy_HRs_2['Covariate'][Boy_HRs_2['Covariate'] == 'bmi_boys_hazard_2'] <- 'BMI Z-score [13]'
+# Boy_HRs_2['Covariate'][Boy_HRs_2['Covariate'] == 'bd_boys_hazard'] <- 'Body Satisfaction [14]'
+# Boy_HRs_2['Covariate'][Boy_HRs_2['Covariate'] == 'ses_boys_hazard'] <- 'Parent Occupation'
+
+# Boy_HRs_2 %>% 
+#   kbl(caption = 'Hazard Ratios for Transitions with Baseline Covariates and Constrained Transitions - Boys')  %>% 
+#   kable_paper(full_width = T) %>% 
+#   kable_styling(font_size = 13) %>% 
+#   column_spec(2, color = case_when(Boy_HRs_2$Covariate %in% c('BMI Z-score [13]') ~ 'blue', 
+#                               TRUE ~'black')) %>% 
+#   column_spec(3, color = case_when(Boy_HRs_2$Covariate %in% c('BMI Z-score [13]') ~ 'blue', 
+#                               TRUE ~'black')) %>% 
+#   column_spec(4, color = case_when(Boy_HRs_2$Covariate %in% c('BMI Z-score [13]') ~ 'red', 
+#                               TRUE ~'black')) %>% 
+#   column_spec(5, color = case_when(Boy_HRs_2$Covariate %in% c('BMI Z-score [13]') ~ 'blue', 
+#                               TRUE ~'black')) %>% 
+#   column_spec(7, color = case_when(Boy_HRs_2$Covariate %in% c('BMI Z-score [13]') ~ 'blue', 
+#                               TRUE ~'black'))
+
+```
+
+
+<!--chapter:end:13-Supplemental_Tables.Rmd-->
 
 
 # References {-}
@@ -1055,56 +1422,5 @@ knitr::write_bib(c(
 
 '`
 
-<!--chapter:end:09-References.Rmd-->
-
-
-# Supplement 1 - Mixed Models
-
-### 1. Baseline Model
-
-$$Driven\ Exercise_{ij} = b_{0j} + e_{ij}\\ 
-
-b_{0j} = \gamma_{00} + u_{0j}$$
-
-&
-
-$$Exercise\ for\ Weight\ Loss_{ij} = b_{0j} + e_{ij}\\ 
-
-b_{0j} = \gamma_{00} + u_{0j}$$
-
-
-### 2. Random Effect of Time
-
-
-### 3. Main Effects of Predictors and Covariates
-
-
-### 4. Time x Predictor Interactions
-
-
-
-$$
-Driven\ Exercise_{ij} = b_{0j} + b_1Age + e_{ij} \\
-b_{0j} = \gamma_{00} + u_{0j}
-$$
-$$
-Driven\ Exercise_{ij} = b_{0j} + b_1Age + b_2ParentSES + b_3BMI13 + b_4TI14 + b_5BodyDissat14 + b_6FearWt14 + e_{ij} \\
-b_{0j} = \gamma_{00} + u_{0j}
-$$
-
-<!--chapter:end:10-Supplement_1.Rmd-->
-
-
-<!--chapter:end:11-Supplemental_Figures.Rmd-->
-
-
-
-```{r imp_table1}
-Imputation_Data <- tibble(Variable = c('Parent SES', 'BMI Z-score (13)', 'Thin-ideal Internalization Z-score (14)', 'Body Dissatisfaction Z-score (14)', 'Fear of Weight Gain (14)', 'Exercise for Weight Loss', 'Driven Exercise'), Data_Type = c('Ordinal', 'Continuous', 'Continuous', 'Continuous', 'Ordinal', 'Ordinal', 'Binary'), Method = c('PMM - Level 2', 'PMM - Level 2', 'PMM - Level 2', 'PMM - Level 2' , 'PMM - Level 2', '2-level PMM', '2-level Binary'))
-
-knitr::kable(Imputation_Data, caption = 'Imputation Data')
-```
-Note. PMM = 'Predictive Mean Matching'
-
-<!--chapter:end:12-Supplemental_Tables.Rmd-->
+<!--chapter:end:14-References.Rmd-->
 

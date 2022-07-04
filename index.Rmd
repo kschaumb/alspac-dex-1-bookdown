@@ -1,22 +1,30 @@
 --- 
-title: "ALSPAC Longitudinal Driven Exercise Anlysis"
-author: "Katherine Schaumberg"
+title: "Patterns of Maladaptive Exercise Behavior from ages 14-24 in a Longitudinal Cohort"
+shorttitle: 'ALSPAC Driven Exercise'
+author: 
+- name: "Katherine Schaumberg"
+  affiliation : '1'
+  corresponding: yes
+  address: '6001 Research Park Blvd, Madison, WI, USA, 53719'
+  role: 
+  - Conceptualization
+  - Writing - Original Draft Preparation 
+  - Writing - Review & Editing
 date: "`r Sys.Date()`"
-output: bookdown::word_document2
-documentclass: book
+documentclass: 'apa6'
 site: bookdown::bookdown_site
 bibliography: [DEx_ALSPAC.bib, packages.bib]
-biblio-style: apalike
+biblio-style: apa
 link-citations: yes
 github-repo: kschaumb/alspac-dex-bookdown
 description: "This is a bookdown for ALSPAC Longitudinal DEx analyses"
-always_allow_html: true
 resource_files: 
  -data/ed_data.RData
  -R/plot_by_age_sex.R
  -R/transitions_plot.R
+output: bookdown::gitbook
+
 ---
-# Introduction
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
@@ -46,31 +54,9 @@ library(purrr)
 library(labelled)
 library(broom.mixed)
 library(mitml)
-
-
+library(kableExtra)
 source("R/plot_by_age_sex.R", local = knitr::knit_global())
 source("R/transitions_plot.R", local = knitr::knit_global())
-```
-
-
-```{r load data}
-#Loads data
 load('data/ed_data.RData')
 ```
-
-## Driven Exercise in ALSPAC
-
-Driven exercise is a common, debilitating symptom across eating disorders (ED). Up to 40% of individuals with bulimia nervosa and 80% of those with anorexia nervosa experience driven exercise. Driven exercise relates to high levels of ED symptoms and poor ED treatment outcomes, and has been purported to be an early ED symptom via retrospective reports. A previous study examined exercise for weight loss and driven exercise at age 14 in the ALSPAC cohort, identifying whether groups at age 14 were associated with ED behaviors at ages 14 and 16 [@schaumbergProspectiveAssociationsDriven2022] Results found that both exercise for weight loss and driven exercise groups at age 14 were demonstrated higher levels of other ED behaviors (binge eating, fasting, purging) at age 16. In the current study, we extend a longitudinal investigation of exercise for weight loss and driven exercise as predictors of other ED behaviors across a larger developmental window (ages 14-24), and further clarify directionality of effects.
-
-## Current Study
-
-The current study examines data from the ALSPAC Cohort at ages 14,16,18, and 24 years
-
-**Aim 1:** To investigate rates of transition between 'no exercise for weight loss', 'exercise for weight loss', and 'driven exercise' groups between ages 14-24, and characterize initial predictors of transitions to driven exercise amongst boys and girls.
-
-H1: Driven Exercise will be the most stable category, and transitions between the driven exercise and exercise for weight loss categories will be more common than transitions between the driven exercise and no exercise for weight loss category.
-
-**Aim 2:** To examine overall changes in probability of driven exercise and exercise for weight loss from ages 14-24 and characterize initial predictors of changes in probability of driven exercise and exercise for weight loss over time
-
-H2: ED cognitions at age 14 will predict driven exercise during ages 14-24
 

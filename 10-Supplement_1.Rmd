@@ -1,34 +1,35 @@
 
-# Supplement 1 - Mixed Models
+# Supplement 1 - Mixed Models {#supp1}
 
-### 1. Baseline Model
+*Baseline Model for Driven Exercise*
 
 $$Driven\ Exercise_{ij} = b_{0j} + e_{ij}\\ 
-
-b_{0j} = \gamma_{00} + u_{0j}$$
-
-&
-
-$$Exercise\ for\ Weight\ Loss_{ij} = b_{0j} + e_{ij}\\ 
-
-b_{0j} = \gamma_{00} + u_{0j}$$
+b_{0j} = \gamma_{00} + u_{0j}
+$$
 
 
-### 2. Random Effect of Time
 
-
-### 3. Main Effects of Predictors and Covariates
-
-
-### 4. Time x Predictor Interactions
-
-
+*Random Effect of Time*
 
 $$
 Driven\ Exercise_{ij} = b_{0j} + b_1Age + e_{ij} \\
 b_{0j} = \gamma_{00} + u_{0j}
 $$
+
+The model including the random effect of time also serves as the baseline model for Exercise for Weight Loss, as the ordinal package requires at least one random effect predictor in a model
+
+$$
+Exercise\ for\ Weight\ Loss_{ij} = b_{0j} + b_1Age + e_{ij}\\ 
+b_{0j} = \gamma_{00} + u_{0j}
+$$
+*Main Effects of Predictors and Covariates*
+
 $$
 Driven\ Exercise_{ij} = b_{0j} + b_1Age + b_2ParentSES + b_3BMI13 + b_4TI14 + b_5BodyDissat14 + b_6FearWt14 + e_{ij} \\
 b_{0j} = \gamma_{00} + u_{0j}
 $$
+
+*Time x Predictor Interactions*
+
+
+

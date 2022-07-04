@@ -4,6 +4,7 @@
 ### Girls
 
 ```{r}
+rm(list = ls())
 load('models/Girl_Models_DEx')
 
 bl_0_dex_girls_pooled <- pool(bl_0_dex_girls)

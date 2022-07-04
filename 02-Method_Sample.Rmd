@@ -46,10 +46,10 @@ ss_plot <- ggplot(data = ewl_sample_size, aes(x = age, y = sample_size, color = 
       labs (x = 'Age', y = element_blank(), title = 'Sample Size Reporting Exercise Data Across Age') +
       scale_color_manual(values = c('Male' = 'darkgreen', 'Female' = 'orange', 'Combined' = 'purple'))+
       geom_text(aes(y = sample_size, label = sample_size,
-              vjust = 2, color = 'black')) +
+              vjust = 2, color = 'black'), size = 3.5) +
       scale_y_continuous(limits = c(500,8000)) +
       theme_classic() +
-      theme (legend.title = element_blank(), text = element_text(size = 14)) 
+      theme (legend.title = element_blank(), text = element_text(size = 10)) 
 
 ss_plot
 ```

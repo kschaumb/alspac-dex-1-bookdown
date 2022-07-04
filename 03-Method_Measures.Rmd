@@ -31,7 +31,6 @@ boy_bd_alpha <- demo_ed.f |>
   round(3)
 ```
 
-
 Body Dissatisfaction was assessed via an 11-item scale adapted from the satisfaction and dissatisfaction with body parts scale [@sticeProspectiveTestDualpathway2001], which has been used in several previous studies involving the ALSPAC Cohort [@bornioliAdolescentBodyDissatisfaction2019; @bornioliBodyDissatisfactionPredicts2021; @schaumbergAnxietyDisorderSymptoms2019; @schaumbergProspectiveAssociationsChildhood2021]. Among the 11 items, one item differs between the sexes (satisfaction with 'breasts' is specified for girls and 'build' for boys). Two items address overall body satisfaction with weight and figure, and the remaining items evaluate satisfaction with specific body parts. Responses are graded on a 5 point likert scale from "Extremely Satisfied" (1) to "Extremely Dissatisfied" (5). Reliability was high in both girls (Cronbach's $\alpha$ = `r girl_bd_alpha`) and boys (Cronbach's $\alpha$ = `r boy_bd_alpha`)  In the current study, body dissatisfaction was scored using the mean of all 11 items, with higher scores indicating greater body dissatisfaction, which was standardized within gender prior to analyses.
 
 #### Thin-ideal Internalization
@@ -76,7 +75,6 @@ pr_percent <- round((best_avail-clinic)/7688*100, 2)
 
 ```
 
-
 Child BMI-Z was assessed via two indices at age 13 years. First, objective height and weight were obtained for those who completed a clinic visit at age 13 (median age at clinic visit = 13.8 years). Second, parents reported child height and weight via questionnaire (median age = 13.1). An age and sex adjusted BMI-Z score was obtained from these self-report and clinic-recorded measurments. In order to maximize accuracy, when clinic-obtained measurements were obtained, this BMI-Z score was used (n = `r clinic`; `r clinic_percent`%). BMI-Z from parent report was used when clinic measurement was not available (n = `r pr_n`; `r pr_percent`%). A portion of the sample had neither measurement available (n = `r missing_n`; `r missing_percent`%)
 
 ### Exercise Measures
@@ -87,8 +85,7 @@ Questions related to driven exercise were self-reported at ages 14, 16, 18, and 
 
 At ages 14, 16, and 18 years, participants were asked if they exercised to lose weight or avoid gaining weight, with response options of: No(0), Yes-Sometimes(1), and Yes-Frequently(2).
 
-At age 24, participants were asked the frequency with which they exercised to lose weight or avoid gaining weight, with response options of: Never, \<1x/mo, 1-3x/mo, 1-4x/wk, and 5 or more times per week. For the purposes of analysis, responses at age 24 were harmonized with age 14, 16, and 18. Responses of Never were binned as "No" (0); 1x/mo - <1x/week were binned as 'Yes - Sometimes'(1), and 1x/wk or more as 'Yes - Frequently'(2). Once a week or more was chosen as the threshold for 'frequent' exercise for weight loss at age 24 to align with DSM-V diagnostic frequency thresholds for other eating disorder behaviors (i.e. binge eating, purging)[@americanpsychiatricassociationDiagnosticStatisticalManual2013]. The primary derived outcome variable of analysis for exericse for weight loss is an ordinal variable, defined as 0 = No, 1 = Sometimes, and 2 = Frequently. 
-
+At age 24, participants were asked the frequency with which they exercised to lose weight or avoid gaining weight, with response options of: Never, \<1x/mo, 1-3x/mo, 1-4x/wk, and 5 or more times per week. For the purposes of analysis, responses at age 24 were harmonized with age 14, 16, and 18. Responses of Never were binned as "No" (0); 1x/mo - <1x/week were binned as 'Yes - Sometimes'(1), and 1x/wk or more as 'Yes - Frequently'(2). Once a week or more was chosen as the threshold for 'frequent' exercise for weight loss at age 24 to align with DSM-V diagnostic frequency thresholds for other eating disorder behaviors, including binge eating and purging [@americanpsychiatricassociationDiagnosticStatisticalManual2013]. The primary derived outcome variable of analysis for exercise for weight loss is an ordinal variable, defined as 0 = No, 1 = Sometimes, and 2 = Frequently. 
 
 #### Driven Exercise
 
