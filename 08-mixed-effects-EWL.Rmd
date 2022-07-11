@@ -1,55 +1,24 @@
 
 ## Mixed-Effect Models - Exercise for Weight Loss
 
-We are utilizing the same approach to examine endorsement of exercise
-for weight loss over time in the sample, but use an ordinal model (clmm)
+The same multilevel modeling approach was used to examine endorsement of EWL over time in the sample, substituting a cummulative-link modeling approach to accommodate the ordinal outcome of EWL frequency.To compare models with imputed datasets with ordinal outcomes implemented in R, we estimated the improvement in fit of models by examining the mean AIC of all 20 models for imputed data, along with the mean difference in log liklihood when comparing all nested models on all iterations of imputed datasets. Summary statistics for model comparisons are presented in table \@ref(tab:ewl-mcomp-girls) for Girls and table \@ref(tab:ewl-mcomp-boys) for boys
 
 ### Girls
 
-```{r}
-load('models/Age_1_EWL_girl_model')
-load('models/Covs_2_EWL_girl_model')
-load('models/Covs_3_EWL_girl_model')
-load('models/Covs_4_EWL_girl_model')
+Overall, the most complex model (including Age x Covariate interactions) was identified as the best model for girls, both in terms of the median -2 log likelihood difference comparison as well as via the lowest AIC. 
 
-age_1_EWL_girls_pooled <- pool(age_1_ewl_girls)
-age_1_EWL_girls_ORs <- summary(age_1_EWL_girls_pooled, conf.int = TRUE, exponentiate = FALSE) |> 
-  mutate(`0.25 %` = estimate - std.error*2.81) |> 
-  mutate(`99.75 %` = estimate + std.error*2.81) |> 
-  mutate (OR = exp(estimate)) |> 
-  mutate (`OR LCI` = exp(`0.25 %`)) |> 
-  mutate (`OR HCI` = exp(`99.75 %`))
-
-covs_2_EWL_girls_pooled <- pool(covs_2_ewl_girls)
-covs_2_EWL_girls_ORs <- summary(covs_2_EWL_girls_pooled, conf.int = TRUE, exponentiate = FALSE) |> 
-  mutate(`0.25 %` = estimate - std.error*2.81) |> 
-  mutate(`99.75 %` = estimate + std.error*2.81) |> 
-  mutate (OR = exp(estimate)) |> 
-  mutate (`OR LCI` = exp(`0.25 %`)) |> 
-  mutate (`OR HCI` = exp(`99.75 %`))
-
-covs_3_EWL_girls_pooled <- pool(covs_3_ewl_girls)
-covs_3_EWL_girls_ORs <- summary(covs_3_EWL_girls_pooled, conf.int = TRUE, exponentiate = FALSE) |> 
-  mutate(`0.25 %` = estimate - std.error*2.81) |> 
-  mutate(`99.75 %` = estimate + std.error*2.81) |> 
-  mutate (OR = exp(estimate)) |> 
-  mutate (`OR LCI` = exp(`0.25 %`)) |> 
-  mutate (`OR HCI` = exp(`99.75 %`))
-
-covs_4_EWL_girls_pooled <- pool(covs_4_ewl_girls)
-covs_4_EWL_girls_ORs <- summary(covs_4_EWL_girls_pooled, conf.int = TRUE, exponentiate = FALSE) |> 
-  mutate(`0.25 %` = estimate - std.error*2.81) |> 
-  mutate(`99.75 %` = estimate + std.error*2.81) |> 
-  mutate (OR = exp(estimate)) |> 
-  mutate (`OR LCI` = exp(`0.25 %`)) |> 
-  mutate (`OR HCI` = exp(`99.75 %`))
-
-
-
+```{r ewl-mcomp-girls}
+load('models/ewl_mcomp_tables.Rdata')
+knitr::kable(girls_mcomp_table,
+             caption = "Model Comparison Table for Exercise for Weight Loss - Girls")
 ```
+With regrads to specfic predictors, Age, Parent SES, Body Mass Index at age 13, Thin-ideal interanlization, and Fear of Weight gain all emerged as significant positive predictors of frequency of exercise for weight loss (see Table \@ref(tab:ewl-coefs-girls) for coefficients). Body dissatisfaction was the only ED cognition variable that was not significant
 
 
-```{r, label = 'EWL Poled Coeffs Table - Girls'}
+
+```{r ewl-coefs-girls, label = 'EWL Poled Coeffs Table - Girls'}
+
+load('models/Girl_models_EWL_Output')
 
 dfnames <- c('age_1_EWL_girls_ORs', 'covs_2_EWL_girls_ORs', 'covs_3_EWL_girls_ORs', 'covs_4_EWL_girls_ORs')
 pooled_coefs <- do.call(rbind, lapply(dfnames, function(x) cbind(get(x), Model=x))) |> 
@@ -79,7 +48,7 @@ pooled_coefs['term'][pooled_coefs['term'] == 'age_adjust:ti_mean_14_std'] <- 'Ag
 
 
 pooled_coefs_ewl_girls <- pooled_coefs|> 
-  kbl(caption = 'Table 1: Parameter Estimates for Models Predicting Driven Exercise in Girls') %>% 
+  kbl(caption = 'Table 1: Parameter Estimates for Models Predicting Exercise for Weight Loss in Girls') %>% 
   row_spec(c(4:8, 17:28), background = '#E0E0E0') %>% 
   column_spec(2:3, color = case_when(pooled_coefs$`OR LCI` > 1  ~ "blue",
                                    pooled_coefs$`OR HCI`< 1  ~ "red", 
@@ -90,61 +59,21 @@ pooled_coefs_ewl_girls
 
 ```
 
-```{r}
-#make nested loop function to: 
-#Obtain Average AIC
-m1 <- anova(age_1_ewl_girls$analyses[[1]], covs_2_ewl_girls$analyses[[1]])
-#Obtain Average LogLik s
-#Obtain Average LR Test Statistic and p-value
-#Pull into a table
-```
 
 ### Boys
 
-```{r}
-load('models/Age_1_EWL_boy_model')
-load('models/Covs_2_EWL_boy_model')
-load('models/Covs_3_EWL_boy_model')
-load('models/Covs_4_EWL_boy_model')
 
-age_1_EWL_boys_pooled <- pool(age_1_ewl_boys)
-age_1_EWL_boys_ORs <- summary(age_1_EWL_boys_pooled, conf.int = TRUE, exponentiate = FALSE) |> 
-  mutate(`0.25 %` = estimate - std.error*2.81) |> 
-  mutate(`99.75 %` = estimate + std.error*2.81) |> 
-  mutate (OR = exp(estimate)) |> 
-  mutate (`OR LCI` = exp(`0.25 %`)) |> 
-  mutate (`OR HCI` = exp(`99.75 %`))
-
-covs_2_EWL_boys_pooled <- pool(covs_2_ewl_boys)
-covs_2_EWL_boys_ORs <- summary(covs_2_EWL_boys_pooled, conf.int = TRUE, exponentiate = FALSE) |> 
-  mutate(`0.25 %` = estimate - std.error*2.81) |> 
-  mutate(`99.75 %` = estimate + std.error*2.81) |> 
-  mutate (OR = exp(estimate)) |> 
-  mutate (`OR LCI` = exp(`0.25 %`)) |> 
-  mutate (`OR HCI` = exp(`99.75 %`))
-
-covs_3_EWL_boys_pooled <- pool(covs_3_ewl_boys)
-covs_3_EWL_boys_ORs <- summary(covs_3_EWL_boys_pooled, conf.int = TRUE, exponentiate = FALSE) |> 
-  mutate(`0.25 %` = estimate - std.error*2.81) |> 
-  mutate(`99.75 %` = estimate + std.error*2.81) |> 
-  mutate (OR = exp(estimate)) |> 
-  mutate (`OR LCI` = exp(`0.25 %`)) |> 
-  mutate (`OR HCI` = exp(`99.75 %`))
-
-covs_4_EWL_boys_pooled <- pool(covs_4_ewl_boys)
-covs_4_EWL_boys_ORs <- summary(covs_4_EWL_boys_pooled, conf.int = TRUE, exponentiate = FALSE) |> 
-  mutate(`0.25 %` = estimate - std.error*2.81) |> 
-  mutate(`99.75 %` = estimate + std.error*2.81) |> 
-  mutate (OR = exp(estimate)) |> 
-  mutate (`OR LCI` = exp(`0.25 %`)) |> 
-  mutate (`OR HCI` = exp(`99.75 %`))
-
-
-
+```{r ewl-mcomp-boys}
+load('models/ewl_mcomp_tables.Rdata')
+knitr::kable(girls_mcomp_table,
+             caption = "Model Comparison Table for Exercise for Weight Loss - Girls")
 ```
 
+Specific Parameters and coefficients are presented in Table \@ref(tab:ewl-coefs-boys)
 
-```{r, label = 'EWL Poled Coeffs Table - boys'}
+```{r ewl-coefs-boys, label = 'EWL Poled Coeffs Table - boys'}
+
+load('models/boy_models_EWL_output')
 
 dfnames <- c('age_1_EWL_boys_ORs', 'covs_2_EWL_boys_ORs', 'covs_3_EWL_boys_ORs', 'covs_4_EWL_boys_ORs')
 pooled_coefs <- do.call(rbind, lapply(dfnames, function(x) cbind(get(x), Model=x))) |> 
@@ -174,7 +103,7 @@ pooled_coefs['term'][pooled_coefs['term'] == 'age_adjust:ti_mean_14_std'] <- 'Ag
 
 
 pooled_coefs_ewl_boys <- pooled_coefs|> 
-  kbl(caption = 'Table 1: Parameter Estimates for Models Predicting Driven Exercise in boys') %>% 
+  kbl(caption = 'Table 1: Parameter Estimates for Models Predicting Exercise for Weight Loss in Boys') %>% 
   row_spec(c(4:8, 17:28), background = '#E0E0E0') %>% 
   column_spec(2:3, color = case_when(pooled_coefs$`OR LCI` > 1  ~ "blue",
                                    pooled_coefs$`OR HCI`< 1  ~ "red", 

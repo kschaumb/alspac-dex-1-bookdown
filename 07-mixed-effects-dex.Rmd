@@ -1,56 +1,12 @@
-
 ## Mixed Effects Models - Driven Exercise over Time
+
+Mixed effects logistic regression models examined changes in DEx across age, along with predictors baseline (age 14) predictors of this behavior and interactions between baseline predictors and the linear effect of age, with results reported in \@ref(tab:dex-models-girls). Model comparisons (presented in Table \@ref(tab:mcomp-dex-girls)), indicated that the most complex (Step 3) model which included all predictors and Age x Predictor interactions fit best. In the baseline model, a substantial portion of girls (~13%) reported DEx. Baseline levels of DEx at age 14 were included as a random effect in subsequent models. In the model including only age as a predictor, age was a significant predictor, with effect sizes indicating a small but relevant linear increase in DEx risk each year. In the model including parent SES and BMI at age 13 as predictors, BMI Z-score at age 13 predicted higher levels of DEx overall amongst girls, with a one standard deviation in BMI increasing odds (OR: 1.347) of DEx. When ED cognitions were introduced into the model (Step 2 Covariates), BMI Z-score remained a significant predictor of DEx, though its effect size decreased in magnitude. Both Thin-ideal internalization at age 14 and fear of weight gain at age 14 were associated with greater odds of DEx, on average. An increase of 1-unit in fear of weight gain (e.g. from 'sometimes' to xxx) resulted in odds of DEx over adolescent and young adulthood increasing by 60%, while a one standard deviation increase in thin-ideal internalizatoin mean was associated with a modearte (14%) increase in odds of DEx. Results remained consistent when Age x Predictor interactions were introduced (Step 3 Covariates), with none of these interactions reaching significance. 
 
 ### Girls
 
-```{r}
+```{r dex-models-girls, label = 'DEx Poled Coeffs Table - Girls'}
 rm(list = ls())
-load('models/Girl_Models_DEx')
-
-bl_0_dex_girls_pooled <- pool(bl_0_dex_girls)
-bl_0_dex_girls_ORs <- summary(bl_0_dex_girls_pooled, conf.int = TRUE, exponentiate = TRUE) 
-
-bl_0_dex_girls_ORs <- bl_0_dex_girls_ORs |>  
-  mutate(`0.25 %` = estimate - std.error*2.81) |> 
-  mutate(`99.75 %` = estimate + std.error*2.81)
-
-age_1_dex_girls_pooled <- pool(age_1_dex_girls)
-age_1_dex_girls_ORs <- summary(age_1_dex_girls_pooled, conf.int = TRUE, exponentiate = TRUE)  |> 
-  mutate(`0.25 %` = estimate - std.error*2.81) |> 
-  mutate(`99.75 %` = estimate + std.error*2.81)
-
-
-#use the D1 method to compare 
-mcomp_1 <- D1(age_1_dex_girls, bl_0_dex_girls)
-
-
-#Now we include fixed effect covariates of BMI, parent highest occupation, and eating disorder cogitions at age 14: thin-ideal internalization, body dissatisfaction, and fear of weight gain
-covs_2_dex_girls_pooled <- pool(covs_2_dex_girls)
-covs_2_dex_girls_ORs <- summary(covs_2_dex_girls_pooled, conf.int = TRUE, exponentiate = TRUE)|> 
-  mutate(`0.25 %` = estimate - std.error*2.81) |> 
-  mutate(`99.75 %` = estimate + std.error*2.81)
-
-mcomp_2 <- D1(covs_2_dex_girls, age_1_dex_girls)
-
-
-covs_3_dex_girls_pooled <- pool(covs_3_dex_girls)
-covs_3_dex_girls_ORs <- summary(covs_3_dex_girls_pooled, conf.int = TRUE, exponentiate = TRUE)|> 
-  mutate(`0.25 %` = estimate - std.error*2.81) |> 
-  mutate(`99.75 %` = estimate + std.error*2.81)
-
-mcomp_3 <- D1(covs_3_dex_girls, covs_2_dex_girls)
-
-covs_4_dex_girls_pooled <- pool(covs_4_dex_girls)
-covs_4_dex_girls_ORs <- summary(covs_4_dex_girls_pooled, conf.int = TRUE, exponentiate = TRUE)|> 
-  mutate(`0.25 %` = estimate - std.error*2.81) |> 
-  mutate(`99.75 %` = estimate + std.error*2.81)
-
-mcomp_4 <- D1(covs_4_dex_girls, covs_3_dex_girls)
-
-```
-
-
-```{r, label = 'DEx Poled Coeffs Table - Girls'}
+load('models/Girl_models_DEx_Output')
 
 dfnames <- c("bl_0_dex_girls_ORs", "age_1_dex_girls_ORs", 'covs_2_dex_girls_ORs', 'covs_3_dex_girls_ORs', 'covs_4_dex_girls_ORs')
 pooled_coefs <- do.call(rbind, lapply(dfnames, function(x) cbind(get(x), Model=x))) |> 
@@ -99,7 +55,7 @@ pooled_coefs_girls
 
 ```
 
-```{r}
+```{r mcomp-dex-girls}
 #Results Table - Model Comparisons
 
 model_comparisons <- c('mcomp_1', 'mcomp_2', 'mcomp_3', 'mcomp_4')
@@ -113,75 +69,22 @@ for (i in model_comparisons) {
 }
 pooled_coefs_2 <- do.call('rbind', n) 
 
-rownames(pooled_coefs_2) <- c('Baseline vs. Age Effects', 'Age vs. Step 1 Covariates', 'Step 1 vs. Step 2 Covariates', 'Step 2 vs. Age x Covariate Interactions')
+rownames(pooled_coefs_2) <- c('Baseline vs. Age Effects', 'Age vs. Step 1 Covs', 'Step 1 Covs vs. Step 2 Covs', 'Step 2 Covs vs. Step 3 Age x Cov Interactions')
 
-mcomp_table_girls <- pooled_coefs_2 %>% 
-  kbl(caption = 'Table 2: Model Comparisons - Driven Exercise in Girls', digits = 3) %>% 
-  kable_material('striped')
+knitr::kable(pooled_coefs_2, 
+             caption = 'Table 2: Model Comparisons - Driven Exercise in Girls', digits = 3) 
 
-mcomp_table_girls
 
 ```
 
 ### Boys
 
+Models for boys are presented in Table \@ref(tab:dex-coefs-boys), with model comparisons presented in Table \@ref(tab:mcomp-dex-boys). For boys, the introduction of age, baseline covariates, and baseline ED predictors resulted in improved model fit, though there was not an improved model fit via age x predictor interactions. Boys showed low initial variability in DEx endorsement, however, there was a significant effect of age, such that DEx endoresment was more common as boys got older (odds increasing at ~ 10% per year). When including parent SES and Age 13 BMI in the model, age 13 BMI was again a significant predictor of DEx engagement, with odds of DEx increasing 89% with a one standard deviation increase in BMI. When baseline ED cognitions were entered into the model, fear of weight gain was the only additional significant predictor of DEx, with similar increase in odds as compared to girls (OR: 1.852), as fear of weight gain increased.
 
-```{r}
+
+```{r dex-coefs-boys, label = 'DEx Poled Coeffs Table - Boys'}
 rm(list = ls())
-load('models/Boy_Models_DEx')
-
-```
-
-
-```{r}
-
-bl_0_dex_boys_pooled <- pool(bl_0_dex_boys)
-bl_0_dex_boys_ORs <- summary(bl_0_dex_boys_pooled, conf.int = TRUE, exponentiate = TRUE)|> 
-  mutate(`0.25 %` = estimate - std.error*2.81) |> 
-  mutate(`99.75 %` = estimate + std.error*2.81)
-
-age_1_dex_boys_pooled <- pool(age_1_dex_boys)
-age_1_dex_boys_ORs <- summary(age_1_dex_boys_pooled, conf.int = TRUE, exponentiate = TRUE)|> 
-  mutate(`0.25 %` = estimate - std.error*2.81) |> 
-  mutate(`99.75 %` = estimate + std.error*2.81)
-
-#use the D1 method to compare 
-mcomp_1 <- D1(age_1_dex_boys, bl_0_dex_boys)
-
-```
-
-
-```{r}
-
-#Now we include fixed effect covariates of BMI, parent highest occupation, and eating disorder cogitions at age 14: thin-ideal internalization, body dissatisfaction, and fear of weight gain
-covs_2_dex_boys_pooled <- pool(covs_2_dex_boys)
-covs_2_dex_boys_ORs <- summary(covs_2_dex_boys_pooled, conf.int = TRUE, exponentiate = TRUE)|> 
-  mutate(`0.25 %` = estimate - std.error*2.81) |> 
-  mutate(`99.75 %` = estimate + std.error*2.81)
-
-mcomp_2 <- D1(covs_2_dex_boys, age_1_dex_boys)
-
-
-covs_3_dex_boys_pooled <- pool(covs_3_dex_boys)
-covs_3_dex_boys_ORs <- summary(covs_3_dex_boys_pooled, conf.int = TRUE, exponentiate = TRUE)|> 
-  mutate(`0.25 %` = estimate - std.error*2.81) |> 
-  mutate(`99.75 %` = estimate + std.error*2.81)
-
-mcomp_3 <- D1(covs_3_dex_boys, covs_2_dex_boys)
-
-covs_4_dex_boys_pooled <- pool(covs_4_dex_boys)
-covs_4_dex_boys_ORs <- summary(covs_4_dex_boys_pooled, conf.int = TRUE, exponentiate = TRUE)|> 
-  mutate(`0.25 %` = estimate - std.error*2.81) |> 
-  mutate(`99.75 %` = estimate + std.error*2.81)
-
-mcomp_4 <- D1(covs_4_dex_boys, covs_3_dex_boys)
-
-```
-
-
-
-
-```{r, label = 'DEx Poled Coeffs Table - Boys'}
+load('models/Boy_models_DEx_Output')
 
 dfnames <- c("bl_0_dex_boys_ORs", "age_1_dex_boys_ORs", 'covs_2_dex_boys_ORs', 'covs_3_dex_boys_ORs', 'covs_4_dex_boys_ORs')
 pooled_coefs <- do.call(rbind, lapply(dfnames, function(x) cbind(get(x), Model=x))) |> 
@@ -227,7 +130,7 @@ pooled_coefs_boys
 
 
 
-```{r}
+```{r mcomp-dex-boys}
 #Results Table - Model Comparisons
 
 model_comparisons <- c('mcomp_1', 'mcomp_2', 'mcomp_3', 'mcomp_4')
@@ -241,13 +144,10 @@ for (i in model_comparisons) {
 }
 pooled_coefs_2 <- do.call('rbind', n) 
 
-rownames(pooled_coefs_2) <- c('Baseline vs. Age Effects', 'Age vs. Step 1 Covariates', 'Step 1 vs. Step 2 Covariates', 'Step 2 vs. Age x Covariate Interactions')
+rownames(pooled_coefs_2) <- c('Baseline vs. Age Effects', 'Age vs. Step 1 Covs', 'Step 1 Covs vs. Step 2 Covs', 'Step 2 Covs vs. Step 3 Age x Cov Interactions')
 
-mcomp_table_boys <- pooled_coefs_2 %>% 
-  kbl(caption = 'Table 2: Model Comparisons - Driven Exercise in boys', digits = 3) %>% 
-  kable_material('striped')
-
-mcomp_table_boys
+knitr::kable(pooled_coefs_2, 
+             caption = 'Model Comparisons - Driven Exercise in Boys', digits = 3) 
 
 ```
 

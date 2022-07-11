@@ -22,7 +22,7 @@
 
 
 
-<meta name="date" content="2022-07-04" />
+<meta name="date" content="2022-07-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -129,15 +129,16 @@ div.csl-indent {
 <li class="chapter" data-level="4.2.1" data-path="results.html"><a href="results.html#girls"><i class="fa fa-check"></i><b>4.2.1</b> Girls<span></span></a></li>
 <li class="chapter" data-level="4.2.2" data-path="results.html"><a href="results.html#boys"><i class="fa fa-check"></i><b>4.2.2</b> Boys<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="4.3" data-path="results.html"><a href="results.html#mixed-effects-models---driven-exercise-over-time"><i class="fa fa-check"></i><b>4.3</b> Mixed Effects Models - Driven Exercise over Time<span></span></a>
+<li class="chapter" data-level="4.3" data-path="results.html"><a href="results.html#imputation"><i class="fa fa-check"></i><b>4.3</b> Imputation<span></span></a></li>
+<li class="chapter" data-level="4.4" data-path="results.html"><a href="results.html#mixed-effects-models---driven-exercise-over-time"><i class="fa fa-check"></i><b>4.4</b> Mixed Effects Models - Driven Exercise over Time<span></span></a>
 <ul>
-<li class="chapter" data-level="4.3.1" data-path="results.html"><a href="results.html#girls-1"><i class="fa fa-check"></i><b>4.3.1</b> Girls<span></span></a></li>
-<li class="chapter" data-level="4.3.2" data-path="results.html"><a href="results.html#boys-1"><i class="fa fa-check"></i><b>4.3.2</b> Boys<span></span></a></li>
+<li class="chapter" data-level="4.4.1" data-path="results.html"><a href="results.html#girls-1"><i class="fa fa-check"></i><b>4.4.1</b> Girls<span></span></a></li>
+<li class="chapter" data-level="4.4.2" data-path="results.html"><a href="results.html#boys-1"><i class="fa fa-check"></i><b>4.4.2</b> Boys<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="4.4" data-path="results.html"><a href="results.html#mixed-effect-models---exercise-for-weight-loss"><i class="fa fa-check"></i><b>4.4</b> Mixed-Effect Models - Exercise for Weight Loss<span></span></a>
+<li class="chapter" data-level="4.5" data-path="results.html"><a href="results.html#mixed-effect-models---exercise-for-weight-loss"><i class="fa fa-check"></i><b>4.5</b> Mixed-Effect Models - Exercise for Weight Loss<span></span></a>
 <ul>
-<li class="chapter" data-level="4.4.1" data-path="results.html"><a href="results.html#girls-2"><i class="fa fa-check"></i><b>4.4.1</b> Girls<span></span></a></li>
-<li class="chapter" data-level="4.4.2" data-path="results.html"><a href="results.html#boys-2"><i class="fa fa-check"></i><b>4.4.2</b> Boys<span></span></a></li>
+<li class="chapter" data-level="4.5.1" data-path="results.html"><a href="results.html#girls-2"><i class="fa fa-check"></i><b>4.5.1</b> Girls<span></span></a></li>
+<li class="chapter" data-level="4.5.2" data-path="results.html"><a href="results.html#boys-2"><i class="fa fa-check"></i><b>4.5.2</b> Boys<span></span></a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="discussion.html"><a href="discussion.html"><i class="fa fa-check"></i><b>5</b> Discussion<span></span></a></li>
@@ -888,10 +889,10 @@ DEx
 No EWL
 </td>
 <td style="text-align:left;">
-0.741 ( 0.715, 0.765 )
+0.741 ( 0.716, 0.764 )
 </td>
 <td style="text-align:left;">
-0.226 ( 0.204, 0.25 )
+0.226 ( 0.205, 0.249 )
 </td>
 <td style="text-align:left;">
 0.032 ( 0.027, 0.039 )
@@ -902,13 +903,13 @@ No EWL
 EWL
 </td>
 <td style="text-align:left;">
-0.215 ( 0.192, 0.243 )
+0.215 ( 0.192, 0.242 )
 </td>
 <td style="text-align:left;">
-0.617 ( 0.589, 0.644 )
+0.617 ( 0.587, 0.643 )
 </td>
 <td style="text-align:left;">
-0.168 ( 0.146, 0.191 )
+0.168 ( 0.147, 0.192 )
 </td>
 </tr>
 <tr>
@@ -916,13 +917,13 @@ EWL
 DEx
 </td>
 <td style="text-align:left;">
-0.069 ( 0.056, 0.086 )
+0.069 ( 0.055, 0.085 )
 </td>
 <td style="text-align:left;">
-0.381 ( 0.32, 0.443 )
+0.381 ( 0.318, 0.441 )
 </td>
 <td style="text-align:left;">
-0.55 ( 0.476, 0.619 )
+0.55 ( 0.479, 0.626 )
 </td>
 </tr>
 </tbody>
@@ -1039,6 +1040,470 @@ DEx
 </td>
 <td style="text-align:right;">
 50
+</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption>
+<span id="tab:predmat">Table 8.6: </span>Predictor Matrix for Multiple Imputation
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+id
+</th>
+<th style="text-align:right;">
+age_adjust
+</th>
+<th style="text-align:right;">
+driven_exercise
+</th>
+<th style="text-align:right;">
+exercise_wtloss
+</th>
+<th style="text-align:right;">
+bmi_z_bestavail
+</th>
+<th style="text-align:right;">
+ti_mean_14_std
+</th>
+<th style="text-align:right;">
+body_sat_mean_14_std
+</th>
+<th style="text-align:right;">
+fear_wtgain_14
+</th>
+<th style="text-align:right;">
+parent_highest_occupation
+</th>
+<th style="text-align:right;">
+education_mum
+</th>
+<th style="text-align:right;">
+education_partner
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+id
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+age_adjust
+</td>
+<td style="text-align:right;">
+-2
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+driven_exercise
+</td>
+<td style="text-align:right;">
+-2
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+exercise_wtloss
+</td>
+<td style="text-align:right;">
+-2
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+bmi_z_bestavail
+</td>
+<td style="text-align:right;">
+-2
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ti_mean_14_std
+</td>
+<td style="text-align:right;">
+-2
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+body_sat_mean_14_std
+</td>
+<td style="text-align:right;">
+-2
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+fear_wtgain_14
+</td>
+<td style="text-align:right;">
+-2
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+parent_highest_occupation
+</td>
+<td style="text-align:right;">
+-2
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+education_mum
+</td>
+<td style="text-align:right;">
+-2
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+education_partner
+</td>
+<td style="text-align:right;">
+-2
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
 </td>
 </tr>
 </tbody>

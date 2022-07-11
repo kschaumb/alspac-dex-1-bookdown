@@ -295,3 +295,9 @@ knitr::kable(state_table_boys)
 
 ```
 
+```{r predmat}
+load('data/glm_mice_girls/glm_mice_girls.Rdata')
+pred <- mi.res$predictorMatrix
+knitr::kable(pred, 
+             caption = 'Predictor Matrix for Multiple Imputation')
+```

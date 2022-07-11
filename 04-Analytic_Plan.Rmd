@@ -14,7 +14,7 @@ knitr::include_graphics('figs/Transition-Diagram.png')
 
 ## Missing Data
 
-Prior to mixed-effects modeling, missing data will be imputed using the `mice` and `miceadds` packages [@R-mice; @R-miceadds]. Data to be imputed is included in Supplemental Table \@ref(tab:imptab). A mixed-model approach to imputation will be used. Time-invariant variables will be imputed at level-2 only using a Predictive Mean Matching (PMM) approach, and outcome variables will be imputed using 2-level approaches, which consider time (see Supplemental Table \@ref(tab:imptab)). Datasets for girls and boys will be imputed separately, with 20 imputed datasets 
+Prior to mixed-effects modeling, missing data will be imputed using the `mice` and `miceadds` packages [@R-mice; @R-miceadds]. Data to be imputed is included in Supplemental Table \@ref(tab:imptab). A mixed-model approach to imputation will be used. Time-invariant variables will be imputed at level-2 only using a Predictive Mean Matching (PMM) approach, and outcome variables will be imputed using 2-level approaches, which consider time (see Supplemental Table \@ref(tab:imptab)). Datasets for girls and boys will be imputed separately, with 20 imputed datasets. In addition to covariate and predictor variables, parent education was also included in the imputation model specifically to improve imputation of highest parent occupation (measure of SES).
 
 ## Mixed Effects Modeling
 

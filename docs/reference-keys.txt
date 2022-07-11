@@ -7,8 +7,12 @@ fig:transition-boyplot
 tab:pmat-girls2
 tab:GirlHRs
 tab:pmat-boys2
-tab:unnamed-chunk-3
-tab:unnamed-chunk-7
+tab:pobs-girls
+tab:pobs-boys
+tab:mcomp-dex-girls
+tab:mcomp-dex-boys
+tab:ewl-mcomp-girls
+tab:ewl-mcomp-boys
 fig:age24-raw-ewl
 fig:ex-interfere
 fig:ewl-plot
@@ -18,6 +22,7 @@ tab:continuous
 tab:pses
 tab:fearwt
 tab:pmat-girls1-covs
+tab:predmat
 introduction
 driven-exercise-in-alspac
 current-study
@@ -47,6 +52,7 @@ exercise-groups
 transitions-in-exercise-groups-over-time
 girls
 boys
+imputation
 mixed-effects-models---driven-exercise-over-time
 girls-1
 boys-1

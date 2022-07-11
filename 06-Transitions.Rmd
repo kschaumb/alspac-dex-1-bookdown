@@ -138,7 +138,7 @@ Girl_HRs %>%
 
 ### Boys
 
-Raw transitions amongst boys are presented in Supplemental Table \@ref(tab:boys-state-table). Overall, there appeared to be less stability in the DEx group, as compared to girls, by examination of raw numbers.The transition probabilities across 1-year based on the Q-matrix allowing direct transitions across all groups with the exception of instantaneous transition from 'No EWL' to 'DEx' are presented in Table \@ref(tab:pmat-boys2). Stability in the 'No EWL' group was common, and stability in all groups was the most common 1-year outcome. There was a moderate probability (~16-20%) of boys in the EWL group transitioning to either the no-EWL or DEx groups over a 1-year period. Similarly, boys in the DEx group showed a moderate probability of transitioning to either the EWL (18%) or 'No EWL' (19%) group over a 1-year period. Models includign covariates did not converge for boys, due to low base rates of some transitions.
+Raw transitions amongst boys are presented in Supplemental Table \@ref(tab:boys-state-table). Overall, there appeared to be less stability in the DEx group, as compared to girls, by examination of raw numbers.The transition probabilities across 1-year based on the Q-matrix allowing direct transitions across all groups with the exception of instantaneous transition from 'No EWL' to 'DEx' are presented in Table \@ref(tab:pmat-boys2). Stability in the 'No EWL' group was common, and stability in all groups was the most common 1-year outcome. There was a moderate probability (~16-20%) of boys in the EWL group transitioning to either the no-EWL or DEx groups over a 1-year period. Similarly, boys in the DEx group showed a moderate probability of transitioning to either the EWL (18%) or 'No EWL' (19%) group over a 1-year period. Models including covariates did not converge for boys, due to low base rates of some transitions.
 
 
 ```{r pmat-boys2}
@@ -189,8 +189,6 @@ knitr::kable(estimate,
              caption  = 'Estimates of Transition Probabilities Across 1-year amongst boys: From (rows) - To (cols)')
 ```
 
-
-
-
+While Markov state models are useful in describing overall transition patterns, one notable limitation is the assumption under these models that transitions are time independent; that is, that that transition to and from states is not dependent on age. This removes consideration of developmental timepoints that may be relevant as risk progresses. Further, the inclusion of covariates is able to test the effect of these covariates on specific transitions, but not overall risk of exercise for weight loss or driven exercise over time. In the next step of analysis, mixed models examine 
 
 

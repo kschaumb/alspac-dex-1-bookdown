@@ -22,7 +22,7 @@
 
 
 
-<meta name="date" content="2022-07-04" />
+<meta name="date" content="2022-07-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -129,15 +129,16 @@ div.csl-indent {
 <li class="chapter" data-level="4.2.1" data-path="results.html"><a href="results.html#girls"><i class="fa fa-check"></i><b>4.2.1</b> Girls<span></span></a></li>
 <li class="chapter" data-level="4.2.2" data-path="results.html"><a href="results.html#boys"><i class="fa fa-check"></i><b>4.2.2</b> Boys<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="4.3" data-path="results.html"><a href="results.html#mixed-effects-models---driven-exercise-over-time"><i class="fa fa-check"></i><b>4.3</b> Mixed Effects Models - Driven Exercise over Time<span></span></a>
+<li class="chapter" data-level="4.3" data-path="results.html"><a href="results.html#imputation"><i class="fa fa-check"></i><b>4.3</b> Imputation<span></span></a></li>
+<li class="chapter" data-level="4.4" data-path="results.html"><a href="results.html#mixed-effects-models---driven-exercise-over-time"><i class="fa fa-check"></i><b>4.4</b> Mixed Effects Models - Driven Exercise over Time<span></span></a>
 <ul>
-<li class="chapter" data-level="4.3.1" data-path="results.html"><a href="results.html#girls-1"><i class="fa fa-check"></i><b>4.3.1</b> Girls<span></span></a></li>
-<li class="chapter" data-level="4.3.2" data-path="results.html"><a href="results.html#boys-1"><i class="fa fa-check"></i><b>4.3.2</b> Boys<span></span></a></li>
+<li class="chapter" data-level="4.4.1" data-path="results.html"><a href="results.html#girls-1"><i class="fa fa-check"></i><b>4.4.1</b> Girls<span></span></a></li>
+<li class="chapter" data-level="4.4.2" data-path="results.html"><a href="results.html#boys-1"><i class="fa fa-check"></i><b>4.4.2</b> Boys<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="4.4" data-path="results.html"><a href="results.html#mixed-effect-models---exercise-for-weight-loss"><i class="fa fa-check"></i><b>4.4</b> Mixed-Effect Models - Exercise for Weight Loss<span></span></a>
+<li class="chapter" data-level="4.5" data-path="results.html"><a href="results.html#mixed-effect-models---exercise-for-weight-loss"><i class="fa fa-check"></i><b>4.5</b> Mixed-Effect Models - Exercise for Weight Loss<span></span></a>
 <ul>
-<li class="chapter" data-level="4.4.1" data-path="results.html"><a href="results.html#girls-2"><i class="fa fa-check"></i><b>4.4.1</b> Girls<span></span></a></li>
-<li class="chapter" data-level="4.4.2" data-path="results.html"><a href="results.html#boys-2"><i class="fa fa-check"></i><b>4.4.2</b> Boys<span></span></a></li>
+<li class="chapter" data-level="4.5.1" data-path="results.html"><a href="results.html#girls-2"><i class="fa fa-check"></i><b>4.5.1</b> Girls<span></span></a></li>
+<li class="chapter" data-level="4.5.2" data-path="results.html"><a href="results.html#boys-2"><i class="fa fa-check"></i><b>4.5.2</b> Boys<span></span></a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="discussion.html"><a href="discussion.html"><i class="fa fa-check"></i><b>5</b> Discussion<span></span></a></li>
@@ -237,7 +238,7 @@ DEx
 No EWL
 </td>
 <td style="text-align:left;">
-0.788 ( 0.775, 0.800 )
+0.788 ( 0.774, 0.800 )
 </td>
 <td style="text-align:left;">
 0.188 ( 0.177, 0.200 )
@@ -251,10 +252,10 @@ No EWL
 EWL
 </td>
 <td style="text-align:left;">
-0.157 ( 0.142, 0.177 )
+0.157 ( 0.142, 0.175 )
 </td>
 <td style="text-align:left;">
-0.675 ( 0.653, 0.697 )
+0.675 ( 0.655, 0.695 )
 </td>
 <td style="text-align:left;">
 0.168 ( 0.151, 0.185 )
@@ -265,13 +266,13 @@ EWL
 DEx
 </td>
 <td style="text-align:left;">
-0.106 ( 0.086, 0.141 )
+0.106 ( 0.085, 0.140 )
 </td>
 <td style="text-align:left;">
-0.291 ( 0.249, 0.337 )
+0.291 ( 0.249, 0.339 )
 </td>
 <td style="text-align:left;">
-0.603 ( 0.556, 0.647 )
+0.603 ( 0.554, 0.647 )
 </td>
 </tr>
 </tbody>
@@ -391,7 +392,7 @@ Parent Occupation
 </div>
 <div id="boys" class="section level3 hasAnchor" number="4.2.2">
 <h3><span class="header-section-number">4.2.2</span> Boys<a href="results.html#boys" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Raw transitions amongst boys are presented in Supplemental Table <a href="#tab:boys-state-table"><strong>??</strong></a>. Overall, there appeared to be less stability in the DEx group, as compared to girls, by examination of raw numbers.The transition probabilities across 1-year based on the Q-matrix allowing direct transitions across all groups with the exception of instantaneous transition from ‘No EWL’ to ‘DEx’ are presented in Table <a href="results.html#tab:pmat-boys2">4.3</a>. Stability in the ‘No EWL’ group was common, and stability in all groups was the most common 1-year outcome. There was a moderate probability (~16-20%) of boys in the EWL group transitioning to either the no-EWL or DEx groups over a 1-year period. Similarly, boys in the DEx group showed a moderate probability of transitioning to either the EWL (18%) or ‘No EWL’ (19%) group over a 1-year period. Models includign covariates did not converge for boys, due to low base rates of some transitions.</p>
+<p>Raw transitions amongst boys are presented in Supplemental Table <a href="#tab:boys-state-table"><strong>??</strong></a>. Overall, there appeared to be less stability in the DEx group, as compared to girls, by examination of raw numbers.The transition probabilities across 1-year based on the Q-matrix allowing direct transitions across all groups with the exception of instantaneous transition from ‘No EWL’ to ‘DEx’ are presented in Table <a href="results.html#tab:pmat-boys2">4.3</a>. Stability in the ‘No EWL’ group was common, and stability in all groups was the most common 1-year outcome. There was a moderate probability (~16-20%) of boys in the EWL group transitioning to either the no-EWL or DEx groups over a 1-year period. Similarly, boys in the DEx group showed a moderate probability of transitioning to either the EWL (18%) or ‘No EWL’ (19%) group over a 1-year period. Models including covariates did not converge for boys, due to low base rates of some transitions.</p>
 <table>
 <caption>
 <span id="tab:pmat-boys2">Table 4.3: </span>Estimates of Transition Probabilities Across 1-year amongst boys: From (rows) - To (cols)
@@ -431,13 +432,13 @@ No EWL
 EWL
 </td>
 <td style="text-align:left;">
-0.203 ( 0.174, 0.241 )
+0.203 ( 0.174, 0.244 )
 </td>
 <td style="text-align:left;">
-0.629 ( 0.592, 0.669 )
+0.629 ( 0.588, 0.669 )
 </td>
 <td style="text-align:left;">
-0.168 ( 0.138, 0.196 )
+0.168 ( 0.137, 0.195 )
 </td>
 </tr>
 <tr>
@@ -445,24 +446,274 @@ EWL
 DEx
 </td>
 <td style="text-align:left;">
-0.193 ( 0.152, 0.249 )
+0.193 ( 0.152, 0.245 )
 </td>
 <td style="text-align:left;">
-0.178 ( 0.119, 0.259 )
+0.178 ( 0.117, 0.262 )
 </td>
 <td style="text-align:left;">
-0.629 ( 0.544, 0.704 )
+0.629 ( 0.540, 0.698 )
+</td>
+</tr>
+</tbody>
+</table>
+<p>While Markov state models are useful in describing overall transition patterns, one notable limitation is the assumption under these models that transitions are time independent; that is, that that transition to and from states is not dependent on age. This removes consideration of developmental timepoints that may be relevant as risk progresses. Further, the inclusion of covariates is able to test the effect of these covariates on specific transitions, but not overall risk of exercise for weight loss or driven exercise over time. In the next step of analysis, mixed models examine</p>
+
+</div>
+</div>
+<div id="imputation" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> Imputation<a href="results.html#imputation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>As stated in the analytic plan, data was imputed prior to conducting mixed effects models, with 10 iterations on 20 imputated datasets</p>
+<p>The predictor matrix is presented in Table <a href="supplemental-tables.html#tab:predmat">8.6</a> ; the percent missing for each variable prior to imputation is presented in Supplemental Table <a href="results.html#tab:pobs-girls">4.4</a> for girls and Supplemental Table <a href="results.html#tab:pobs-boys">4.5</a> for boys. In addition, tables <a href="results.html#tab:pobs-girls">4.4</a> and <a href="results.html#tab:pobs-boys">4.5</a> report the influx (overall number of variable pairs <span class="math inline">\((Y_j,Y_k)\)</span> with <span class="math inline">\(Y_j\)</span> missing and <span class="math inline">\(Y_k\)</span> observed, divided by the total number of observed data cells), and outflux (the number of variable pairs with <span class="math inline">\(Y_j\)</span> observed and <span class="math inline">\(Y_k\)</span> missing, divided by the total number of incomplete data cells) for each variable. The influx refers to connection to the observed data (ease of imputation, with one representing the highest level of connection to the observed data) the outflux refers to potential contribution to this variable in imputing other data, both on a 0-1 scale with one representing the highest possible levels of influx/outflux. Overall, there was moderate levels of missingness in the current data.</p>
+<table>
+<caption>
+<span id="tab:pobs-girls">Table 4.4: </span>Missing Data Prior to Imputation - Girls
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Variable
+</th>
+<th style="text-align:right;">
+Percent Missing
+</th>
+<th style="text-align:right;">
+Influx
+</th>
+<th style="text-align:right;">
+Outflux
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Maladaptive Exercise
+</td>
+<td style="text-align:right;">
+36.91
+</td>
+<td style="text-align:right;">
+0.29
+</td>
+<td style="text-align:right;">
+0.28
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Exercise for Weight Loss
+</td>
+<td style="text-align:right;">
+36.18
+</td>
+<td style="text-align:right;">
+0.28
+</td>
+<td style="text-align:right;">
+0.29
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+BMI Z - Age 13
+</td>
+<td style="text-align:right;">
+17.33
+</td>
+<td style="text-align:right;">
+0.12
+</td>
+<td style="text-align:right;">
+0.59
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Thin-ideal Internalization - Age 14
+</td>
+<td style="text-align:right;">
+22.88
+</td>
+<td style="text-align:right;">
+0.14
+</td>
+<td style="text-align:right;">
+0.40
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Body Satisifaction - Age 14
+</td>
+<td style="text-align:right;">
+22.51
+</td>
+<td style="text-align:right;">
+0.14
+</td>
+<td style="text-align:right;">
+0.41
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Fear of Wt Gain - Age 14
+</td>
+<td style="text-align:right;">
+23.16
+</td>
+<td style="text-align:right;">
+0.15
+</td>
+<td style="text-align:right;">
+0.40
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Parent SES
+</td>
+<td style="text-align:right;">
+17.96
+</td>
+<td style="text-align:right;">
+0.13
+</td>
+<td style="text-align:right;">
+0.59
+</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption>
+<span id="tab:pobs-boys">Table 4.5: </span>Missing Data Prior to Imputation - Boys
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Variable
+</th>
+<th style="text-align:right;">
+Percent Missing
+</th>
+<th style="text-align:right;">
+Influx
+</th>
+<th style="text-align:right;">
+Outflux
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Maladaptive Exercise
+</td>
+<td style="text-align:right;">
+45.61
+</td>
+<td style="text-align:right;">
+0.38
+</td>
+<td style="text-align:right;">
+0.22
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Exercise for Weight Loss
+</td>
+<td style="text-align:right;">
+45.37
+</td>
+<td style="text-align:right;">
+0.38
+</td>
+<td style="text-align:right;">
+0.22
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+BMI Z - Age 13
+</td>
+<td style="text-align:right;">
+10.71
+</td>
+<td style="text-align:right;">
+0.08
+</td>
+<td style="text-align:right;">
+0.76
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Thin-ideal Internalization - Age 14
+</td>
+<td style="text-align:right;">
+24.14
+</td>
+<td style="text-align:right;">
+0.17
+</td>
+<td style="text-align:right;">
+0.45
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Body Satisifaction - Age 14
+</td>
+<td style="text-align:right;">
+20.16
+</td>
+<td style="text-align:right;">
+0.13
+</td>
+<td style="text-align:right;">
+0.50
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Fear of Wt Gain - Age 14
+</td>
+<td style="text-align:right;">
+21.24
+</td>
+<td style="text-align:right;">
+0.14
+</td>
+<td style="text-align:right;">
+0.49
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Parent SES
+</td>
+<td style="text-align:right;">
+13.25
+</td>
+<td style="text-align:right;">
+0.10
+</td>
+<td style="text-align:right;">
+0.71
 </td>
 </tr>
 </tbody>
 </table>
 
 </div>
-</div>
-<div id="mixed-effects-models---driven-exercise-over-time" class="section level2 hasAnchor" number="4.3">
-<h2><span class="header-section-number">4.3</span> Mixed Effects Models - Driven Exercise over Time<a href="results.html#mixed-effects-models---driven-exercise-over-time" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="girls-1" class="section level3 hasAnchor" number="4.3.1">
-<h3><span class="header-section-number">4.3.1</span> Girls<a href="results.html#girls-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="mixed-effects-models---driven-exercise-over-time" class="section level2 hasAnchor" number="4.4">
+<h2><span class="header-section-number">4.4</span> Mixed Effects Models - Driven Exercise over Time<a href="results.html#mixed-effects-models---driven-exercise-over-time" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Mixed effects logistic regression models examined changes in DEx across age, along with predictors baseline (age 14) predictors of this behavior and interactions between baseline predictors and the linear effect of age, with results reported in <a href="#tab:dex-models-girls"><strong>??</strong></a>. Model comparisons (presented in Table <a href="results.html#tab:mcomp-dex-girls">4.6</a>), indicated that the most complex (Step 3) model which included all predictors and Age x Predictor interactions fit best. In the baseline model, a substantial portion of girls (~13%) reported DEx. Baseline levels of DEx at age 14 were included as a random effect in subsequent models. In the model including only age as a predictor, age was a significant predictor, with effect sizes indicating a small but relevant linear increase in DEx risk each year. In the model including parent SES and BMI at age 13 as predictors, BMI Z-score at age 13 predicted higher levels of DEx overall amongst girls, with a one standard deviation in BMI increasing odds (OR: 1.347) of DEx. When ED cognitions were introduced into the model (Step 2 Covariates), BMI Z-score remained a significant predictor of DEx, though its effect size decreased in magnitude. Both Thin-ideal internalization at age 14 and fear of weight gain at age 14 were associated with greater odds of DEx, on average. An increase of 1-unit in fear of weight gain (e.g. from ‘sometimes’ to xxx) resulted in odds of DEx over adolescent and young adulthood increasing by 60%, while a one standard deviation increase in thin-ideal internalizatoin mean was associated with a modearte (14%) increase in odds of DEx. Results remained consistent when Age x Predictor interactions were introduced (Step 3 Covariates), with none of these interactions reaching significance.</p>
+<div id="girls-1" class="section level3 hasAnchor" number="4.4.1">
+<h3><span class="header-section-number">4.4.1</span> Girls<a href="results.html#girls-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <table class=" lightable-paper" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; margin-left: auto; margin-right: auto;">
 <caption>
 (#tab:DEx Poled Coeffs Table - Girls)Table 1: Parameter Estimates for Models Predicting Driven Exercise in Girls
@@ -992,9 +1243,9 @@ Age x Thin-Ideal Internalization (14)
 </tr>
 </tbody>
 </table>
-<table class=" lightable-material lightable-striped" style="font-family: &quot;Source Sans Pro&quot;, helvetica, sans-serif; margin-left: auto; margin-right: auto;">
+<table>
 <caption>
-<span id="tab:unnamed-chunk-3">Table 4.4: </span>Table 2: Model Comparisons - Driven Exercise in Girls
+<span id="tab:mcomp-dex-girls">Table 4.6: </span>Table 2: Model Comparisons - Driven Exercise in Girls
 </caption>
 <thead>
 <tr>
@@ -1040,7 +1291,7 @@ Baseline vs. Age Effects
 </tr>
 <tr>
 <td style="text-align:left;">
-Age vs. Step 1 Covariates
+Age vs. Step 1 Covs
 </td>
 <td style="text-align:right;">
 43.955
@@ -1060,7 +1311,7 @@ Age vs. Step 1 Covariates
 </tr>
 <tr>
 <td style="text-align:left;">
-Step 1 vs. Step 2 Covariates
+Step 1 Covs vs. Step 2 Covs
 </td>
 <td style="text-align:right;">
 54.874
@@ -1080,7 +1331,7 @@ Step 1 vs. Step 2 Covariates
 </tr>
 <tr>
 <td style="text-align:left;">
-Step 2 vs. Age x Covariate Interactions
+Step 2 Covs vs. Step 3 Age x Cov Interactions
 </td>
 <td style="text-align:right;">
 4.432
@@ -1101,8 +1352,9 @@ Step 2 vs. Age x Covariate Interactions
 </tbody>
 </table>
 </div>
-<div id="boys-1" class="section level3 hasAnchor" number="4.3.2">
-<h3><span class="header-section-number">4.3.2</span> Boys<a href="results.html#boys-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="boys-1" class="section level3 hasAnchor" number="4.4.2">
+<h3><span class="header-section-number">4.4.2</span> Boys<a href="results.html#boys-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Models for boys are presented in Table <a href="#tab:dex-coefs-boys"><strong>??</strong></a>, with model comparisons presented in Table <a href="results.html#tab:mcomp-dex-boys">4.7</a>. For boys, the introduction of age, baseline covariates, and baseline ED predictors resulted in improved model fit, though there was not an improved model fit via age x predictor interactions. Boys showed low initial variability in DEx endorsement, however, there was a significant effect of age, such that DEx endoresment was more common as boys got older (odds increasing at ~ 10% per year). When including parent SES and Age 13 BMI in the model, age 13 BMI was again a significant predictor of DEx engagement, with odds of DEx increasing 89% with a one standard deviation increase in BMI. When baseline ED cognitions were entered into the model, fear of weight gain was the only additional significant predictor of DEx, with similar increase in odds as compared to girls (OR: 1.852), as fear of weight gain increased.</p>
 <table class=" lightable-paper" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; margin-left: auto; margin-right: auto;">
 <caption>
 (#tab:DEx Poled Coeffs Table - Boys)Table 1: Parameter Estimates for Models Predicting Driven Exercise in Boys
@@ -1632,9 +1884,9 @@ Age x Thin-Ideal Internalization (14)
 </tr>
 </tbody>
 </table>
-<table class=" lightable-material lightable-striped" style="font-family: &quot;Source Sans Pro&quot;, helvetica, sans-serif; margin-left: auto; margin-right: auto;">
+<table>
 <caption>
-<span id="tab:unnamed-chunk-7">Table 4.5: </span>Table 2: Model Comparisons - Driven Exercise in boys
+<span id="tab:mcomp-dex-boys">Table 4.7: </span>Model Comparisons - Driven Exercise in Boys
 </caption>
 <thead>
 <tr>
@@ -1680,7 +1932,7 @@ Baseline vs. Age Effects
 </tr>
 <tr>
 <td style="text-align:left;">
-Age vs. Step 1 Covariates
+Age vs. Step 1 Covs
 </td>
 <td style="text-align:right;">
 80.459
@@ -1700,7 +1952,7 @@ Age vs. Step 1 Covariates
 </tr>
 <tr>
 <td style="text-align:left;">
-Step 1 vs. Step 2 Covariates
+Step 1 Covs vs. Step 2 Covs
 </td>
 <td style="text-align:right;">
 17.101
@@ -1720,7 +1972,7 @@ Step 1 vs. Step 2 Covariates
 </tr>
 <tr>
 <td style="text-align:left;">
-Step 2 vs. Age x Covariate Interactions
+Step 2 Covs vs. Step 3 Age x Cov Interactions
 </td>
 <td style="text-align:right;">
 2.077
@@ -1741,18 +1993,125 @@ Step 2 vs. Age x Covariate Interactions
 </tbody>
 </table>
 
-
 </div>
 </div>
-<div id="mixed-effect-models---exercise-for-weight-loss" class="section level2 hasAnchor" number="4.4">
-<h2><span class="header-section-number">4.4</span> Mixed-Effect Models - Exercise for Weight Loss<a href="results.html#mixed-effect-models---exercise-for-weight-loss" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>We are utilizing the same approach to examine endorsement of exercise
-for weight loss over time in the sample, but use an ordinal model (clmm)</p>
-<div id="girls-2" class="section level3 hasAnchor" number="4.4.1">
-<h3><span class="header-section-number">4.4.1</span> Girls<a href="results.html#girls-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="mixed-effect-models---exercise-for-weight-loss" class="section level2 hasAnchor" number="4.5">
+<h2><span class="header-section-number">4.5</span> Mixed-Effect Models - Exercise for Weight Loss<a href="results.html#mixed-effect-models---exercise-for-weight-loss" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The same multilevel modeling approach was used to examine endorsement of EWL over time in the sample, substituting a cummulative-link modeling approach to accommodate the ordinal outcome of EWL frequency.To compare models with imputed datasets with ordinal outcomes implemented in R, we estimated the improvement in fit of models by examining the mean AIC of all 20 models for imputed data, along with the mean difference in log liklihood when comparing all nested models on all iterations of imputed datasets. Summary statistics for model comparisons are presented in table <a href="results.html#tab:ewl-mcomp-girls">4.8</a> for Girls and table <a href="results.html#tab:ewl-mcomp-boys">4.9</a> for boys</p>
+<div id="girls-2" class="section level3 hasAnchor" number="4.5.1">
+<h3><span class="header-section-number">4.5.1</span> Girls<a href="results.html#girls-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Overall, the most complex model (including Age x Covariate interactions) was identified as the best model for girls, both in terms of the median -2 log likelihood difference comparison as well as via the lowest AIC.</p>
+<table>
+<caption>
+<span id="tab:ewl-mcomp-girls">Table 4.8: </span>Model Comparison Table for Exercise for Weight Loss - Girls
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Model
+</th>
+<th style="text-align:right;">
+AIC
+</th>
+<th style="text-align:left;">
+Model Comparison
+</th>
+<th style="text-align:right;">
+Median -2LL difference
+</th>
+<th style="text-align:left;">
+df
+</th>
+<th style="text-align:right;">
+p-value
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Age Model
+</td>
+<td style="text-align:right;">
+34763.40
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Step 1 Covs
+</td>
+<td style="text-align:right;">
+34222.94
+</td>
+<td style="text-align:left;">
+Age vs. Step 1 Covs
+</td>
+<td style="text-align:right;">
+563.80
+</td>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Step 2 Covs
+</td>
+<td style="text-align:right;">
+33741.42
+</td>
+<td style="text-align:left;">
+Step 1 Covs vs. Step 2 Covs
+</td>
+<td style="text-align:right;">
+478.90
+</td>
+<td style="text-align:left;">
+3
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Step 3 Covs
+</td>
+<td style="text-align:right;">
+33666.76
+</td>
+<td style="text-align:left;">
+Step 2 Covs vs. Step 3 Age x Cov interactions
+</td>
+<td style="text-align:right;">
+83.46
+</td>
+<td style="text-align:left;">
+4
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+</tbody>
+</table>
+<p>With regrads to specfic predictors, Age, Parent SES, Body Mass Index at age 13, Thin-ideal interanlization, and Fear of Weight gain all emerged as significant positive predictors of frequency of exercise for weight loss (see Table <a href="#tab:ewl-coefs-girls"><strong>??</strong></a> for coefficients). Body dissatisfaction was the only ED cognition variable that was not significant</p>
 <table class=" lightable-paper" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; margin-left: auto; margin-right: auto;">
 <caption>
-(#tab:EWL Poled Coeffs Table - Girls)Table 1: Parameter Estimates for Models Predicting Driven Exercise in Girls
+(#tab:EWL Poled Coeffs Table - Girls)Table 1: Parameter Estimates for Models Predicting Exercise for Weight Loss in Girls
 </caption>
 <thead>
 <tr>
@@ -2253,11 +2612,119 @@ Age x Thin-Ideal Internalization (14)
 </tbody>
 </table>
 </div>
-<div id="boys-2" class="section level3 hasAnchor" number="4.4.2">
-<h3><span class="header-section-number">4.4.2</span> Boys<a href="results.html#boys-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="boys-2" class="section level3 hasAnchor" number="4.5.2">
+<h3><span class="header-section-number">4.5.2</span> Boys<a href="results.html#boys-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<table>
+<caption>
+<span id="tab:ewl-mcomp-boys">Table 4.9: </span>Model Comparison Table for Exercise for Weight Loss - Girls
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Model
+</th>
+<th style="text-align:right;">
+AIC
+</th>
+<th style="text-align:left;">
+Model Comparison
+</th>
+<th style="text-align:right;">
+Median -2LL difference
+</th>
+<th style="text-align:left;">
+df
+</th>
+<th style="text-align:right;">
+p-value
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Age Model
+</td>
+<td style="text-align:right;">
+34763.40
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Step 1 Covs
+</td>
+<td style="text-align:right;">
+34222.94
+</td>
+<td style="text-align:left;">
+Age vs. Step 1 Covs
+</td>
+<td style="text-align:right;">
+563.80
+</td>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Step 2 Covs
+</td>
+<td style="text-align:right;">
+33741.42
+</td>
+<td style="text-align:left;">
+Step 1 Covs vs. Step 2 Covs
+</td>
+<td style="text-align:right;">
+478.90
+</td>
+<td style="text-align:left;">
+3
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Step 3 Covs
+</td>
+<td style="text-align:right;">
+33666.76
+</td>
+<td style="text-align:left;">
+Step 2 Covs vs. Step 3 Age x Cov interactions
+</td>
+<td style="text-align:right;">
+83.46
+</td>
+<td style="text-align:left;">
+4
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+</tbody>
+</table>
+<p>Specific Parameters and coefficients are presented in Table <a href="#tab:ewl-coefs-boys"><strong>??</strong></a></p>
 <table class=" lightable-paper" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; margin-left: auto; margin-right: auto;">
 <caption>
-(#tab:EWL Poled Coeffs Table - boys)Table 1: Parameter Estimates for Models Predicting Driven Exercise in boys
+(#tab:EWL Poled Coeffs Table - boys)Table 1: Parameter Estimates for Models Predicting Exercise for Weight Loss in Boys
 </caption>
 <thead>
 <tr>
