@@ -23,7 +23,7 @@ colnames(fear_wt_table) <- c('Response', 'Girls N', 'Girls %', 'Boys N', 'Boys %
 knitr::kable(fear_wt_table, caption = 'Fear of Weight Gain at Age 14 - Responses Frequencies')
 ```
 
-```{r state-table-girls, fig.cap = 'Raw number of Transitions between Exercise Groups - Girls' }
+```{r state-table-girls}
 
 #state table for girls
 state_table_girls <- as.data.frame(statetable.msm(exercise_group, id, data = transition_data_girls))
@@ -37,7 +37,8 @@ state_table_girls[state_table_girls == '1'] <- 'no EWL'
 state_table_girls[state_table_girls == '2'] <- 'EWL'
 state_table_girls[state_table_girls == '3'] <- 'DEx'
 
-knitr::kable(state_table_girls)
+knitr::kable(state_table_girls, 
+             caption = "Raw Number of Exercise State Transitions Amongst Girls")
 
 ```
 
@@ -187,9 +188,8 @@ knitr::kable(estimate,
 #   kable_styling(font_size = 13)
 ```
 
-```{r boys-state-table}
+```{r state-table-boys}
 #state table for boys
-
 state_table_boys <- as.data.frame(statetable.msm(exercise_group, id, data = transition_data_boys))
 
 colnames(state_table_boys) <- c('From', 'To', 'N')
@@ -201,9 +201,10 @@ state_table_boys[state_table_boys == '1'] <- 'no EWL'
 state_table_boys[state_table_boys == '2'] <- 'EWL'
 state_table_boys[state_table_boys == '3'] <- 'DEx'
 
-knitr::kable(state_table_boys)
-
+knitr::kable(state_table_boys, 
+             caption = "Raw Number of Exercise State Transitions Amongst Boys")
 ```
+
 
 ```{r, label = 'Boys Hazard Ratios'}
 # ex_group_boys_covs_1_pmat <- pmatrix.msm(ex_group_boys_covs_1, t = 1, ci = 'normal')

@@ -65,21 +65,23 @@ load('data/ed_data.RData')
 
 # Introduction
 
-## Driven Exercise in ALSPAC
+Exercise, which is often associated with positive mental and physical health outcomes in the general population (CITE), can also become maladaptive, particularly in the context of disordered eating (CITE). Though definitions of maladaptive exercise vary and many terms have been used to describe this behavior, a broad conceptualization of maladaptive exercise includes exercise that exhibits one or more of the following qualities: a) exercise that is maladaptive or compulsive in nature, b) feelings of distress or guilt arise when an individual is unable to exercise, c) exercise that interferes with one's ability to engage in school, work, or daily activities, d) the inability to refrain from exercise despite circumstances (e.g. illness, injury) in which exercise is not recommended. Such experiences, which indicate that exercise may be functioning in a problematic way, most often arise when individuals also report a primary motivation for engaging in exercise related to weight loss or weight management (CITE). Most concerning, maladaptive exercise may be an early indicator of disordered eating behavior, as retrospective reports of individuals with eating disorders suggest that maladaptive exercise is an early-developing eating disorder feature (CITE), and, once entrenched, maladaptive exercise patterns can be a pernicious and debilitating eating disorder symptom (CITE), and a marker of poor prognosis (CITE). Amongst individuals with eating disorders, maladaptive (and more specifically, compulsive) exercise is a commonly-reported feature of illness, with up to 40% of individuals with bulimia nervosa and 80% of those with anorexia nervosa reporting maladaptive exercise.
 
-Driven exercise is a common, debilitating symptom across eating disorders (ED). Up to 40% of individuals with bulimia nervosa and 80% of those with anorexia nervosa experience driven exercise. Driven exercise relates to high levels of ED symptoms and poor ED treatment outcomes, and has been purported to be an early ED symptom via retrospective reports. A previous study examined exercise for weight loss and driven exercise at age 14 in the ALSPAC cohort, identifying whether groups at age 14 were associated with ED behaviors at ages 14 and 16 [@schaumbergProspectiveAssociationsDriven2022] Results found that both exercise for weight loss and driven exercise groups at age 14 were demonstrated higher levels of other ED behaviors (binge eating, fasting, purging) at age 16. In the current study, we extend a longitudinal investigation of exercise for weight loss and driven exercise as predictors of other ED behaviors across a larger developmental window (ages 14-24), and further clarify directionality of effects.
+Given the risks associated with maladaptive exercise and its potential etiologic relevance in the context of eating disorders, clarification regarding the prevalence and early predictors of high-risk exercise behavior during adolescence could build knowledge necessary to prevent maladaptive exercise patterns from taking hold. Current studies with population-based samples indicate that, for instance, high levels of exercise are associated with higher likelihood of experiencing an eating disorder among adult women (CITE). Further, a previous prospective study in the Avon Longitudinal Study of Parents and Children (ALSPAC) indicated that young people who reported either exercise for weight loss or maladaptive exercise at age 14 were also more likely to report higher concurrent and future (Age 16) eating disorder behaviors [@schaumbergProspectiveAssociationsDriven2022].
+
+While initial evidence suggests that engaging in exercise for weight loss could escalate to maladaptive exercise and trigger eating disorder risk in some cases, additional investigation is necessary to clarify this process, including the frequency with which young people transition to and from maladaptive patterns of exercise. Further, identification of early predictors of maladaptive exercise could aid in identifying at-risk youth.
 
 ## Current Study
 
-The current study examines data from the ALSPAC Cohort at ages 14,16,18, and 24 years
+In the current study, we extend a longitudinal investigation of exercise for weight loss and maladaptive exercise across a developmental window from middle adolescence to young adulthood (ages 14-24). Specifically, we aim to examine the frequency of exercise states, based on the three categories of 'no exercise for weight loss', 'exercise for weight loss', and 'maladaptive exercise', amongst boys and girls at ages 14, 16, 18, and 24. We will examine rates of transitions between these exercise states over time, and identify any preliminary predictors of these transitions. Further, we aim to characterize overall risk for engaging in maladaptive exercise across age, and identify potential demographic or early (age 14) eating disorder cognition variables that may enhance risk for maladaptive exercise. Based on previous literature, we hypothesize that exercise for weight loss will be a common behaivor across adolescence, with maladaptive exercise being less common than exercise for weight loss, but will occur in a sizable minority of adolescnce. Further, we hypothesize that eating disorder cognition assessed at age 14 will be associated with higher likelihood of exercise for weight loss and maladaptive exercise across adolescence. Specific aims are as follows:
 
-**Aim 1:** To investigate rates of transition between 'no exercise for weight loss', 'exercise for weight loss', and 'driven exercise' groups between ages 14-24, and characterize initial predictors of transitions to driven exercise amongst boys and girls.
+**Aim 1:** To investigate rates of transition between 'no exercise for weight loss', 'exercise for weight loss', and 'driven exercise' groups from ages 14-24, and characterize initial predictors of transitions to driven exercise amongst boys and girls.
 
-H1: Driven Exercise will be the most stable category, and transitions between the driven exercise and exercise for weight loss categories will be more common than transitions between the driven exercise and no exercise for weight loss category.
+H1: Maladaptive exercise will be the most stable category, and transitions between the driven exercise and exercise for weight loss categories will be more common than transitions between the driven exercise and no exercise for weight loss category.
 
-**Aim 2:** To examine overall changes in probability of driven exercise and exercise for weight loss from ages 14-24 and characterize initial predictors of changes in probability of driven exercise and exercise for weight loss over time
+**Aim 2:** To examine overall changes in probability of maladaptive exercise and exercise for weight loss from ages 14-24 and characterize initial predictors of changes in probability of maladaptive exercise and exercise for weight loss over time
 
-H2: ED cognitions at age 14 will predict driven exercise during ages 14-24
+H2: We have no directional hypotheses regarding parent SES or Age 13 BMI as predictors of maladaptive exercise. We beleive that the prevalence of exercise for weight loss and driven exercise will increase somewhat with age, reflecting transition to peak age of onset for eating disorders across the study period. We hypothesize that ED cognitions at age 14 will predict maladaptive exercise and exercise for weight loss across adolescent and young adult development.
 
 
 <!--chapter:end:01-Introduction.Rmd-->
@@ -358,7 +360,7 @@ Amongst boys, transitions across groups also appears common, with somewhat less 
 
 ### Girls
 
-When examining overall transitions amongst girls, visual impressions from the transition plot is confirmed, with the transition from DEx to the no-EWL group being relatively rare (n = 182). Stability in the no-EWL and EWL groups was common based on raw numbers, as was transition from the no-EWL to the EWL group (raw numbers presented in Supplemental Table \@ref(tab:state-table-girls). The transition probabilities across 1-year based on the Q-matrix allowing direct transitions across all groups with the exception of instantaneous transition from 'No EWL' to 'DEx' are presented in Table \@ref(tab:pmat-girls2). As expected, the highest probability outcome for each group over the course of a 1-year period was staying in that group, followed by transition to a neighboring group, with transitions between 'No EWL' and 'DEx' groups being the least likely transitions. The model with the additional constraint on instantaeneous transitions from 'DEx' to 'No EWL' (used for covariate analyses due to convergence issues), along with covariates included in the model, is presented in Supplementary Table (\@ref(tab:pmat-girls1-covs)). 
+When examining overall transitions amongst girls, visual impressions from the transition plot is confirmed, with the transition from DEx to the no-EWL group being relatively rare (n = 182). Stability in the no-EWL and EWL groups was common based on raw numbers, as was transition from the no-EWL to the EWL group (raw numbers presented in Supplemental Table \@ref(tab:state-table-girls). The transition probabilities across 1-year based on the Q-matrix allowing direct transitions across all groups with the exception of instantaneous transition from 'No EWL' to 'DEx' are presented in Table \@ref(tab:pmat-girls2), with a figure depicting the observed vs. expected prevalence in each group based on this model presented in Supplemental Figure \@ref(fig:psm-plot-girls). As expected, the highest probability outcome for each group over the course of a 1-year period was staying in that group, followed by transition to a neighboring group, with transitions between 'No EWL' and 'DEx' groups being the least likely transitions. The model with the additional constraint on instantaeneous transitions from 'DEx' to 'No EWL' (used for covariate analyses due to convergence issues), along with covariates included in the model, is presented in Supplementary Table (\@ref(tab:pmat-girls1-covs)). 
 
 ```{r pmat-girls2}
 #Markov model with covariates
@@ -468,7 +470,7 @@ Girl_HRs %>%
 
 ### Boys
 
-Raw transitions amongst boys are presented in Supplemental Table \@ref(tab:boys-state-table). Overall, there appeared to be less stability in the DEx group, as compared to girls, by examination of raw numbers.The transition probabilities across 1-year based on the Q-matrix allowing direct transitions across all groups with the exception of instantaneous transition from 'No EWL' to 'DEx' are presented in Table \@ref(tab:pmat-boys2). Stability in the 'No EWL' group was common, and stability in all groups was the most common 1-year outcome. There was a moderate probability (~16-20%) of boys in the EWL group transitioning to either the no-EWL or DEx groups over a 1-year period. Similarly, boys in the DEx group showed a moderate probability of transitioning to either the EWL (18%) or 'No EWL' (19%) group over a 1-year period. Models including covariates did not converge for boys, due to low base rates of some transitions.
+Raw transitions amongst boys are presented in Supplemental Table \@ref(tab:state-table-boys). Overall, there appeared to be less stability in the DEx group, as compared to girls, by examination of raw numbers.The transition probabilities across 1-year based on the Q-matrix allowing direct transitions across all groups with the exception of instantaneous transition from 'No EWL' to 'DEx' are presented in Table \@ref(tab:pmat-boys2), with a figure depicting the observed vs. expected prevalence in each group based on this model presented in Supplemental Figure \@ref(fig:psm-plot-boys). Stability in the 'No EWL' group was common, and stability in all groups was the most common 1-year outcome. There was a moderate probability (~16-20%) of boys in the EWL group transitioning to either the no-EWL or DEx groups over a 1-year period. Similarly, boys in the DEx group showed a moderate probability of transitioning to either the EWL (18%) or 'No EWL' (19%) group over a 1-year period. Models including covariates did not converge for boys, due to low base rates of some transitions.
 
 
 ```{r pmat-boys2}
@@ -586,11 +588,14 @@ knitr::kable(pobs,
 
 ## Mixed Effects Models - Driven Exercise over Time
 
-Mixed effects logistic regression models examined changes in DEx across age, along with predictors baseline (age 14) predictors of this behavior and interactions between baseline predictors and the linear effect of age, with results reported in \@ref(tab:dex-models-girls). Model comparisons (presented in Table \@ref(tab:mcomp-dex-girls)), indicated that the most complex (Step 3) model which included all predictors and Age x Predictor interactions fit best. In the baseline model, a substantial portion of girls (~13%) reported DEx. Baseline levels of DEx at age 14 were included as a random effect in subsequent models. In the model including only age as a predictor, age was a significant predictor, with effect sizes indicating a small but relevant linear increase in DEx risk each year. In the model including parent SES and BMI at age 13 as predictors, BMI Z-score at age 13 predicted higher levels of DEx overall amongst girls, with a one standard deviation in BMI increasing odds (OR: 1.347) of DEx. When ED cognitions were introduced into the model (Step 2 Covariates), BMI Z-score remained a significant predictor of DEx, though its effect size decreased in magnitude. Both Thin-ideal internalization at age 14 and fear of weight gain at age 14 were associated with greater odds of DEx, on average. An increase of 1-unit in fear of weight gain (e.g. from 'sometimes' to xxx) resulted in odds of DEx over adolescent and young adulthood increasing by 60%, while a one standard deviation increase in thin-ideal internalizatoin mean was associated with a modearte (14%) increase in odds of DEx. Results remained consistent when Age x Predictor interactions were introduced (Step 3 Covariates), with none of these interactions reaching significance. 
+Mixed effects logistic regression models examined changes in DEx across age, along with predictors baseline (age 14) predictors of this behavior and interactions between baseline predictors and the linear effect of age.
 
 ### Girls
 
-```{r dex-models-girls, label = 'DEx Poled Coeffs Table - Girls'}
+Results for girls are reported in \@ref(tab:dex-models-girls). Model comparisons (presented in Table \@ref(tab:mcomp-dex-girls) ), indicated that the most complex (Step 3) model which included all predictors and Age x Predictor interactions fit best. In the baseline model, a substantial portion of girls (~13%) reported DEx. Baseline levels of DEx at age 14 were included as a random effect in subsequent models. In the model including only age as a predictor, age was a significant predictor, with effect sizes indicating a small but relevant linear increase in DEx risk each year. In the model including parent SES and BMI at age 13 as predictors, BMI Z-score at age 13 predicted higher levels of DEx overall amongst girls, with a one standard deviation in BMI increasing odds ($OR = 1.35$) of DEx. When ED cognitions were introduced into the model (Step 2 Covariates), BMI Z-score remained a significant predictor of DEx, though its effect size decreased in magnitude. Both thin-ideal internalization at age 14 and fear of weight gain at age 14 were associated with greater odds of DEx, on average. An increase of 1-unit in fear of weight gain (e.g. increasing from 'Not at All' afraid of weight gain, the median response, to 'A Little' afraid of weight gain) resulted in odds of DEx over adolescent and young adulthood increasing by 60%, while a one standard deviation increase in thin-ideal internalization mean was associated with a moderate (14%) increase in odds of DEx. Results remained consistent when Age x Predictor interactions were introduced (Step 3 Covariates), with none of these interactions reaching significance. 
+
+
+```{r dex-models-girls}
 rm(list = ls())
 load('models/Girl_models_DEx_Output')
 
@@ -614,7 +619,7 @@ pooled_coefs['term'][pooled_coefs['term'] == 'parent_highest_occupation'] <- 'Pa
 pooled_coefs['term'][pooled_coefs['term'] == 'bmi_z_bestavail'] <- 'BMI Z - Age 13'
 pooled_coefs['term'][pooled_coefs['term'] == 'age_adjust'] <- 'Age'
 pooled_coefs['term'][pooled_coefs['term'] == 'fear_wtgain_14'] <- 'Fear of Wt Gain - Age 14'
-pooled_coefs['term'][pooled_coefs['term'] == 'body_sat_mean_14_std'] <- 'Body Satisifaction - Age 14'
+pooled_coefs['term'][pooled_coefs['term'] == 'body_sat_mean_14_std'] <- 'Body Dissatisifaction - Age 14'
 pooled_coefs['term'][pooled_coefs['term'] == 'ti_mean_14_std'] <- 'Thin-ideal Internalization - Age 14'
 pooled_coefs['term'][pooled_coefs['term'] == 'age_adjust:bmi_z_bestavail'] <- 'Age x BMI (13)'
 pooled_coefs['term'][pooled_coefs['term'] == 'age_adjust:fear_wtgain_14'] <- 'Age x Fear of Wt Gain (14)'
@@ -627,17 +632,15 @@ est_color <- function (df) {
   else{
   column_spec(df, column = 3, color = 'black')}}
 
-pooled_coefs_girls <- pooled_coefs|> 
-  kbl(caption = 'Table 1: Parameter Estimates for Models Predicting Driven Exercise in Girls') %>% 
-  row_spec(c(2:3, 8:14), background = '#E0E0E0') %>% 
+kable(pooled_coefs,
+  caption = 'Parameter Estimates for Models Predicting Driven Exercise in Girls') %>% 
+  row_spec(row = c(2:3, 8:14), background = '#E0E0E0') %>% 
   column_spec(2:3, color = case_when(pooled_coefs$term != '(Intercept)' & pooled_coefs$`0.25 %` > 1  ~ "blue",
-                                   pooled_coefs$term != '(Intercept)' & pooled_coefs$`99.75 %`< 1  ~ "red", 
+                                   pooled_coefs$term != '(Intercept)' & pooled_coefs$`99.75 %`< 1  ~ "red",
                                    pooled_coefs$term == '(Intercept)' & pooled_coefs$`0.25 %`> 0 ~ "blue",
                                    pooled_coefs$term == '(Intercept)' & pooled_coefs$`99.75 %`< 0  ~ "red",
-                                   TRUE ~ 'black')) |> 
+                                   TRUE ~ 'black')) |>
   kable_paper(full_width = T)
-
-pooled_coefs_girls
 
 ```
 
@@ -668,7 +671,7 @@ knitr::kable(pooled_coefs_2,
 Models for boys are presented in Table \@ref(tab:dex-coefs-boys), with model comparisons presented in Table \@ref(tab:mcomp-dex-boys). For boys, the introduction of age, baseline covariates, and baseline ED predictors resulted in improved model fit, though there was not an improved model fit via age x predictor interactions. Boys showed low initial variability in DEx endorsement, however, there was a significant effect of age, such that DEx endoresment was more common as boys got older (odds increasing at ~ 10% per year). When including parent SES and Age 13 BMI in the model, age 13 BMI was again a significant predictor of DEx engagement, with odds of DEx increasing 89% with a one standard deviation increase in BMI. When baseline ED cognitions were entered into the model, fear of weight gain was the only additional significant predictor of DEx, with similar increase in odds as compared to girls (OR: 1.852), as fear of weight gain increased.
 
 
-```{r dex-coefs-boys, label = 'DEx Poled Coeffs Table - Boys'}
+```{r dex-coefs-boys}
 rm(list = ls())
 load('models/Boy_models_DEx_Output')
 
@@ -692,7 +695,7 @@ pooled_coefs['term'][pooled_coefs['term'] == 'parent_highest_occupation'] <- 'Pa
 pooled_coefs['term'][pooled_coefs['term'] == 'bmi_z_bestavail'] <- 'BMI Z - Age 13'
 pooled_coefs['term'][pooled_coefs['term'] == 'age_adjust'] <- 'Age'
 pooled_coefs['term'][pooled_coefs['term'] == 'fear_wtgain_14'] <- 'Fear of Wt Gain - Age 14'
-pooled_coefs['term'][pooled_coefs['term'] == 'body_sat_mean_14_std'] <- 'Body Satisifaction - Age 14'
+pooled_coefs['term'][pooled_coefs['term'] == 'body_sat_mean_14_std'] <- 'Body Dissatisifaction - Age 14'
 pooled_coefs['term'][pooled_coefs['term'] == 'ti_mean_14_std'] <- 'Thin-ideal Internalization - Age 14'
 pooled_coefs['term'][pooled_coefs['term'] == 'age_adjust:bmi_z_bestavail'] <- 'Age x BMI (13)'
 pooled_coefs['term'][pooled_coefs['term'] == 'age_adjust:fear_wtgain_14'] <- 'Age x Fear of Wt Gain (14)'
@@ -700,17 +703,15 @@ pooled_coefs['term'][pooled_coefs['term'] == 'age_adjust:body_sat_mean_14_std'] 
 pooled_coefs['term'][pooled_coefs['term'] == 'age_adjust:ti_mean_14_std'] <- 'Age x Thin-Ideal Internalization (14)'
 
 
-pooled_coefs_boys <- pooled_coefs|> 
-  kbl(caption = 'Table 1: Parameter Estimates for Models Predicting Driven Exercise in Boys') %>% 
+knitr::kable(pooled_coefs,
+  caption = 'Table 1: Parameter Estimates for Models Predicting Driven Exercise in Boys') %>% 
   row_spec(c(2:3, 8:14), background = '#E0E0E0') %>% 
   column_spec(2:3, color = case_when(pooled_coefs$term != '(Intercept)' & pooled_coefs$`0.25 %` > 1  ~ "blue",
-                                   pooled_coefs$term != '(Intercept)' & pooled_coefs$`99.75 %`< 1  ~ "red", 
+                                   pooled_coefs$term != '(Intercept)' & pooled_coefs$`99.75 %`< 1  ~ "red",
                                    pooled_coefs$term == '(Intercept)' & pooled_coefs$`0.25 %`> 0 ~ "blue",
                                    pooled_coefs$term == '(Intercept)' & pooled_coefs$`99.75 %`< 0  ~ "red",
-                                   TRUE ~ 'black')) |> 
+                                   TRUE ~ 'black')) |>
   kable_paper(full_width = T)
-
-pooled_coefs_boys
 
 ```
 
@@ -754,11 +755,10 @@ load('models/ewl_mcomp_tables.Rdata')
 knitr::kable(girls_mcomp_table,
              caption = "Model Comparison Table for Exercise for Weight Loss - Girls")
 ```
-With regrads to specfic predictors, Age, Parent SES, Body Mass Index at age 13, Thin-ideal interanlization, and Fear of Weight gain all emerged as significant positive predictors of frequency of exercise for weight loss (see Table \@ref(tab:ewl-coefs-girls) for coefficients). Body dissatisfaction was the only ED cognition variable that was not significant
+With regards to specific predictors, age, parent SES, BMI at age 13, thin-ideal internalization, and fear of weight gain all emerged as significant, positive predictors of EWL frequency (see Table \@ref(tab:ewl-coefs-girls) for coefficients). Body dissatisfaction was the only ED cognition variable that did not significantly predict EWL amongst girls. Once Age x Covariate interactions were entered into the model, body dissatisfaction did emerge as a significant predictor, along with an interaction between body dissatisfaction and age, as well as an interaction between fear of weight gain and age. In this instance, while higher levels of body dissatisfaction at age 14 were, overall, associated with increased EWL frequency, this association attenuated across age. Similarly, the fear of weight gain by age interaction suggests a similar pattern, with overall, a strong association between increased fear of weight gain at age 14 and EWL during adolescence and young adulthood, the relationship between 14-year-old fear of weight gain and EWL frequency is not as pronounced at later ages. 
 
 
-
-```{r ewl-coefs-girls, label = 'EWL Poled Coeffs Table - Girls'}
+```{r ewl-coefs-girls}
 
 load('models/Girl_models_EWL_Output')
 
@@ -781,7 +781,7 @@ pooled_coefs['term'][pooled_coefs['term'] == 'parent_highest_occupation'] <- 'Pa
 pooled_coefs['term'][pooled_coefs['term'] == 'bmi_z_bestavail'] <- 'BMI Z - Age 13'
 pooled_coefs['term'][pooled_coefs['term'] == 'age_adjust'] <- 'Age'
 pooled_coefs['term'][pooled_coefs['term'] == 'fear_wtgain_14'] <- 'Fear of Wt Gain - Age 14'
-pooled_coefs['term'][pooled_coefs['term'] == 'body_sat_mean_14_std'] <- 'Body Satisifaction - Age 14'
+pooled_coefs['term'][pooled_coefs['term'] == 'body_sat_mean_14_std'] <- 'Body Dissatisifaction - Age 14'
 pooled_coefs['term'][pooled_coefs['term'] == 'ti_mean_14_std'] <- 'Thin-ideal Internalization - Age 14'
 pooled_coefs['term'][pooled_coefs['term'] == 'age_adjust:bmi_z_bestavail'] <- 'Age x BMI (13)'
 pooled_coefs['term'][pooled_coefs['term'] == 'age_adjust:fear_wtgain_14'] <- 'Age x Fear of Wt Gain (14)'
@@ -804,16 +804,17 @@ pooled_coefs_ewl_girls
 
 ### Boys
 
+For boys, again, the Step 3 model including all covariates and Age x Covariate interactions appeared to provide the most optimal model fit. 
 
 ```{r ewl-mcomp-boys}
 load('models/ewl_mcomp_tables.Rdata')
-knitr::kable(girls_mcomp_table,
-             caption = "Model Comparison Table for Exercise for Weight Loss - Girls")
+knitr::kable(boys_mcomp_table,
+             caption = "Model Comparison Table for Exercise for Weight Loss - Boys")
 ```
 
-Specific Parameters and coefficients are presented in Table \@ref(tab:ewl-coefs-boys)
+Specific Parameters and coefficients are presented in Table \@ref(tab:ewl-coefs-boys). Amongst boys, associations between ED cognitions and EWL were more limited. age, BMI at age 13, and fear of weight gain all appeared to be robust predictors of ewl, with odds of EWL increasing modestly for each year of age, and pronounced increases in odds of EWL endorsement as BMI-Z score at age 13 showed a 1-SD increase and odds of EWL endorsment doubling with a 1-unit increase in fear of weight gain at age 14. As with girls, there was a significant interaction between age and fear of weight gain at age 14 in prediction of EWL, with fear of weight gain showing greater predictive power at younger (more proximal) ages.
 
-```{r ewl-coefs-boys, label = 'EWL Poled Coeffs Table - boys'}
+```{r ewl-coefs-boys}
 
 load('models/boy_models_EWL_output')
 
@@ -984,12 +985,12 @@ exercise_issues_plot_1
 ```
 
 
-```{r}
+```{r psm-plot-girls, fig.cap= 'Observed vs. Expected Exercise Group Membership Based on Transition Analysis - Girls' }
 plot_2_girls <- plot.prevalence.msm(ex_group_girls_2, mintime = 14, maxtime = 24, xlab = 'age', legend.pos = c(19, 90))
 
 ```
 
-```{r plot2-boys}
+```{r psm-plot-boys, fig.cap= 'Observed vs. Expected Exercise Group Membership Based on Transition Analysis - Boys' }
 
 plot_2_boys <- plot.prevalence.msm(ex_group_boys_2, mintime = 14, maxtime = 24, xlab = 'age', legend.pos = c(19, 90))
 
@@ -1024,7 +1025,7 @@ colnames(fear_wt_table) <- c('Response', 'Girls N', 'Girls %', 'Boys N', 'Boys %
 knitr::kable(fear_wt_table, caption = 'Fear of Weight Gain at Age 14 - Responses Frequencies')
 ```
 
-```{r state-table-girls, fig.cap = 'Raw number of Transitions between Exercise Groups - Girls' }
+```{r state-table-girls}
 
 #state table for girls
 state_table_girls <- as.data.frame(statetable.msm(exercise_group, id, data = transition_data_girls))
@@ -1038,7 +1039,8 @@ state_table_girls[state_table_girls == '1'] <- 'no EWL'
 state_table_girls[state_table_girls == '2'] <- 'EWL'
 state_table_girls[state_table_girls == '3'] <- 'DEx'
 
-knitr::kable(state_table_girls)
+knitr::kable(state_table_girls, 
+             caption = "Raw Number of Exercise State Transitions Amongst Girls")
 
 ```
 
@@ -1188,9 +1190,8 @@ knitr::kable(estimate,
 #   kable_styling(font_size = 13)
 ```
 
-```{r boys-state-table}
+```{r state-table-boys}
 #state table for boys
-
 state_table_boys <- as.data.frame(statetable.msm(exercise_group, id, data = transition_data_boys))
 
 colnames(state_table_boys) <- c('From', 'To', 'N')
@@ -1202,9 +1203,10 @@ state_table_boys[state_table_boys == '1'] <- 'no EWL'
 state_table_boys[state_table_boys == '2'] <- 'EWL'
 state_table_boys[state_table_boys == '3'] <- 'DEx'
 
-knitr::kable(state_table_boys)
-
+knitr::kable(state_table_boys, 
+             caption = "Raw Number of Exercise State Transitions Amongst Boys")
 ```
+
 
 ```{r, label = 'Boys Hazard Ratios'}
 # ex_group_boys_covs_1_pmat <- pmatrix.msm(ex_group_boys_covs_1, t = 1, ci = 'normal')

@@ -12,11 +12,10 @@ load('models/ewl_mcomp_tables.Rdata')
 knitr::kable(girls_mcomp_table,
              caption = "Model Comparison Table for Exercise for Weight Loss - Girls")
 ```
-With regrads to specfic predictors, Age, Parent SES, Body Mass Index at age 13, Thin-ideal interanlization, and Fear of Weight gain all emerged as significant positive predictors of frequency of exercise for weight loss (see Table \@ref(tab:ewl-coefs-girls) for coefficients). Body dissatisfaction was the only ED cognition variable that was not significant
+With regards to specific predictors, age, parent SES, BMI at age 13, thin-ideal internalization, and fear of weight gain all emerged as significant, positive predictors of EWL frequency (see Table \@ref(tab:ewl-coefs-girls) for coefficients). Body dissatisfaction was the only ED cognition variable that did not significantly predict EWL amongst girls. Once Age x Covariate interactions were entered into the model, body dissatisfaction did emerge as a significant predictor, along with an interaction between body dissatisfaction and age, as well as an interaction between fear of weight gain and age. In this instance, while higher levels of body dissatisfaction at age 14 were, overall, associated with increased EWL frequency, this association attenuated across age. Similarly, the fear of weight gain by age interaction suggests a similar pattern, with overall, a strong association between increased fear of weight gain at age 14 and EWL during adolescence and young adulthood, the relationship between 14-year-old fear of weight gain and EWL frequency is not as pronounced at later ages. 
 
 
-
-```{r ewl-coefs-girls, label = 'EWL Poled Coeffs Table - Girls'}
+```{r ewl-coefs-girls}
 
 load('models/Girl_models_EWL_Output')
 
@@ -39,7 +38,7 @@ pooled_coefs['term'][pooled_coefs['term'] == 'parent_highest_occupation'] <- 'Pa
 pooled_coefs['term'][pooled_coefs['term'] == 'bmi_z_bestavail'] <- 'BMI Z - Age 13'
 pooled_coefs['term'][pooled_coefs['term'] == 'age_adjust'] <- 'Age'
 pooled_coefs['term'][pooled_coefs['term'] == 'fear_wtgain_14'] <- 'Fear of Wt Gain - Age 14'
-pooled_coefs['term'][pooled_coefs['term'] == 'body_sat_mean_14_std'] <- 'Body Satisifaction - Age 14'
+pooled_coefs['term'][pooled_coefs['term'] == 'body_sat_mean_14_std'] <- 'Body Dissatisifaction - Age 14'
 pooled_coefs['term'][pooled_coefs['term'] == 'ti_mean_14_std'] <- 'Thin-ideal Internalization - Age 14'
 pooled_coefs['term'][pooled_coefs['term'] == 'age_adjust:bmi_z_bestavail'] <- 'Age x BMI (13)'
 pooled_coefs['term'][pooled_coefs['term'] == 'age_adjust:fear_wtgain_14'] <- 'Age x Fear of Wt Gain (14)'
@@ -62,16 +61,17 @@ pooled_coefs_ewl_girls
 
 ### Boys
 
+For boys, again, the Step 3 model including all covariates and Age x Covariate interactions appeared to provide the most optimal model fit. 
 
 ```{r ewl-mcomp-boys}
 load('models/ewl_mcomp_tables.Rdata')
-knitr::kable(girls_mcomp_table,
-             caption = "Model Comparison Table for Exercise for Weight Loss - Girls")
+knitr::kable(boys_mcomp_table,
+             caption = "Model Comparison Table for Exercise for Weight Loss - Boys")
 ```
 
-Specific Parameters and coefficients are presented in Table \@ref(tab:ewl-coefs-boys)
+Specific Parameters and coefficients are presented in Table \@ref(tab:ewl-coefs-boys). Amongst boys, associations between ED cognitions and EWL were more limited. age, BMI at age 13, and fear of weight gain all appeared to be robust predictors of ewl, with odds of EWL increasing modestly for each year of age, and pronounced increases in odds of EWL endorsement as BMI-Z score at age 13 showed a 1-SD increase and odds of EWL endorsment doubling with a 1-unit increase in fear of weight gain at age 14. As with girls, there was a significant interaction between age and fear of weight gain at age 14 in prediction of EWL, with fear of weight gain showing greater predictive power at younger (more proximal) ages.
 
-```{r ewl-coefs-boys, label = 'EWL Poled Coeffs Table - boys'}
+```{r ewl-coefs-boys}
 
 load('models/boy_models_EWL_output')
 

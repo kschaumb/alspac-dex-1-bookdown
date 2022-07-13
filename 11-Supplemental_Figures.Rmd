@@ -81,12 +81,12 @@ exercise_issues_plot_1
 ```
 
 
-```{r}
+```{r psm-plot-girls, fig.cap= 'Observed vs. Expected Exercise Group Membership Based on Transition Analysis - Girls' }
 plot_2_girls <- plot.prevalence.msm(ex_group_girls_2, mintime = 14, maxtime = 24, xlab = 'age', legend.pos = c(19, 90))
 
 ```
 
-```{r plot2-boys}
+```{r psm-plot-boys, fig.cap= 'Observed vs. Expected Exercise Group Membership Based on Transition Analysis - Boys' }
 
 plot_2_boys <- plot.prevalence.msm(ex_group_boys_2, mintime = 14, maxtime = 24, xlab = 'age', legend.pos = c(19, 90))
 
