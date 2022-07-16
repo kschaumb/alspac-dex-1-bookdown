@@ -103,3 +103,4 @@ summary(mice::complete(glm_imp_boys)$bmi_z_bestavail, useNA = "always")
 #write file
 write.mice.imputation(glm_imp_boys, name = 'glm_mice_boys', include.varnames=TRUE, long=TRUE, mids2spss=FALSE, dattype='csv')
 
+rm(list = ls())

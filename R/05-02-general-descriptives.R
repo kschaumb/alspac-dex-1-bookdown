@@ -1,4 +1,4 @@
-load('ed_data.RData')
+load('data/ed_data.RData')
 
 demo_ed.f_girls <- demo_ed.f |> 
   filter(sex == 1)   
@@ -94,4 +94,5 @@ save(pses_table, file = 'data/demo_tables.Rdata')
 resave(fear_wt_table, file = 'data/demo_tables.Rdata')
 resave(cont_vars, file = 'data/demo_tables.Rdata')
 
+rm(list = ls())
            

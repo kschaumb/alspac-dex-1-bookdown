@@ -2,8 +2,8 @@
 
 ```{r}
 rm(list = ls())
-source("R/plot_by_age_sex.R", local = knitr::knit_global())
-source("R/transitions_plot.R", local = knitr::knit_global())
+source("R/05-01-histogram-functions.R", local = knitr::knit_global())
+source("R/06-02-transition-plot.R", local = knitr::knit_global())
 load('data/ed_data.RData')
 load('models/transition_models')
 load('data/transition_data.RData')

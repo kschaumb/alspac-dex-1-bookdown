@@ -20,8 +20,8 @@ github-repo: kschaumb/alspac-dex-bookdown
 description: "This is a bookdown for ALSPAC Longitudinal DEx analyses"
 resource_files: 
  -data/ed_data.RData
- -R/plot_by_age_sex.R
- -R/transitions_plot.R
+ -R/05-01-histogram-functions.R
+ -R/06-02-transition-plot.R
 output: bookdown::gitbook
 
 ---
@@ -55,8 +55,8 @@ library(labelled)
 library(broom.mixed)
 library(mitml)
 library(kableExtra)
-source("R/plot_by_age_sex.R", local = knitr::knit_global())
-source("R/transitions_plot.R", local = knitr::knit_global())
+source("R/05-01-histogram-functions.R", local = knitr::knit_global())
+source("R/06-02-transition-plot.R", local = knitr::knit_global())
 load('data/ed_data.RData')
 ```
 
@@ -65,23 +65,29 @@ load('data/ed_data.RData')
 
 # Introduction
 
-Exercise, which is often associated with positive mental and physical health outcomes in the general population (CITE), can also become maladaptive, particularly in the context of disordered eating (CITE). Though definitions of maladaptive exercise vary and many terms have been used to describe this behavior, a broad conceptualization of maladaptive exercise includes exercise that exhibits one or more of the following qualities: a) exercise that is maladaptive or compulsive in nature, b) feelings of distress or guilt arise when an individual is unable to exercise, c) exercise that interferes with one's ability to engage in school, work, or daily activities, d) the inability to refrain from exercise despite circumstances (e.g. illness, injury) in which exercise is not recommended. Such experiences, which indicate that exercise may be functioning in a problematic way, most often arise when individuals also report a primary motivation for engaging in exercise related to weight loss or weight management (CITE). Most concerning, maladaptive exercise may be an early indicator of disordered eating behavior, as retrospective reports of individuals with eating disorders suggest that maladaptive exercise is an early-developing eating disorder feature (CITE), and, once entrenched, maladaptive exercise patterns can be a pernicious and debilitating eating disorder symptom (CITE), and a marker of poor prognosis (CITE). Amongst individuals with eating disorders, maladaptive (and more specifically, compulsive) exercise is a commonly-reported feature of illness, with up to 40% of individuals with bulimia nervosa and 80% of those with anorexia nervosa reporting maladaptive exercise.
+Exercise, which is often associated with positive mental and physical health outcomes in the general population (CITE), can also become maladaptive, particularly in the context of disordered eating (CITE). Though definitions of maladaptive exercise vary and many terms have been used to describe this behavior, a broad conceptualization of maladaptive exercise includes exercise that exhibits one or more of the following qualities: a) exercise that is driven or compulsive in nature, b) feelings of distress or guilt arise when an individual is unable to exercise, c) exercise that interferes with one's ability to engage in school, work, or daily activities, d) the inability to refrain from exercise despite circumstances (e.g. illness, injury) in which it is not recommended [@gorrellPsychosocialEtiologyMaladaptive2021]. Such experiences most often arise when individuals also report a primary motivation for engaging in exercise related to weight loss or weight management (CITE). Most concerning, maladaptive exercise may be an early indicator of disordered eating behavior, as retrospective reports of individuals with eating disorders suggest that maladaptive exercise is an early-developing eating disorder feature (CITE), and, once entrenched, problematic exercise patterns can be a pernicious and debilitating eating disorder symptom (CITE), and a potential marker of poor prognosis (CITE).Amongst individuals with eating disorders, maladaptive (and, more specifically, driven and compulsive) exercise is a commonly-reported feature of illness, with a national clinical eating disorder database estimating that this transdiagnostic symptom is present in approximately half of all eating disorder patients presenting to tretament [@monellRunningEmptyNationwide2018].
 
-Given the risks associated with maladaptive exercise and its potential etiologic relevance in the context of eating disorders, clarification regarding the prevalence and early predictors of high-risk exercise behavior during adolescence could build knowledge necessary to prevent maladaptive exercise patterns from taking hold. Current studies with population-based samples indicate that, for instance, high levels of exercise are associated with higher likelihood of experiencing an eating disorder among adult women (CITE). Further, a previous prospective study in the Avon Longitudinal Study of Parents and Children (ALSPAC) indicated that young people who reported either exercise for weight loss or maladaptive exercise at age 14 were also more likely to report higher concurrent and future (Age 16) eating disorder behaviors [@schaumbergProspectiveAssociationsDriven2022].
+Given the risks associated with maladaptive exercise patterns and the potential etiologic relevance of exercise behavior the context of eating disorders, clarification regarding both the prevalence of and early predictors of high-risk exercise behavior during adolescence could build knowledge necessary to prevent maladaptive exercise patterns from taking hold. Current studies with population-based samples indicate that, for instance, high levels of exercise are associated with greater likelihood of experiencing an eating disorder among adult women (CITE). Further, a previous prospective study in the Avon Longitudinal Study of Parents and Children (ALSPAC) indicated that young people who reported either exercise for weight loss or maladaptive exercise at age 14 were also more likely to report higher concurrent and future (Age 16) eating disorder behaviors [@schaumbergProspectiveAssociationsDriven2022].
 
-While initial evidence suggests that engaging in exercise for weight loss could escalate to maladaptive exercise and trigger eating disorder risk in some cases, additional investigation is necessary to clarify this process, including the frequency with which young people transition to and from maladaptive patterns of exercise. Further, identification of early predictors of maladaptive exercise could aid in identifying at-risk youth.
+While initial evidence suggests that engaging in exercise for weight loss could escalate to maladaptive exercise and trigger eating disorder risk in some cases, additional investigation is necessary to clarify this process, including the frequency with which young people transition to and from maladaptive patterns of exercise. Further, identification of early predictors of maladaptive exercise could aid in identifying youth at risk for the development of disordered eating.
 
 ## Current Study
 
-In the current study, we extend a longitudinal investigation of exercise for weight loss and maladaptive exercise across a developmental window from middle adolescence to young adulthood (ages 14-24). Specifically, we aim to examine the frequency of exercise states, based on the three categories of 'no exercise for weight loss', 'exercise for weight loss', and 'maladaptive exercise', amongst boys and girls at ages 14, 16, 18, and 24. We will examine rates of transitions between these exercise states over time, and identify any preliminary predictors of these transitions. Further, we aim to characterize overall risk for engaging in maladaptive exercise across age, and identify potential demographic or early (age 14) eating disorder cognition variables that may enhance risk for maladaptive exercise. Based on previous literature, we hypothesize that exercise for weight loss will be a common behaivor across adolescence, with maladaptive exercise being less common than exercise for weight loss, but will occur in a sizable minority of adolescnce. Further, we hypothesize that eating disorder cognition assessed at age 14 will be associated with higher likelihood of exercise for weight loss and maladaptive exercise across adolescence. Specific aims are as follows:
+In the current study, we extend a longitudinal investigation of exercise for weight loss and maladaptive exercise across a developmental window from middle adolescence to young adulthood (ages 14-24). Specifically, we aim to examine the frequency of exercise states, based on the three categories of 'no exercise for weight loss', 'exercise for weight loss', and 'maladaptive exercise', amongst boys and girls at ages 14, 16, 18, and 24 years old. We will examine rates of transitions between these exercise states over time, and identify preliminary predictors of these transitions. Further, we aim to characterize overall risk for engaging in maladaptive exercise across age, and identify potential demographic or early (age 14) eating disorder cognition variables that may enhance risk for maladaptive exercise during adolescence. Based on previous literature, we hypothesize that exercise for weight loss will be a common behaivor across adolescence, with maladaptive exercise being less common than exercise for weight loss, but will occur in a sizable minority of individuals. Further, we hypothesize that eating disorder cognitions assessed at age 14 will be associated with higher likelihood of exercise for weight loss and maladaptive exercise across adolescence. Specific aims are as follows:
 
-**Aim 1:** To investigate rates of transition between 'no exercise for weight loss', 'exercise for weight loss', and 'driven exercise' groups from ages 14-24, and characterize initial predictors of transitions to driven exercise amongst boys and girls.
+**Aim 1:** To investigate rates of transition between 'no exercise for weight loss', 'exercise for weight loss', and 'maladaptive exercise' groups from ages 14-24, and characterize initial predictors of transitions to maladaptive exercise amongst boys and girls.
 
-H1: Maladaptive exercise will be the most stable category, and transitions between the driven exercise and exercise for weight loss categories will be more common than transitions between the driven exercise and no exercise for weight loss category.
+H1a: Maladaptive exercise will be moderately absorbant; that is, individuals will be likely to remain in this category once they transition into the cateogry.
+
+H1b: Transitions between the maladaptive exercise and exercise for weight loss categories will be more common than transitions between the maladaptive exercise and no exercise for weight loss category.
 
 **Aim 2:** To examine overall changes in probability of maladaptive exercise and exercise for weight loss from ages 14-24 and characterize initial predictors of changes in probability of maladaptive exercise and exercise for weight loss over time
 
-H2: We have no directional hypotheses regarding parent SES or Age 13 BMI as predictors of maladaptive exercise. We beleive that the prevalence of exercise for weight loss and driven exercise will increase somewhat with age, reflecting transition to peak age of onset for eating disorders across the study period. We hypothesize that ED cognitions at age 14 will predict maladaptive exercise and exercise for weight loss across adolescent and young adult development.
+H2a: We hypothesize that the prevalence of exercise for weight loss and maladaptive exercise will show modest increases with age, reflecting transition through peak age of onset for eating disorders during late adolescence.
+
+H2b: We have no directional hypotheses regarding parent SES or Age 13 BMI as predictors of maladaptive exercise. 
+
+H2c: We hypothesize that ED cognitions at age 14 will predict maladaptive exercise and exercise for weight loss across adolescent and young adult development, with strongest prediction at most proximal timepoints.
 
 
 <!--chapter:end:01-Introduction.Rmd-->
@@ -226,15 +232,15 @@ Child BMI-Z was assessed via two indices at age 13 years. First, objective heigh
 
 ### Exercise Measures
 
-Questions related to driven exercise were self-reported at ages 14, 16, 18, and 24 years. Questions were adapted from the Youth Risk Behavior Survelliance System [@kannYouthRiskBehavior1995].
+Questions related to maladaptive exercise were self-reported at ages 14, 16, 18, and 24 years. Questions were adapted from the Youth Risk Behavior Survelliance System [@kannYouthRiskBehavior1995].
 
 #### Exercise for Weight Loss
 
 At ages 14, 16, and 18 years, participants were asked if they exercised to lose weight or avoid gaining weight, with response options of: No(0), Yes-Sometimes(1), and Yes-Frequently(2).
 
-At age 24, participants were asked the frequency with which they exercised to lose weight or avoid gaining weight, with response options of: Never, \<1x/mo, 1-3x/mo, 1-4x/wk, and 5 or more times per week. For the purposes of analysis, responses at age 24 were harmonized with age 14, 16, and 18. Responses of Never were binned as "No" (0); 1x/mo - <1x/week were binned as 'Yes - Sometimes'(1), and 1x/wk or more as 'Yes - Frequently'(2). Once a week or more was chosen as the threshold for 'frequent' exercise for weight loss at age 24 to align with DSM-V diagnostic frequency thresholds for other eating disorder behaviors, including binge eating and purging [@americanpsychiatricassociationDiagnosticStatisticalManual2013]. The primary derived outcome variable of analysis for exercise for weight loss is an ordinal variable, defined as 0 = No, 1 = Sometimes, and 2 = Frequently. 
+At age 24, participants were asked the frequency with which they exercised to lose weight or avoid gaining weight, with response options of: Never, \<1x/mo, 1-3x/mo, 1-4x/wk, and 5 or more times per week. For the purposes of analysis, responses at age 24 were harmonized with age 14, 16, and 18. Responses of Never were binned as "No" (0); 1x/mo - <1x/week were binned as 'Yes - Sometimes'(1), and 1x/wk or more as 'Yes - Frequently'(2). Once a week or more was chosen as the threshold for 'frequent' exercise for weight loss at age 24 to align with DSM-V diagnostic frequency thresholds for other eating disorder behaviors, such as binge eating and purging [@americanpsychiatricassociationDiagnosticStatisticalManual2013]. The primary derived outcome variable of analysis for exercise for weight loss is an ordinal variable, defined as 0 = No, 1 = Sometimes, and 2 = Frequently. 
 
-#### Driven Exercise
+#### Maladaptive Exercise
 
 Issues that are associated with exercise were also reported at ages 14,16, 18, and 24 years. At all assessment points, participants reported whether exercise interferes with work/school (14,16,18), or their daily routine (24). At ages 14 and 24, participants also reported whether they exercised to lose weight even when sick or injured. At ages 16 and 18 years, participants reported whether they felt guilty about missing an exercise session -- see Table \@ref(tab:tab2) .  Responses options for exercise issues were 'No', 'yes - Sometimes', or 'Yes - Frequently'. 
 
@@ -246,12 +252,12 @@ knitr::kable(x, caption = 'Exercise Issues Assessed at Each Age')
 
 Exercise issues are deemmed to be 'present' at each time point if an individual endorses: (1) exercise interfering with work/school sometimes or more OR frequent guilt when missing an exercise session at ages 16 and 18 years and (2) exercise interfering with work/school/daily routine sometimes or more OR exercising even when sick/injured sometimes or more at ages 14 and 24 years. 
 
-The presence of driven exercise in this study was defined as exercising for weight loss **sometimes or frequently** and at least one **exercise issue** defined as  present at each time point. Frequency of exercise for weight loss as sometimes or more was chosen for this definition as (1) existing literature suggests that frequency of exercise may be less important than cognitive features in defining exercise risk in the context of eating disorders [@adkinsDoesExcessiveCompulsive2005; @mondUpdateDefinitionExcessive2006] and (2) the nature of the epidemiological sample and the concomitant goals of this paper are such that we are interested in identifying early risk indicators, which may be best captured via a broad (vs. narrow) definition of driven exercise. The primary variable to define driven exercise was derived as described, resulting in a dichotomous outcome (0 = Absent, 1 = Present). 
+The presence of maladaptive exercise in this study was defined as exercising for weight loss **sometimes or frequently** and at least one **exercise issue** defined as  present at each time point. Frequency of exercise for weight loss as sometimes or more was chosen for this definition as (1) existing literature suggests that frequency of exercise may be less important than cognitive features in defining exercise risk in the context of eating disorders [@adkinsDoesExcessiveCompulsive2005; @mondUpdateDefinitionExcessive2006] and (2) the nature of the epidemiological sample and the concomitant goals of this paper are such that we are interested in identifying early risk indicators, which may be best captured via a broad (vs. narrow) definition of maladaptive exercise. The primary variable to define maladaptive exercise was derived as described, resulting in a dichotomous outcome (0 = Absent, 1 = Present). 
 
 
 #### Exercise Gropus
 
-Exericse groups over time are defined for descriptive analyses and transition states, replicating groups defined in @schaumbergProspectiveAssociationsDriven2022. Those who report no exericse for weight loss at each time point are placed in a 'No Exercise for Weight Loss' (No EWL) group, those who report exercise for weight loss at least sometimes, but do not meet criteria for driven exercise are placed in an 'Exercise for Weight Loss'(EWL) group, and those meeting driven exercise criteria are placed in the 'Driven Exercise' (DEx) group.
+Exericse groups over time are defined for descriptive analyses and transition states, replicating groups defined in @schaumbergProspectiveAssociationsDriven2022. Those who report no exericse for weight loss at each time point are placed in a 'No Exercise for Weight Loss' (No EWL) group, those who report exercise for weight loss at least sometimes, but do not meet criteria for maladaptive exercise are placed in an 'Exercise for Weight Loss'(EWL) group, and those meeting maladaptive exercise criteria are placed in the 'Maladaptive Exercise' (Maladaptive Ex) group.
 
 <!--chapter:end:03-Method_Measures.Rmd-->
 
@@ -262,7 +268,7 @@ Analyses will be gender stratified. The primary predictor variable of interest i
 
 ## Multi-State Transition Analyses
 
-The first step in analyses will evaluate overall changes in the presence of exercise for weight loss and driven exercise over time in the sample. Visualization will be completed with transition plots [@cernatVisualizingTransitionsTime2021] for those completing all four assessment points. For those completing at least two assessment points, transition analysis will include multi-state Markov models for panel data [@jacksonMultistateModellingMsm], the implementation of which on the current data will describe how individuals move between the 'No EWL', 'EWL', and 'DEx' groups over time, with transition intensities representing the instantaneous risk of moving between these three groups. An initial transition matrix will be specified in which instantaneous transitions between adjacent states are permitted, as well as transitions between the DEx-No EWL state (direct transition to exercise abstinence). If initial models do not converge, direct transitions from DEx to No-EWL will also be constrained to 0, such that a sojurn through the EWL state is required (See \@ref(fig:transfig)) Transition analyses will be completed separately for boys and girls, and the fitted transition probability matrix, $P(t)$ will be reported over an interval of 1-year, which will describe the liklihood of transition between exercise groups in a given year during the study time frame. Exploratory analysis of transition states will examine whether baseline covariates (Parent SES, BMI-Z at age 13 years, eating disorder cognitions at age 14 years) impact transition intensities amongst the three exercise groups.  
+The first step in analyses will evaluate overall changes in the presence of exercise for weight loss and maladaptive exercise over time in the sample. Visualization will be completed with transition plots [@cernatVisualizingTransitionsTime2021] for those completing all four assessment points. For those completing at least two assessment points, transition analysis will include multi-state Markov models for panel data [@jacksonMultistateModellingMsm], the implementation of which on the current data will describe how individuals move between the 'No EWL', 'EWL', and 'Maladaptive Ex' groups over time, with transition intensities representing the instantaneous risk of moving between these three groups. An initial transition matrix will be specified in which instantaneous transitions between adjacent states are permitted, as well as transitions between the Maladaptive Ex-No EWL state (direct transition to exercise abstinence). If initial models do not converge, direct transitions from Maladaptive Ex to No-EWL will also be constrained to 0, such that a sojurn through the EWL state is required (See \@ref(fig:transfig)) Transition analyses will be completed separately for boys and girls, and the fitted transition probability matrix, $P(t)$ will be reported over an interval of 1-year, which will describe the liklihood of transition between exercise groups in a given year during the study time frame. Exploratory analysis of transition states will examine whether baseline covariates (Parent SES, BMI-Z at age 13 years, eating disorder cognitions at age 14 years) impact transition intensities amongst the three exercise groups.  
 
 ```{r transfig, fig.cap = 'Transitions between Exercise Groups', out.width= '90%'}
 knitr::include_graphics('figs/Transition-Diagram.png')
@@ -275,7 +281,7 @@ Prior to mixed-effects modeling, missing data will be imputed using the `mice` a
 
 ## Mixed Effects Modeling
 
-Mixed Effects Models for ordinal and binary data [@christensenAnalysisOrdinalData2015; @christensenTutorialFittingCumulative2019; @landermanModelingRepeatedMeasures2011] will examine whether levels of exercise for weight loss and driven exercise change across age. Parameter pooling will be utilized to combine models fit to the imputed datasets.
+Mixed Effects Models for ordinal and binary data [@christensenAnalysisOrdinalData2015; @christensenTutorialFittingCumulative2019; @landermanModelingRepeatedMeasures2011] will examine whether levels of exercise for weight loss and maladaptive exercise change across age. Parameter pooling will be utilized to combine models fit to the imputed datasets.
 
 Nested models will be built  will allow for a random intercept for each individual, then a fixed effect of Time (assessment point - with baseline set to 14 years), followed by fixed effects for all baseline predictors and covariates, and, finally, all Predictor x Time interactions. Models will be compared via the multivariate Wald test (using the D3 statistic, as recommended) [@buurenMiceMultivariateImputation2011]. Parameters for each model are presented in Supplement (Chapter \@ref(supp1) ). 
 
@@ -307,7 +313,9 @@ With regards to exercise issues across time, the percentage of participants repo
 Figure \@ref(fig:freqfig) shows exercise status at ages 14-24 years in girls and boys, as a percentage of the total number of boys and girls who reported exercise data at the timepoint.
 
 ```{r freqfig, fig.cap = 'Frequency of Exercise Groups Across Age'}
-exercise_group_data <- frq_table_by_age_sex(demo_ed.lf, exercise_group)
+
+exercise_group_data <- frq_table_by_age_sex(demo_ed.lf, exercise_group) 
+levels(exercise_group_data$exercise_group) <- c('No Exercise for Weight Loss', 'Exercise for Weight Loss', 'Maladaptive Exercise')
 
 exercise_status_plot_1 <- ggplot(data = exercise_group_data, 
     aes(x = sex, y = pct, fill = exercise_group, label = sprintf('%0.1f%%', pct*100))) + #set the aesthetic features, including the labels at one decimal place
@@ -324,7 +332,7 @@ exercise_status_plot_1 <- ggplot(data = exercise_group_data,
 exercise_status_plot_1
 ```
 
-Visual inspection and raw percentage comparison indicates that percentage of males and female in the three exercise groups is relatively stable from ages 14-16 years, with a possible increase in exercise for weight loss at age 18 among girls, an increase in exercise for weight loss among men at age 24, and an increase in driven exercise across gender at age 24.
+Visual inspection and raw percentage comparison indicates that percentage of males and female in the three exercise groups is relatively stable from ages 14-16 years, with a possible increase in exercise for weight loss at age 18 among girls, an increase in exercise for weight loss among men at age 24, and an increase in maladaptive exercise across gender at age 24.
 
 
 
@@ -341,26 +349,52 @@ load('data/transition_data.RData')
 A subset of girls (N = 1169) and boys (N = 568) who completed all assessments, ages 14-24. To aid with visualizing transition intensities across exercise groups and age, Figure \@ref(fig:transition-girlplot) and Figure (\@ref(fig:transition-boyplot) show the frequency of individuals amongst those those completing all assessments who transitioned from each of the three exercise groups to the other groups at each age. 
 
 ```{r transition-girlplot, fig.cap = 'Transitions Across Exercise Groups in Girls'}
+
+demo_ed_girls$exercise_group.14 <- zap_labels(demo_ed_girls$exercise_group.14)
+demo_ed_girls$exercise_group.14 <- labelled(demo_ed_girls$exercise_group.14,  c('No Exercise for Weight Loss' = 0, 'Exercise for Weight Loss' = 1, ' Maladaptive Exercise' = 2))
+
+demo_ed_girls$exercise_group.16 <- zap_labels(demo_ed_girls$exercise_group.16)
+demo_ed_girls$exercise_group.16 <- labelled(demo_ed_girls$exercise_group.16,  c('No Exercise for Weight Loss' = 0, 'Exercise for Weight Loss' = 1, ' Maladaptive Exercise' = 2))
+
+demo_ed_girls$exercise_group.18 <- zap_labels(demo_ed_girls$exercise_group.18)
+demo_ed_girls$exercise_group.18 <- labelled(demo_ed_girls$exercise_group.18,   c('No Exercise for Weight Loss' = 0, 'Exercise for Weight Loss' = 1, ' Maladaptive Exercise' = 2))
+
+demo_ed_girls$exercise_group.24 <- zap_labels(demo_ed_girls$exercise_group.24)
+demo_ed_girls$exercise_group.24 <- labelled(demo_ed_girls$exercise_group.24,  c('No Exercise for Weight Loss' = 0, 'Exercise for Weight Loss' = 1, ' Maladaptive Exercise' = 2))
+
 ex_status_girl_plot <- transition_plot(demo_ed_girls, 'exercise_group.', 'Exercise Status Across Age in Girls', na.rm = TRUE)
 ex_status_girl_plot  + 
     theme(legend.text = element_text(size = 12),
           legend.title = element_blank())
 ```
-Amongst girls, transitions are common across all groups (no EWL, EWL, DEx). Among those in the DEx group, at each age, transition to EWL appears common, as does remaining in the DEx group, with transition to the no-EWL group being a more rare transition. Overall, stability in a group remains common, as does transition to-and-from groups that are a single step (e.g. transition from no-EWL to EWL). 
+Amongst girls, transitions are common across all groups (no EWL, EWL, Maladaptive Ex). Among those in the Maladaptive Ex group, at each age, transition to EWL appears common, as does remaining in the Maladaptive Ex group, with transition to the no-EWL group being a more rare transition. Overall, stability in a group remains common, as does transition to-and-from groups that are a single step (e.g. transition from no-EWL to EWL). 
 
 
 ```{r transition-boyplot, fig.cap= 'Transitions Across Exercise Groups in Boys'}
+
+demo_ed_boys$exercise_group.14 <- zap_labels(demo_ed_boys$exercise_group.14)
+demo_ed_boys$exercise_group.14 <- labelled(demo_ed_boys$exercise_group.14,  c('No Exercise for Weight Loss' = 0, 'Exercise for Weight Loss' = 1, ' Maladaptive Exercise' = 2))
+
+demo_ed_boys$exercise_group.16 <- zap_labels(demo_ed_boys$exercise_group.16)
+demo_ed_boys$exercise_group.16 <- labelled(demo_ed_boys$exercise_group.16,  c('No Exercise for Weight Loss' = 0, 'Exercise for Weight Loss' = 1, ' Maladaptive Exercise' = 2))
+
+demo_ed_boys$exercise_group.18 <- zap_labels(demo_ed_boys$exercise_group.18)
+demo_ed_boys$exercise_group.18 <- labelled(demo_ed_boys$exercise_group.18,   c('No Exercise for Weight Loss' = 0, 'Exercise for Weight Loss' = 1, ' Maladaptive Exercise' = 2))
+
+demo_ed_boys$exercise_group.24 <- zap_labels(demo_ed_boys$exercise_group.24)
+demo_ed_boys$exercise_group.24 <- labelled(demo_ed_boys$exercise_group.24,  c('No Exercise for Weight Loss' = 0, 'Exercise for Weight Loss' = 1, ' Maladaptive Exercise' = 2))
+
 ex_status_boy_plot <- transition_plot(demo_ed_boys, 'exercise_group.', 'Exercise Status Across Age in Boys', na.rm = TRUE)
 ex_status_boy_plot  + 
     theme(legend.text = element_text(size = 12),
           legend.title = element_blank())
 ```
 
-Amongst boys, transitions across groups also appears common, with somewhat less stability in the DEx group, as compared to girls. While there is an increase in DEx at age 24, as discussed in descriptive analyses, relatively few of these men also reported DEx at age 18, and a moderate portion of these men reported no-EWL at age 18.
+Amongst boys, transitions across groups also appears common, with somewhat less stability in the Maladaptive Ex group, as compared to girls. While there is an increase in Maladaptive Ex at age 24, as discussed in descriptive analyses, relatively few of these men also reported Maladaptive Ex at age 18, and a moderate portion of these men reported no-EWL at age 18.
 
 ### Girls
 
-When examining overall transitions amongst girls, visual impressions from the transition plot is confirmed, with the transition from DEx to the no-EWL group being relatively rare (n = 182). Stability in the no-EWL and EWL groups was common based on raw numbers, as was transition from the no-EWL to the EWL group (raw numbers presented in Supplemental Table \@ref(tab:state-table-girls). The transition probabilities across 1-year based on the Q-matrix allowing direct transitions across all groups with the exception of instantaneous transition from 'No EWL' to 'DEx' are presented in Table \@ref(tab:pmat-girls2), with a figure depicting the observed vs. expected prevalence in each group based on this model presented in Supplemental Figure \@ref(fig:psm-plot-girls). As expected, the highest probability outcome for each group over the course of a 1-year period was staying in that group, followed by transition to a neighboring group, with transitions between 'No EWL' and 'DEx' groups being the least likely transitions. The model with the additional constraint on instantaeneous transitions from 'DEx' to 'No EWL' (used for covariate analyses due to convergence issues), along with covariates included in the model, is presented in Supplementary Table (\@ref(tab:pmat-girls1-covs)). 
+When examining overall transitions amongst girls, visual impressions from the transition plot is confirmed, with the transition from Maladaptive Ex to the no-EWL group being relatively rare (n = 182). Stability in the no-EWL and EWL groups was common based on raw numbers, as was transition from the no-EWL to the EWL group (raw numbers presented in Supplemental Table \@ref(tab:state-table-girls). The transition probabilities across 1-year based on the Q-matrix allowing direct transitions across all groups with the exception of instantaneous transition from 'No EWL' to 'Maladaptive Ex' are presented in Table \@ref(tab:pmat-girls2), with a figure depicting the observed vs. expected prevalence in each group based on this model presented in Supplemental Figure \@ref(fig:psm-plot-girls). As expected, the highest probability outcome for each group over the course of a 1-year period was staying in that group, followed by transition to a neighboring group, with transitions between 'No EWL' and 'Maladaptive Ex' groups being the least likely transitions. The model with the additional constraint on instantaeneous transitions from 'Maladaptive Ex' to 'No EWL' (used for covariate analyses due to convergence issues), along with covariates included in the model, is presented in Supplementary Table (\@ref(tab:pmat-girls1-covs)). 
 
 ```{r pmat-girls2}
 #Markov model with covariates
@@ -369,25 +403,25 @@ ex_group_girls_2_pmat <- pmatrix.msm(ex_group_girls_2, t = 1, ci = 'normal')
 
 estimate <- as.data.frame(ex_group_girls_2_pmat[['estimates']]) %>% 
   rownames_to_column('From') %>% 
-  pivot_longer(c('No EWL', 'EWL', 'DEx'), names_to = 'To', values_to = 'P' ) %>% 
+  pivot_longer(c('No EWL', 'EWL', 'Maladaptive Ex'), names_to = 'To', values_to = 'P' ) %>% 
   mutate(P = sprintf("%.3f", as.numeric(P))) 
 
 
 l <- as.data.frame(ex_group_girls_2_pmat[['L']]) %>%   
-  mutate('From' = c('No EWL', 'EWL', 'DEx')) %>% 
+  mutate('From' = c('No EWL', 'EWL', 'Maladaptive Ex')) %>% 
   rename('No EWL' = V1) %>% 
   rename('EWL' = V2) %>% 
-  rename('DEx' = V3) %>% 
-  pivot_longer(c('No EWL', 'EWL', 'DEx'), names_to = 'To', values_to = 'L' ) %>% 
+  rename('Maladaptive Ex' = V3) %>% 
+  pivot_longer(c('No EWL', 'EWL', 'Maladaptive Ex'), names_to = 'To', values_to = 'L' ) %>% 
   mutate(L = sprintf("%.3f", as.numeric(L))) 
 
 
 u <- as.data.frame(ex_group_girls_2_pmat[['U']]) %>% round(3)  %>% 
-  mutate('From' = c('No EWL', 'EWL', 'DEx')) %>% 
+  mutate('From' = c('No EWL', 'EWL', 'Maladaptive Ex')) %>% 
   rename('No EWL' = V1) %>% 
   rename('EWL' = V2) %>% 
-  rename('DEx' = V3) %>% 
-  pivot_longer(c('No EWL', 'EWL', 'DEx'), names_to = 'To', values_to = 'U' ) %>% 
+  rename('Maladaptive Ex' = V3) %>% 
+  pivot_longer(c('No EWL', 'EWL', 'Maladaptive Ex'), names_to = 'To', values_to = 'U' ) %>% 
   mutate(U = sprintf("%.3f", as.numeric(U))) 
 
 estimate <- cbind(estimate, l$L) 
@@ -439,6 +473,7 @@ Girl_HRs <- Girl_HRs %>%
 
 
 Girl_HRs$transition <- gsub('\\No.', 'No ', Girl_HRs$transition)
+Girl_HRs$transition <- gsub('\\.Ex', ' Ex ', Girl_HRs$transition)
 Girl_HRs$transition <- gsub('\\...', ' to ', Girl_HRs$transition)
 Girl_HRs$transition <- gsub('\\..*', '', Girl_HRs$transition)
 Girl_HRs$CI <- paste(Girl_HRs$L, Girl_HRs$U, sep = ', ')
@@ -457,7 +492,7 @@ Girl_HRs['Covariate'][Girl_HRs['Covariate'] == 'bmi_z_girls_hazard'] <- 'BMI Z-s
 Girl_HRs['Covariate'][Girl_HRs['Covariate'] == 'ses_girls_hazard'] <- 'Parent Occupation'
 
 Girl_HRs %>% 
-  kbl(caption = 'Hazard Ratios for Transitions with Baseline Covariates with Transitions between DEx and No EWL Constrained - Girls', format = 'html')  %>% 
+  kbl(caption = 'Hazard Ratios for Transitions with Baseline Covariates with Transitions between Maladaptive Ex and No EWL Constrained - Girls', format = 'html')  %>% 
   kable_paper(full_width = T)   %>% 
   column_spec(2, color = case_when(Girl_HRs$Covariate %in% c('BMI Z-score [13]') ~ 'blue', 
                                     TRUE ~'black')) 
@@ -470,7 +505,7 @@ Girl_HRs %>%
 
 ### Boys
 
-Raw transitions amongst boys are presented in Supplemental Table \@ref(tab:state-table-boys). Overall, there appeared to be less stability in the DEx group, as compared to girls, by examination of raw numbers.The transition probabilities across 1-year based on the Q-matrix allowing direct transitions across all groups with the exception of instantaneous transition from 'No EWL' to 'DEx' are presented in Table \@ref(tab:pmat-boys2), with a figure depicting the observed vs. expected prevalence in each group based on this model presented in Supplemental Figure \@ref(fig:psm-plot-boys). Stability in the 'No EWL' group was common, and stability in all groups was the most common 1-year outcome. There was a moderate probability (~16-20%) of boys in the EWL group transitioning to either the no-EWL or DEx groups over a 1-year period. Similarly, boys in the DEx group showed a moderate probability of transitioning to either the EWL (18%) or 'No EWL' (19%) group over a 1-year period. Models including covariates did not converge for boys, due to low base rates of some transitions.
+Raw transitions amongst boys are presented in Supplemental Table \@ref(tab:state-table-boys). Overall, there appeared to be less stability in the Maladaptive Ex group, as compared to girls, by examination of raw numbers.The transition probabilities across 1-year based on the Q-matrix allowing direct transitions across all groups with the exception of instantaneous transition from 'No EWL' to 'Maladaptive Ex' are presented in Table \@ref(tab:pmat-boys2), with a figure depicting the observed vs. expected prevalence in each group based on this model presented in Supplemental Figure \@ref(fig:psm-plot-boys). Stability in the 'No EWL' group was common, and stability in all groups was the most common 1-year outcome. There was a moderate probability (~16-20%) of boys in the EWL group transitioning to either the no-EWL or Maladaptive Ex groups over a 1-year period. Similarly, boys in the Maladaptive Ex group showed a moderate probability of transitioning to either the EWL (18%) or 'No EWL' (19%) group over a 1-year period. Models including covariates did not converge for boys, due to low base rates of some transitions.
 
 
 ```{r pmat-boys2}
@@ -478,25 +513,25 @@ ex_group_boys_2_pmat <- pmatrix.msm(ex_group_boys_2, t = 1, ci = 'normal')
 
 estimate <- as.data.frame(ex_group_boys_2_pmat[['estimates']]) %>% 
   rownames_to_column('From') %>% 
-  pivot_longer(c('No EWL', 'EWL', 'DEx'), names_to = 'To', values_to = 'P' ) %>% 
+  pivot_longer(c('No EWL', 'EWL', 'Maladaptive Ex'), names_to = 'To', values_to = 'P' ) %>% 
   mutate(P = sprintf("%.3f", as.numeric(P))) 
 
 
 l <- as.data.frame(ex_group_boys_2_pmat[['L']]) %>%   
-  mutate('From' = c('No EWL', 'EWL', 'DEx')) %>% 
+  mutate('From' = c('No EWL', 'EWL', 'Maladaptive Ex')) %>% 
   rename('No EWL' = V1) %>% 
   rename('EWL' = V2) %>% 
-  rename('DEx' = V3) %>% 
-  pivot_longer(c('No EWL', 'EWL', 'DEx'), names_to = 'To', values_to = 'L' ) %>% 
+  rename('Maladaptive Ex' = V3) %>% 
+  pivot_longer(c('No EWL', 'EWL', 'Maladaptive Ex'), names_to = 'To', values_to = 'L' ) %>% 
   mutate(L = sprintf("%.3f", as.numeric(L))) 
 
 
 u <- as.data.frame(ex_group_boys_2_pmat[['U']]) %>% round(3)  %>% 
-  mutate('From' = c('No EWL', 'EWL', 'DEx')) %>% 
+  mutate('From' = c('No EWL', 'EWL', 'Maladaptive Ex')) %>% 
   rename('No EWL' = V1) %>% 
   rename('EWL' = V2) %>% 
-  rename('DEx' = V3) %>% 
-  pivot_longer(c('No EWL', 'EWL', 'DEx'), names_to = 'To', values_to = 'U' ) %>% 
+  rename('Maladaptive Ex' = V3) %>% 
+  pivot_longer(c('No EWL', 'EWL', 'Maladaptive Ex'), names_to = 'To', values_to = 'U' ) %>% 
   mutate(U = sprintf("%.3f", as.numeric(U))) 
 
 estimate <- cbind(estimate, l$L) 
@@ -529,73 +564,21 @@ While Markov state models are useful in describing overall transition patterns, 
 
 ## Imputation
 
-As stated in the analytic plan, data was imputed prior to conducting mixed effects models, with 10 iterations on 20 imputated datasets 
-
-The predictor matrix is presented in Table \@ref(tab:predmat) ; the percent missing for each variable prior to imputation is presented in Supplemental Table \@ref(tab:pobs-girls) for girls and Supplemental Table \@ref(tab:pobs-boys) for boys. In addition, tables \@ref(tab:pobs-girls) and \@ref(tab:pobs-boys) report the influx (overall number of variable pairs \((Y_j,Y_k)\) with \(Y_j\) missing and \(Y_k\) observed, divided by the total number of observed data cells), and outflux (the number of variable pairs with \(Y_j\) observed and \(Y_k\) missing, divided by the total number of incomplete data cells) for each variable. The influx refers to connection to the observed data (ease of imputation, with one representing the highest level of connection to the observed data) the outflux refers to potential contribution to this variable in imputing other data, both on a 0-1 scale with one representing the highest possible levels of influx/outflux. Overall, there was moderate levels of missingness in the current data.
-
-```{r pobs-girls}
-load('data/glm_mice_girls/glm_mice_girls.Rdata')
-pobs <- mice::flux(mi.res$data)[,1:3]
-pobs$`Percent Missing` <- 100 - round(pobs$pobs*100, 2)
-pobs <- pobs |> 
-  select (c(`Percent Missing`, influx, outflux)) |> 
-  round(2) |> 
-  rownames_to_column() |> 
-  rename('Variable' = rowname) |> 
-  rename('Influx' = influx) |> 
-  rename('Outflux' = outflux) |> 
-  filter(!(Variable %in% c('id', 'age_adjust', 'education_mum', 'education_partner')))
-
-pobs['Variable'][pobs['Variable'] == 'parent_highest_occupation'] <- 'Parent SES'
-pobs['Variable'][pobs['Variable'] == 'bmi_z_bestavail'] <- 'BMI Z - Age 13'
-pobs['Variable'][pobs['Variable'] == 'fear_wtgain_14'] <- 'Fear of Wt Gain - Age 14'
-pobs['Variable'][pobs['Variable'] == 'body_sat_mean_14_std'] <- 'Body Satisifaction - Age 14'
-pobs['Variable'][pobs['Variable'] == 'ti_mean_14_std'] <- 'Thin-ideal Internalization - Age 14'
-pobs['Variable'][pobs['Variable'] == 'driven_exercise'] <- 'Maladaptive Exercise'
-pobs['Variable'][pobs['Variable'] == 'exercise_wtloss'] <- 'Exercise for Weight Loss'
-
-knitr::kable(pobs, 
-             caption = 'Missing Data Prior to Imputation - Girls')
-```
-
-```{r pobs-boys}
-load('data/glm_mice_boys/glm_mice_boys.Rdata')
-pobs <- mice::flux(mi.res$data)[,1:3]
-pobs$`Percent Missing` <- 100 - round(pobs$pobs*100, 2)
-pobs <- pobs |> 
-  select (c(`Percent Missing`, influx, outflux)) |> 
-  round(2) |> 
-  rownames_to_column() |> 
-  rename('Variable' = rowname) |> 
-  rename('Influx' = influx) |> 
-  rename('Outflux' = outflux) |> 
-  filter(!(Variable %in% c('id', 'age_adjust', 'education_mum', 'education_partner')))
-
-pobs['Variable'][pobs['Variable'] == 'parent_highest_occupation'] <- 'Parent SES'
-pobs['Variable'][pobs['Variable'] == 'bmi_z_bestavail'] <- 'BMI Z - Age 13'
-pobs['Variable'][pobs['Variable'] == 'fear_wtgain_14'] <- 'Fear of Wt Gain - Age 14'
-pobs['Variable'][pobs['Variable'] == 'body_sat_mean_14_std'] <- 'Body Satisifaction - Age 14'
-pobs['Variable'][pobs['Variable'] == 'ti_mean_14_std'] <- 'Thin-ideal Internalization - Age 14'
-pobs['Variable'][pobs['Variable'] == 'driven_exercise'] <- 'Maladaptive Exercise'
-pobs['Variable'][pobs['Variable'] == 'exercise_wtloss'] <- 'Exercise for Weight Loss'
-
-knitr::kable(pobs, 
-             caption = 'Missing Data Prior to Imputation - Boys')
-
-````
+As stated in the analytic plan, data was imputed prior to conducting mixed effects models, with 10 iterations on 20 imputated datasets  The predictor matrix is presented in Table \@ref(tab:predmat) ; the percent missing for each variable prior to imputation is presented in Supplemental Table \@ref(tab:pobs-girls) for girls and Supplemental Table \@ref(tab:pobs-boys) for boys, along with the influx (overall number of variable pairs \((Y_j,Y_k)\) with \(Y_j\) missing and \(Y_k\) observed, divided by the total number of observed data cells), and outflux (the number of variable pairs with \(Y_j\) observed and \(Y_k\) missing, divided by the total number of incomplete data cells) for each variable. The influx refers to connection to the observed data (ease of imputation, with one representing the highest level of connection to the observed data) the outflux refers to potential contribution to this variable in imputing other data, both on a 0-1 scale with one representing the highest possible levels of influx/outflux. Overall, there was moderate levels of missingness in the current data.
 
 <!--chapter:end:07-Imputation.Rmd-->
 
-## Mixed Effects Models - Driven Exercise over Time
+## Mixed Effects Models - Maladaptive Exercise over Time
 
-Mixed effects logistic regression models examined changes in DEx across age, along with predictors baseline (age 14) predictors of this behavior and interactions between baseline predictors and the linear effect of age.
+Mixed effects logistic regression models examined changes in maladaptive exercise across age, along with predictors baseline (age 14) predictors of this behavior and interactions between baseline predictors and the linear effect of age.
 
 ### Girls
 
-Results for girls are reported in \@ref(tab:dex-models-girls). Model comparisons (presented in Table \@ref(tab:mcomp-dex-girls) ), indicated that the most complex (Step 3) model which included all predictors and Age x Predictor interactions fit best. In the baseline model, a substantial portion of girls (~13%) reported DEx. Baseline levels of DEx at age 14 were included as a random effect in subsequent models. In the model including only age as a predictor, age was a significant predictor, with effect sizes indicating a small but relevant linear increase in DEx risk each year. In the model including parent SES and BMI at age 13 as predictors, BMI Z-score at age 13 predicted higher levels of DEx overall amongst girls, with a one standard deviation in BMI increasing odds ($OR = 1.35$) of DEx. When ED cognitions were introduced into the model (Step 2 Covariates), BMI Z-score remained a significant predictor of DEx, though its effect size decreased in magnitude. Both thin-ideal internalization at age 14 and fear of weight gain at age 14 were associated with greater odds of DEx, on average. An increase of 1-unit in fear of weight gain (e.g. increasing from 'Not at All' afraid of weight gain, the median response, to 'A Little' afraid of weight gain) resulted in odds of DEx over adolescent and young adulthood increasing by 60%, while a one standard deviation increase in thin-ideal internalization mean was associated with a moderate (14%) increase in odds of DEx. Results remained consistent when Age x Predictor interactions were introduced (Step 3 Covariates), with none of these interactions reaching significance. 
+Results for girls are reported in \@ref(tab:dex-models-girls). Model comparisons (presented in Table \@ref(tab:mcomp-dex-girls) ), indicated that the most complex (Step 3) model which included all predictors and Age x Predictor interactions fit best. In the baseline model, a substantial portion of girls (~13%) reported maladaptive exercise. Baseline levels of maladaptive exercise at age 14 were included as a random effect in subsequent models. In the model including only age as a predictor, age was a significant predictor, with effect sizes indicating a small but relevant linear increase in maladaptive exercise risk each year. In the model including parent SES and BMI at age 13 as predictors, BMI Z-score at age 13 predicted higher levels of maladaptive exercise overall amongst girls, with a one standard deviation in BMI increasing odds ($OR = 1.35$) of maladaptive exercise. When ED cognitions were introduced into the model (Step 2 Covariates), BMI Z-score remained a significant predictor of maladaptive exercise, though its effect size decreased in magnitude. Both thin-ideal internalization at age 14 and fear of weight gain at age 14 were associated with greater odds of maladaptive exercise, on average. An increase of 1-unit in fear of weight gain (e.g. increasing from 'Not at All' afraid of weight gain, the median response, to 'A Little' afraid of weight gain) resulted in odds of maladaptive exercise over adolescent and young adulthood increasing by 60%, while a one standard deviation increase in thin-ideal internalization mean was associated with a moderate (14%) increase in odds of maladaptive exercise. Results remained consistent when Age x Predictor interactions were introduced (Step 3 Covariates), with none of these interactions reaching significance. 
 
 
 ```{r dex-models-girls}
+
 rm(list = ls())
 load('models/Girl_models_DEx_Output')
 
@@ -633,7 +616,7 @@ est_color <- function (df) {
   column_spec(df, column = 3, color = 'black')}}
 
 kable(pooled_coefs,
-  caption = 'Parameter Estimates for Models Predicting Driven Exercise in Girls') %>% 
+  caption = 'Parameter Estimates for Models Predicting Maladaptive Exercise in Girls') %>% 
   row_spec(row = c(2:3, 8:14), background = '#E0E0E0') %>% 
   column_spec(2:3, color = case_when(pooled_coefs$term != '(Intercept)' & pooled_coefs$`0.25 %` > 1  ~ "blue",
                                    pooled_coefs$term != '(Intercept)' & pooled_coefs$`99.75 %`< 1  ~ "red",
@@ -661,14 +644,14 @@ pooled_coefs_2 <- do.call('rbind', n)
 rownames(pooled_coefs_2) <- c('Baseline vs. Age Effects', 'Age vs. Step 1 Covs', 'Step 1 Covs vs. Step 2 Covs', 'Step 2 Covs vs. Step 3 Age x Cov Interactions')
 
 knitr::kable(pooled_coefs_2, 
-             caption = 'Table 2: Model Comparisons - Driven Exercise in Girls', digits = 3) 
+             caption = 'Table 2: Model Comparisons - Maladaptive Exercise in Girls', digits = 3) 
 
 
 ```
 
 ### Boys
 
-Models for boys are presented in Table \@ref(tab:dex-coefs-boys), with model comparisons presented in Table \@ref(tab:mcomp-dex-boys). For boys, the introduction of age, baseline covariates, and baseline ED predictors resulted in improved model fit, though there was not an improved model fit via age x predictor interactions. Boys showed low initial variability in DEx endorsement, however, there was a significant effect of age, such that DEx endoresment was more common as boys got older (odds increasing at ~ 10% per year). When including parent SES and Age 13 BMI in the model, age 13 BMI was again a significant predictor of DEx engagement, with odds of DEx increasing 89% with a one standard deviation increase in BMI. When baseline ED cognitions were entered into the model, fear of weight gain was the only additional significant predictor of DEx, with similar increase in odds as compared to girls (OR: 1.852), as fear of weight gain increased.
+Models for boys are presented in Table \@ref(tab:dex-coefs-boys), with model comparisons presented in Table \@ref(tab:mcomp-dex-boys). For boys, the introduction of age, baseline covariates, and baseline ED predictors resulted in improved model fit, though there was not an improved model fit via age x predictor interactions. Boys showed low initial variability in maladaptive exercise endorsement, however, there was a significant effect of age, such that maladaptive exercise endoresment was more common as boys got older (odds increasing at ~ 10% per year). When including parent SES and Age 13 BMI in the model, age 13 BMI was again a significant predictor of maladaptive exercise engagement, with odds of maladaptive exercise increasing 89% with a one standard deviation increase in BMI. When baseline ED cognitions were entered into the model, fear of weight gain was the only additional significant predictor of maladaptive exercise, with similar increase in odds as compared to girls (OR: 1.852), as fear of weight gain increased.
 
 
 ```{r dex-coefs-boys}
@@ -704,7 +687,7 @@ pooled_coefs['term'][pooled_coefs['term'] == 'age_adjust:ti_mean_14_std'] <- 'Ag
 
 
 knitr::kable(pooled_coefs,
-  caption = 'Table 1: Parameter Estimates for Models Predicting Driven Exercise in Boys') %>% 
+  caption = 'Table 1: Parameter Estimates for Models Predicting Maladaptive Exercise in Boys') %>% 
   row_spec(c(2:3, 8:14), background = '#E0E0E0') %>% 
   column_spec(2:3, color = case_when(pooled_coefs$term != '(Intercept)' & pooled_coefs$`0.25 %` > 1  ~ "blue",
                                    pooled_coefs$term != '(Intercept)' & pooled_coefs$`99.75 %`< 1  ~ "red",
@@ -734,12 +717,12 @@ pooled_coefs_2 <- do.call('rbind', n)
 rownames(pooled_coefs_2) <- c('Baseline vs. Age Effects', 'Age vs. Step 1 Covs', 'Step 1 Covs vs. Step 2 Covs', 'Step 2 Covs vs. Step 3 Age x Cov Interactions')
 
 knitr::kable(pooled_coefs_2, 
-             caption = 'Model Comparisons - Driven Exercise in Boys', digits = 3) 
+             caption = 'Model Comparisons - Maladaptive Exercise in Boys', digits = 3) 
 
 ```
 
 
-<!--chapter:end:07-mixed-effects-dex.Rmd-->
+<!--chapter:end:08-mixed-effects-dex.Rmd-->
 
 
 ## Mixed-Effect Models - Exercise for Weight Loss
@@ -858,22 +841,62 @@ pooled_coefs_ewl_boys
 ```
 
 
-<!--chapter:end:08-mixed-effects-EWL.Rmd-->
+<!--chapter:end:09-mixed-effects-EWL.Rmd-->
 
 # Discussion
 
-<!--chapter:end:09-discussion.Rmd-->
+## Transitions Across Exercise Groups
+
+Altogether, transitions between exercise groups was common in both girls and boys. Amongst both boys and girls, stability in all groups was moderate, though, contrary to Hypothesis 1a, stability in the 'no exercise for weight loss' group was highest. As hypothesized (H1b) transitions were more common to and from 'exercise for weight loss' and 'maladaptive exercise' as compared to the 'no exercise for weight loss' and 'maladaptive exercise' group. The moderate rates of transitions suggest that, amongst the population-based sample, intervening on psychological motivations for exercise is possible and could impact progression from adaptive to maladaptive exercise engagement.
+
+## Rates of Exercise for Weight Loss and Maladaptive Exercise over Time 
+
+Overall, individuals in this sample reported engaging in exercise for weight loss and maladaptive exercise at relatively high rates across adolescence. Hypothesis 2a was supported in that endorsement of both exercise for weight loss and maladaptive exercise increased over time. With regards to exercise for weight loss, with about half of men and about two thirds of women reported exercise for weight loss at least once per month, and one third of men and almost half of women reporting exercise for weight loss at least once per week at age 24.The increasing rates of exercise for weight loss across adolescence is of potential concern as previous research in this cohort suggests that exercise for weight loss at age 14 is associated with increased risk of other eating disorder symtpoms [@schaumbergProspectiveAssociationsDriven2022]. Further, this exercise for weight loss appears to be associated with issues for a substantial portion of individuals, including exercise interfering with work, school, and daily activities, exercising for weight loss despite illness or injury, and/or frequently feelings of guilt after missing an exercise session. Further, transitioning from 'exercise for weight loss' to 'maladaptive exercise' is relatively common, and occurs at a higher rate than transitioning from 'no exercise for weight loss' to a 'maladaptive exercise' state. 
+
+One possible interpretation of the increase in exercise for weight loss over time is that the increase in exercise for weight loss at age 24, specifically, is an artifact of different response options at this age. While it is possible that the variation in response options at this timepoint influenced rates of endoresment, exercise for weight loss also increased steadily for girls between ages 14-18, suggesting that this interpretation does not fully capture the increase in exercise for weight loss across development. A second interpretation of this increase is that, at younger ages, children are more likely to be actively involved in sports and structured exercise programs and are not motivated by weight management; however, weight loss could transition to be a primary motivator for exercise engagement as organized sport participation wanes in later adolescence. The high rates of endorsement of weight loss as a motivator for exercise appear to eclipse rates of excess weight gain during this time period (CITE), suggesting that the growing weight loss motivation for exercise is not exclusive to those for whom weight loss may have been medically prescribed. The high rates of endorsement of a weight loss motivation for exercise amongst adolescents and young adults in this sample suggests that the experience of exercise may be 'linked' with weight management, and increasingly so, across adolescent development in this Western cohort. The pairing of exercise and weight management, while generally considered innocucous or even beneficial (CITE), may be problematic on a population scale in that: (1) while it can play a role in wight loss maintenance, exercise is not generally an effective weight loss strategy (CITE), (2) weight loss is not indicated for the high percentage of the adolescent population endorsing this motivation (CITE), (3) a focus on weight loss may mean that other, non-weight oriented, motivations and reinforcers associated with exercise could diminish in potenency over time, and (4) exercise for weight loss could lead to maladaptive exercise patterns, and potentially exacerbate eating disorder risk, amongst high-risk youth.  
+
+## Predictors of Maladaptive Exercise
+
+With regards to predictors of maladaptive exercise, as expected (H2c), eating disorder cognitions at age 14 predicted increased odds for exercise for weight loss and maladaptive exercise across adolescent and young adult development. The most consistent and strongest cognitive predictor of exercise behavior during this period was fear of weight gain. Recent studies have highlighted the potential etiological centrality of fear of weight gain in eating disorder development, and this finding undorscores this cogntive feature as particularly xx (CITE CHERI AND LEIGH; LOOK UP OLD EXERCISE PAPER; ANXIETY PREDICTION PAPER)
+
+In addition to fear of weight gain, thin-ideal internalization xxx
+
+Of note, body dissatisfaction, was not a consistent predictor, only showing prediction of xxx.  
+
+*Age 13 BMI*
+
+
+## Limitations 
+
+*Age 24 differential responses*
+*Gap between 18-24 years*
+*Low level endoresment in boys*
+*Snapshot in anglo-western culture*
+
+## Future Directions
+
+*Degree to which EWL and Maldaptive Ex predict increases in ED behaviors*
+
+*Degree to which EWL is associated with changes in BMI*
+
+*Association between EWL/maladaptive ex and obective PA*
+
+## Conclusions
+
+The current study is the first investigation to examine rates of exercise for weight loss, and maladaptive exercise, specifically, longitudinally through adolescent development. Findings highlight the high (and increasing) rates of both across adolescence, and bring to question the degree to which marketing and public health messages associating exercise with weight loss may impact young people's experiences of exercise as they age. Further, those who are cognitively at risk for eating disorder development may be most likely to engage in this behavior. Given that eating disorder research suggests the psychological components of, rather than frequency and intensity of, exericse are potentially most damaging, focus on 'unpairing' exercise from weight loss motivations may be indicated. 
+
+
+<!--chapter:end:10-discussion.Rmd-->
 
 
 # Supplement 1 - Mixed Models {#supp1}
 
 *Baseline Model for Driven Exercise*
 
-$$Driven\ Exercise_{ij} = b_{0j} + e_{ij}\\ 
-b_{0j} = \gamma_{00} + u_{0j}
 $$
-
-
+Driven\ Exercise_{ij} = b_{0j} + e_{ij}\\ 
+b_{0j} = \gamma_{00} + u_{0j} 
+$$
 
 *Random Effect of Time*
 
@@ -894,20 +917,18 @@ $$
 Driven\ Exercise_{ij} = b_{0j} + b_1Age + b_2ParentSES + b_3BMI13 + b_4TI14 + b_5BodyDissat14 + b_6FearWt14 + e_{ij} \\
 b_{0j} = \gamma_{00} + u_{0j}
 $$
-
 *Time x Predictor Interactions*
 
 
 
-
-<!--chapter:end:10-Supplement_1.Rmd-->
+<!--chapter:end:11-Supplement_1.Rmd-->
 
 # Supplemental Figures
 
 ```{r}
 rm(list = ls())
-source("R/plot_by_age_sex.R", local = knitr::knit_global())
-source("R/transitions_plot.R", local = knitr::knit_global())
+source("R/05-01-histogram-functions.R", local = knitr::knit_global())
+source("R/06-02-transition-plot.R", local = knitr::knit_global())
 load('data/ed_data.RData')
 load('models/transition_models')
 load('data/transition_data.RData')
@@ -998,17 +1019,9 @@ plot_2_boys <- plot.prevalence.msm(ex_group_boys_2, mintime = 14, maxtime = 24, 
 
 
 
-<!--chapter:end:11-Supplemental_Figures.Rmd-->
+<!--chapter:end:12-Supplemental_Figures.Rmd-->
 
 # Supplemental Tables
-
-```{r imptab}
-library(dplyr)
-Imputation_Data <- tibble(Variable = c('Parent SES', 'BMI Z-score (13)', 'Thin-ideal Internalization Z-score (14)', 'Body Dissatisfaction Z-score (14)', 'Fear of Weight Gain (14)', 'Exercise for Weight Loss', 'Driven Exercise'), Data_Type = c('Ordinal', 'Continuous', 'Continuous', 'Continuous', 'Ordinal', 'Ordinal', 'Binary'), Method = c('PMM - Level 2', 'PMM - Level 2', 'PMM - Level 2', 'PMM - Level 2' , 'PMM - Level 2', '2-level PMM', '2-level Binary'))
-
-knitr::kable(Imputation_Data, caption = 'Imputation Data')
-```
-Note. PMM = 'Predictive Mean Matching'
 
 ```{r continuous}
 load('data/demo_tables.Rdata')
@@ -1037,7 +1050,7 @@ state_table_girls <- as.data.frame(state_table_girls) %>%
 
 state_table_girls[state_table_girls == '1'] <- 'no EWL'
 state_table_girls[state_table_girls == '2'] <- 'EWL'
-state_table_girls[state_table_girls == '3'] <- 'DEx'
+state_table_girls[state_table_girls == '3'] <- 'Maladaptive Ex'
 
 knitr::kable(state_table_girls, 
              caption = "Raw Number of Exercise State Transitions Amongst Girls")
@@ -1052,25 +1065,25 @@ knitr::kable(state_table_girls,
 # 
 # estimate <- as.data.frame(ex_group_girls_1_pmat[['estimates']]) %>% 
 #   rownames_to_column('From') %>% 
-#   pivot_longer(c('No EWL', 'EWL', 'DEx'), names_to = 'To', values_to = 'P' ) %>% 
+#   pivot_longer(c('No EWL', 'EWL', 'Maladaptive Ex'), names_to = 'To', values_to = 'P' ) %>% 
 #   mutate(P = sprintf("%.3f", as.numeric(P))) 
 # 
 # 
 # l <- as.data.frame(ex_group_girls_1_pmat[['L']]) %>%   
-#   mutate('From' = c('No EWL', 'EWL', 'DEx')) %>% 
+#   mutate('From' = c('No EWL', 'EWL', 'Maladaptive Ex')) %>% 
 #   rename('No EWL' = V1) %>% 
 #   rename('EWL' = V2) %>% 
-#   rename('DEx' = V3) %>% 
-#   pivot_longer(c('No EWL', 'EWL', 'DEx'), names_to = 'To', values_to = 'L' ) %>% 
+#   rename('Maladaptive Ex' = V3) %>% 
+#   pivot_longer(c('No EWL', 'EWL', 'Maladaptive Ex'), names_to = 'To', values_to = 'L' ) %>% 
 #   mutate(L = sprintf("%.3f", as.numeric(L))) 
 # 
 # 
 # u <- as.data.frame(ex_group_girls_1_pmat[['U']]) %>% round(3)  %>% 
-#   mutate('From' = c('No EWL', 'EWL', 'DEx')) %>% 
+#   mutate('From' = c('No EWL', 'EWL', 'Maladaptive Ex')) %>% 
 #   rename('No EWL' = V1) %>% 
 #   rename('EWL' = V2) %>% 
-#   rename('DEx' = V3) %>% 
-#   pivot_longer(c('No EWL', 'EWL', 'DEx'), names_to = 'To', values_to = 'U' ) %>% 
+#   rename('Maladaptive Ex' = V3) %>% 
+#   pivot_longer(c('No EWL', 'EWL', 'Maladaptive Ex'), names_to = 'To', values_to = 'U' ) %>% 
 #   mutate(U = sprintf("%.3f", as.numeric(U))) 
 # 
 # estimate <- cbind(estimate, l$L) 
@@ -1105,22 +1118,22 @@ ex_group_girls_1_covs_pmat <- pmatrix.msm(ex_group_girls_covs_1, t = 1, ci = 'no
 
 estimate <- as.data.frame(ex_group_girls_1_covs_pmat[['estimates']]) %>% round(3) %>% 
   rownames_to_column('From') %>% 
-  pivot_longer(c('No EWL', 'EWL', 'DEx'), names_to = 'To', values_to = 'P' )
+  pivot_longer(c('No EWL', 'EWL', 'Maladaptive Ex'), names_to = 'To', values_to = 'P' )
 
 l <- as.data.frame(ex_group_girls_1_covs_pmat[['L']]) %>% round(3) %>% 
-  mutate('From' = c('No EWL', 'EWL', 'DEx')) %>% 
+  mutate('From' = c('No EWL', 'EWL', 'Maladaptive Ex')) %>% 
   rename('No EWL' = V1) %>% 
   rename('EWL' = V2) %>% 
-  rename('DEx' = V3) %>% 
-  pivot_longer(c('No EWL', 'EWL', 'DEx'), names_to = 'To', values_to = 'L' )
+  rename('Maladaptive Ex' = V3) %>% 
+  pivot_longer(c('No EWL', 'EWL', 'Maladaptive Ex'), names_to = 'To', values_to = 'L' )
 
 
 u <- as.data.frame(ex_group_girls_1_covs_pmat[['U']]) %>% round(3)  %>% 
-  mutate('From' = c('No EWL', 'EWL', 'DEx')) %>% 
+  mutate('From' = c('No EWL', 'EWL', 'Maladaptive Ex')) %>% 
   rename('No EWL' = V1) %>% 
   rename('EWL' = V2) %>% 
-  rename('DEx' = V3) %>% 
-  pivot_longer(c('No EWL', 'EWL', 'DEx'), names_to = 'To', values_to = 'U' )
+  rename('Maladaptive Ex' = V3) %>% 
+  pivot_longer(c('No EWL', 'EWL', 'Maladaptive Ex'), names_to = 'To', values_to = 'U' )
 
 
 estimate <- cbind(estimate, l$L) 
@@ -1142,7 +1155,7 @@ estimate <- estimate %>%
   rename(' ' = From)
 
 knitr::kable(estimate, 
-             caption  = 'Estimates of Transition Probabilities Across 1-year amongst Girls - Covariate Model contstraining direct transitions betwen No EWL and DEx groups: From (rows) - To (cols)')
+             caption  = 'Estimates of Transition Probabilities Across 1-year amongst Girls - Covariate Model contstraining direct transitions betwen No EWL and Maladaptive Ex groups: From (rows) - To (cols)')
 
 ```
 
@@ -1185,7 +1198,7 @@ knitr::kable(estimate,
 # girl_HRs_2['Covariate'][girl_HRs_2['Covariate'] == 'bd_girls_hazard_2'] <- 'Body Satisfaction [14]'
 # 
 # girl_HRs_2 %>% 
-#   kbl(caption = 'Hazard Ratios for Transitions with Baseline Covariates (Transition from No EWL to DEx Constrained) - Girls')  %>% 
+#   kbl(caption = 'Hazard Ratios for Transitions with Baseline Covariates (Transition from No EWL to Maladaptive Ex Constrained) - Girls')  %>% 
 #   kable_paper(full_width = T) %>% 
 #   kable_styling(font_size = 13)
 ```
@@ -1201,7 +1214,7 @@ state_table_boys <- state_table_boys %>%
 
 state_table_boys[state_table_boys == '1'] <- 'no EWL'
 state_table_boys[state_table_boys == '2'] <- 'EWL'
-state_table_boys[state_table_boys == '3'] <- 'DEx'
+state_table_boys[state_table_boys == '3'] <- 'Maladaptive Ex'
 
 knitr::kable(state_table_boys, 
              caption = "Raw Number of Exercise State Transitions Amongst Boys")
@@ -1298,6 +1311,14 @@ knitr::kable(state_table_boys,
 
 ```
 
+```{r imptab}
+library(dplyr)
+Imputation_Data <- tibble(Variable = c('Parent SES', 'BMI Z-score (13)', 'Thin-ideal Internalization Z-score (14)', 'Body Dissatisfaction Z-score (14)', 'Fear of Weight Gain (14)', 'Exercise for Weight Loss', 'Maladaptive  Exercise'), Data_Type = c('Ordinal', 'Continuous', 'Continuous', 'Continuous', 'Ordinal', 'Ordinal', 'Binary'), Method = c('PMM - Level 2', 'PMM - Level 2', 'PMM - Level 2', 'PMM - Level 2' , 'PMM - Level 2', '2-level PMM', '2-level Binary'))
+
+knitr::kable(Imputation_Data, caption = 'Imputation Data')
+```
+Note. PMM = 'Predictive Mean Matching'
+
 ```{r predmat}
 load('data/glm_mice_girls/glm_mice_girls.Rdata')
 pred <- mi.res$predictorMatrix
@@ -1305,7 +1326,59 @@ knitr::kable(pred,
              caption = 'Predictor Matrix for Multiple Imputation')
 ```
 
-<!--chapter:end:12-Supplemental_Tables.Rmd-->
+
+```{r pobs-girls}
+load('data/glm_mice_girls/glm_mice_girls.Rdata')
+pobs <- mice::flux(mi.res$data)[,1:3]
+pobs$`Percent Missing` <- 100 - round(pobs$pobs*100, 2)
+pobs <- pobs |> 
+  select (c(`Percent Missing`, influx, outflux)) |> 
+  round(2) |> 
+  rownames_to_column() |> 
+  rename('Variable' = rowname) |> 
+  rename('Influx' = influx) |> 
+  rename('Outflux' = outflux) |> 
+  filter(!(Variable %in% c('id', 'age_adjust', 'education_mum', 'education_partner')))
+
+pobs['Variable'][pobs['Variable'] == 'parent_highest_occupation'] <- 'Parent SES'
+pobs['Variable'][pobs['Variable'] == 'bmi_z_bestavail'] <- 'BMI Z - Age 13'
+pobs['Variable'][pobs['Variable'] == 'fear_wtgain_14'] <- 'Fear of Wt Gain - Age 14'
+pobs['Variable'][pobs['Variable'] == 'body_sat_mean_14_std'] <- 'Body Satisifaction - Age 14'
+pobs['Variable'][pobs['Variable'] == 'ti_mean_14_std'] <- 'Thin-ideal Internalization - Age 14'
+pobs['Variable'][pobs['Variable'] == 'driven_exercise'] <- 'Maladaptive Exercise'
+pobs['Variable'][pobs['Variable'] == 'exercise_wtloss'] <- 'Exercise for Weight Loss'
+
+knitr::kable(pobs, 
+             caption = 'Missing Data Prior to Imputation - Girls')
+```
+
+```{r pobs-boys}
+load('data/glm_mice_boys/glm_mice_boys.Rdata')
+pobs <- mice::flux(mi.res$data)[,1:3]
+pobs$`Percent Missing` <- 100 - round(pobs$pobs*100, 2)
+pobs <- pobs |> 
+  select (c(`Percent Missing`, influx, outflux)) |> 
+  round(2) |> 
+  rownames_to_column() |> 
+  rename('Variable' = rowname) |> 
+  rename('Influx' = influx) |> 
+  rename('Outflux' = outflux) |> 
+  filter(!(Variable %in% c('id', 'age_adjust', 'education_mum', 'education_partner')))
+
+pobs['Variable'][pobs['Variable'] == 'parent_highest_occupation'] <- 'Parent SES'
+pobs['Variable'][pobs['Variable'] == 'bmi_z_bestavail'] <- 'BMI Z - Age 13'
+pobs['Variable'][pobs['Variable'] == 'fear_wtgain_14'] <- 'Fear of Wt Gain - Age 14'
+pobs['Variable'][pobs['Variable'] == 'body_sat_mean_14_std'] <- 'Body Satisifaction - Age 14'
+pobs['Variable'][pobs['Variable'] == 'ti_mean_14_std'] <- 'Thin-ideal Internalization - Age 14'
+pobs['Variable'][pobs['Variable'] == 'driven_exercise'] <- 'Maladaptive Exercise'
+pobs['Variable'][pobs['Variable'] == 'exercise_wtloss'] <- 'Exercise for Weight Loss'
+
+knitr::kable(pobs, 
+             caption = 'Missing Data Prior to Imputation - Boys')
+
+```
+
+<!--chapter:end:13-Supplemental_Tables.Rmd-->
 
 
 # References {-}
@@ -1322,5 +1395,5 @@ knitr::write_bib(c(
 
 '`
 
-<!--chapter:end:13-References.Rmd-->
+<!--chapter:end:14-References.Rmd-->
 

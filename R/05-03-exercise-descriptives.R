@@ -1,10 +1,12 @@
-
+library(ggplot2)
+library(dplyr)
+library(wesanderson)
 #Exercise for Weight Loss Plot Across Age
 
 #Plot 1 - Exercise for Weight Loss Categories - '<1x/mo = No; 1-3x/mo = Yes, Sometimes; 1x/wk or more = Yes, Frequently' at age 24.
 
 load('data/ed_data.RData')
-source('R/plot_by_age_sex.R')
+source('R/05-01-histogram-functions.R')
 
 png('figs/ewl_plot.png')
 ewl_plot <- hist_by_age_sex(demo_ed.lf, exercise_wtloss, '')

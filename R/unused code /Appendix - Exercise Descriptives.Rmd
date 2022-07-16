@@ -95,7 +95,4 @@ driven_exercise_plot_2
 (1) ordinal Exercise for Weight Loss (0 = No, 1 = Sometimes, 2 = Frequently)
 (2) dichotomous Driven Exercise (0 = Absent, 1 = Present)
 
-We will examine both of these variables as they associate with concurrent and prospective eating disorder behaviors. We will model both variables as our paper examining associations between exercise groups and concurrent ED behaviors at age 14 and prospective ED behaviors at age 16 found that both the exercise for weight loss and driven exercise groups showed similar elevations in prospective risk for ED behaviors. Thus, exercise for weight loss will be considered in addition to driven exercise.
-
-We will also describe exercise status groups over time, replicating groups defined in @schaumbergProspectiveAssociationsDriven2022, as those who report 'no exercise for weight loss', 'exercise for weight loss', and 'driven exercise'
 

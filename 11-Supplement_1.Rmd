@@ -3,11 +3,10 @@
 
 *Baseline Model for Driven Exercise*
 
-$$Driven\ Exercise_{ij} = b_{0j} + e_{ij}\\ 
-b_{0j} = \gamma_{00} + u_{0j}
 $$
-
-
+Driven\ Exercise_{ij} = b_{0j} + e_{ij}\\ 
+b_{0j} = \gamma_{00} + u_{0j} 
+$$
 
 *Random Effect of Time*
 
@@ -28,8 +27,6 @@ $$
 Driven\ Exercise_{ij} = b_{0j} + b_1Age + b_2ParentSES + b_3BMI13 + b_4TI14 + b_5BodyDissat14 + b_6FearWt14 + e_{ij} \\
 b_{0j} = \gamma_{00} + u_{0j}
 $$
-
 *Time x Predictor Interactions*
-
 
 

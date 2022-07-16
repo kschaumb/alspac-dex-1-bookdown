@@ -20,8 +20,8 @@ github-repo: kschaumb/alspac-dex-bookdown
 description: "This is a bookdown for ALSPAC Longitudinal DEx analyses"
 resource_files: 
  -data/ed_data.RData
- -R/plot_by_age_sex.R
- -R/transitions_plot.R
+ -R/05-01-histogram-functions.R
+ -R/06-02-transition-plot.R
 output: bookdown::gitbook
 
 ---
@@ -55,8 +55,8 @@ library(labelled)
 library(broom.mixed)
 library(mitml)
 library(kableExtra)
-source("R/plot_by_age_sex.R", local = knitr::knit_global())
-source("R/transitions_plot.R", local = knitr::knit_global())
+source("R/05-01-histogram-functions.R", local = knitr::knit_global())
+source("R/06-02-transition-plot.R", local = knitr::knit_global())
 load('data/ed_data.RData')
 ```
 

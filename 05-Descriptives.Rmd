@@ -23,7 +23,9 @@ With regards to exercise issues across time, the percentage of participants repo
 Figure \@ref(fig:freqfig) shows exercise status at ages 14-24 years in girls and boys, as a percentage of the total number of boys and girls who reported exercise data at the timepoint.
 
 ```{r freqfig, fig.cap = 'Frequency of Exercise Groups Across Age'}
-exercise_group_data <- frq_table_by_age_sex(demo_ed.lf, exercise_group)
+
+exercise_group_data <- frq_table_by_age_sex(demo_ed.lf, exercise_group) 
+levels(exercise_group_data$exercise_group) <- c('No Exercise for Weight Loss', 'Exercise for Weight Loss', 'Maladaptive Exercise')
 
 exercise_status_plot_1 <- ggplot(data = exercise_group_data, 
     aes(x = sex, y = pct, fill = exercise_group, label = sprintf('%0.1f%%', pct*100))) + #set the aesthetic features, including the labels at one decimal place
@@ -40,6 +42,6 @@ exercise_status_plot_1 <- ggplot(data = exercise_group_data,
 exercise_status_plot_1
 ```
 
-Visual inspection and raw percentage comparison indicates that percentage of males and female in the three exercise groups is relatively stable from ages 14-16 years, with a possible increase in exercise for weight loss at age 18 among girls, an increase in exercise for weight loss among men at age 24, and an increase in driven exercise across gender at age 24.
+Visual inspection and raw percentage comparison indicates that percentage of males and female in the three exercise groups is relatively stable from ages 14-16 years, with a possible increase in exercise for weight loss at age 18 among girls, an increase in exercise for weight loss among men at age 24, and an increase in maladaptive exercise across gender at age 24.
 
 

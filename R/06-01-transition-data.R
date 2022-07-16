@@ -14,6 +14,7 @@ transition_data_girls <- demo_ed.lf.girls %>%
   ungroup() %>%   
   filter(nobs > 1) 
 
+levels(transition_data_girls$exercise_group) <- c('No Exercise for Weight Loss', 'Exercise for Weight Loss', 'Maladaptive Exercise')
 
 transition_data_boys <- demo_ed.lf.boys %>% 
   mutate(ti_mean_14_std = standardise(ti_mean_14)) %>% 
@@ -28,5 +29,10 @@ transition_data_boys <- demo_ed.lf.boys %>%
   filter(!is.na(ex_complete) == TRUE) %>% 
   filter(nobs > 1) 
 
+levels(transition_data_boys$exercise_group) <- c('No Exercise for Weight Loss', 'Exercise for Weight Loss', 'Maladaptive Exercise')
+
+
 save(transition_data_girls, file = 'data/transition_data.RData')
 resave(transition_data_boys, file = 'data/transition_data.RData')
+
+rm(list = ls())

@@ -1,13 +1,14 @@
-## Mixed Effects Models - Driven Exercise over Time
+## Mixed Effects Models - Maladaptive Exercise over Time
 
-Mixed effects logistic regression models examined changes in DEx across age, along with predictors baseline (age 14) predictors of this behavior and interactions between baseline predictors and the linear effect of age.
+Mixed effects logistic regression models examined changes in maladaptive exercise across age, along with predictors baseline (age 14) predictors of this behavior and interactions between baseline predictors and the linear effect of age.
 
 ### Girls
 
-Results for girls are reported in \@ref(tab:dex-models-girls). Model comparisons (presented in Table \@ref(tab:mcomp-dex-girls) ), indicated that the most complex (Step 3) model which included all predictors and Age x Predictor interactions fit best. In the baseline model, a substantial portion of girls (~13%) reported DEx. Baseline levels of DEx at age 14 were included as a random effect in subsequent models. In the model including only age as a predictor, age was a significant predictor, with effect sizes indicating a small but relevant linear increase in DEx risk each year. In the model including parent SES and BMI at age 13 as predictors, BMI Z-score at age 13 predicted higher levels of DEx overall amongst girls, with a one standard deviation in BMI increasing odds ($OR = 1.35$) of DEx. When ED cognitions were introduced into the model (Step 2 Covariates), BMI Z-score remained a significant predictor of DEx, though its effect size decreased in magnitude. Both thin-ideal internalization at age 14 and fear of weight gain at age 14 were associated with greater odds of DEx, on average. An increase of 1-unit in fear of weight gain (e.g. increasing from 'Not at All' afraid of weight gain, the median response, to 'A Little' afraid of weight gain) resulted in odds of DEx over adolescent and young adulthood increasing by 60%, while a one standard deviation increase in thin-ideal internalization mean was associated with a moderate (14%) increase in odds of DEx. Results remained consistent when Age x Predictor interactions were introduced (Step 3 Covariates), with none of these interactions reaching significance. 
+Results for girls are reported in \@ref(tab:dex-models-girls). Model comparisons (presented in Table \@ref(tab:mcomp-dex-girls) ), indicated that the most complex (Step 3) model which included all predictors and Age x Predictor interactions fit best. In the baseline model, a substantial portion of girls (~13%) reported maladaptive exercise. Baseline levels of maladaptive exercise at age 14 were included as a random effect in subsequent models. In the model including only age as a predictor, age was a significant predictor, with effect sizes indicating a small but relevant linear increase in maladaptive exercise risk each year. In the model including parent SES and BMI at age 13 as predictors, BMI Z-score at age 13 predicted higher levels of maladaptive exercise overall amongst girls, with a one standard deviation in BMI increasing odds ($OR = 1.35$) of maladaptive exercise. When ED cognitions were introduced into the model (Step 2 Covariates), BMI Z-score remained a significant predictor of maladaptive exercise, though its effect size decreased in magnitude. Both thin-ideal internalization at age 14 and fear of weight gain at age 14 were associated with greater odds of maladaptive exercise, on average. An increase of 1-unit in fear of weight gain (e.g. increasing from 'Not at All' afraid of weight gain, the median response, to 'A Little' afraid of weight gain) resulted in odds of maladaptive exercise over adolescent and young adulthood increasing by 60%, while a one standard deviation increase in thin-ideal internalization mean was associated with a moderate (14%) increase in odds of maladaptive exercise. Results remained consistent when Age x Predictor interactions were introduced (Step 3 Covariates), with none of these interactions reaching significance. 
 
 
 ```{r dex-models-girls}
+
 rm(list = ls())
 load('models/Girl_models_DEx_Output')
 
@@ -45,7 +46,7 @@ est_color <- function (df) {
   column_spec(df, column = 3, color = 'black')}}
 
 kable(pooled_coefs,
-  caption = 'Parameter Estimates for Models Predicting Driven Exercise in Girls') %>% 
+  caption = 'Parameter Estimates for Models Predicting Maladaptive Exercise in Girls') %>% 
   row_spec(row = c(2:3, 8:14), background = '#E0E0E0') %>% 
   column_spec(2:3, color = case_when(pooled_coefs$term != '(Intercept)' & pooled_coefs$`0.25 %` > 1  ~ "blue",
                                    pooled_coefs$term != '(Intercept)' & pooled_coefs$`99.75 %`< 1  ~ "red",
@@ -73,14 +74,14 @@ pooled_coefs_2 <- do.call('rbind', n)
 rownames(pooled_coefs_2) <- c('Baseline vs. Age Effects', 'Age vs. Step 1 Covs', 'Step 1 Covs vs. Step 2 Covs', 'Step 2 Covs vs. Step 3 Age x Cov Interactions')
 
 knitr::kable(pooled_coefs_2, 
-             caption = 'Table 2: Model Comparisons - Driven Exercise in Girls', digits = 3) 
+             caption = 'Table 2: Model Comparisons - Maladaptive Exercise in Girls', digits = 3) 
 
 
 ```
 
 ### Boys
 
-Models for boys are presented in Table \@ref(tab:dex-coefs-boys), with model comparisons presented in Table \@ref(tab:mcomp-dex-boys). For boys, the introduction of age, baseline covariates, and baseline ED predictors resulted in improved model fit, though there was not an improved model fit via age x predictor interactions. Boys showed low initial variability in DEx endorsement, however, there was a significant effect of age, such that DEx endoresment was more common as boys got older (odds increasing at ~ 10% per year). When including parent SES and Age 13 BMI in the model, age 13 BMI was again a significant predictor of DEx engagement, with odds of DEx increasing 89% with a one standard deviation increase in BMI. When baseline ED cognitions were entered into the model, fear of weight gain was the only additional significant predictor of DEx, with similar increase in odds as compared to girls (OR: 1.852), as fear of weight gain increased.
+Models for boys are presented in Table \@ref(tab:dex-coefs-boys), with model comparisons presented in Table \@ref(tab:mcomp-dex-boys). For boys, the introduction of age, baseline covariates, and baseline ED predictors resulted in improved model fit, though there was not an improved model fit via age x predictor interactions. Boys showed low initial variability in maladaptive exercise endorsement, however, there was a significant effect of age, such that maladaptive exercise endoresment was more common as boys got older (odds increasing at ~ 10% per year). When including parent SES and Age 13 BMI in the model, age 13 BMI was again a significant predictor of maladaptive exercise engagement, with odds of maladaptive exercise increasing 89% with a one standard deviation increase in BMI. When baseline ED cognitions were entered into the model, fear of weight gain was the only additional significant predictor of maladaptive exercise, with similar increase in odds as compared to girls (OR: 1.852), as fear of weight gain increased.
 
 
 ```{r dex-coefs-boys}
@@ -116,7 +117,7 @@ pooled_coefs['term'][pooled_coefs['term'] == 'age_adjust:ti_mean_14_std'] <- 'Ag
 
 
 knitr::kable(pooled_coefs,
-  caption = 'Table 1: Parameter Estimates for Models Predicting Driven Exercise in Boys') %>% 
+  caption = 'Table 1: Parameter Estimates for Models Predicting Maladaptive Exercise in Boys') %>% 
   row_spec(c(2:3, 8:14), background = '#E0E0E0') %>% 
   column_spec(2:3, color = case_when(pooled_coefs$term != '(Intercept)' & pooled_coefs$`0.25 %` > 1  ~ "blue",
                                    pooled_coefs$term != '(Intercept)' & pooled_coefs$`99.75 %`< 1  ~ "red",
@@ -146,7 +147,7 @@ pooled_coefs_2 <- do.call('rbind', n)
 rownames(pooled_coefs_2) <- c('Baseline vs. Age Effects', 'Age vs. Step 1 Covs', 'Step 1 Covs vs. Step 2 Covs', 'Step 2 Covs vs. Step 3 Age x Cov Interactions')
 
 knitr::kable(pooled_coefs_2, 
-             caption = 'Model Comparisons - Driven Exercise in Boys', digits = 3) 
+             caption = 'Model Comparisons - Maladaptive Exercise in Boys', digits = 3) 
 
 ```
 

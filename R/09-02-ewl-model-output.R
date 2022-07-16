@@ -1,7 +1,7 @@
-load('models/Age_1_EWL_girl_model')
-load('models/Covs_2_EWL_girl_model')
-load('models/Covs_3_EWL_girl_model')
-load('models/Covs_4_EWL_girl_model')
+library(dplyr)
+library(cgwtools)
+
+load('models/Girl_Models_EWL')
 
 age_1_EWL_girls_pooled <- pool(age_1_ewl_girls)
 age_1_EWL_girls_ORs <- summary(age_1_EWL_girls_pooled, conf.int = TRUE, exponentiate = FALSE) |> 
@@ -35,23 +35,20 @@ covs_4_EWL_girls_ORs <- summary(covs_4_EWL_girls_pooled, conf.int = TRUE, expone
   mutate (`OR LCI` = exp(`0.25 %`)) |> 
   mutate (`OR HCI` = exp(`99.75 %`))
 
-save(age_1_EWL_girls_pooled, file = 'models/Girl_models_EWL_Output')
-resave(age_1_EWL_girls_ORs, file = 'models/Girl_models_EWL_Output')
+save(age_1_EWL_girls_pooled, file = 'models/Girl_Models_EWL_Output')
+resave(age_1_EWL_girls_ORs, file = 'models/Girl_Models_EWL_Output')
 
-resave(covs_2_EWL_girls_pooled, file = 'models/Girl_models_EWL_Output')
-resave(covs_2_EWL_girls_ORs, file = 'models/Girl_models_EWL_Output')
+resave(covs_2_EWL_girls_pooled, file = 'models/Girl_Models_EWL_Output')
+resave(covs_2_EWL_girls_ORs, file = 'models/Girl_Models_EWL_Output')
 
-resave(covs_3_EWL_girls_pooled, file = 'models/Girl_models_EWL_Output')
-resave(covs_3_EWL_girls_ORs, file = 'models/Girl_models_EWL_Output')
+resave(covs_3_EWL_girls_pooled, file = 'models/Girl_Models_EWL_Output')
+resave(covs_3_EWL_girls_ORs, file = 'models/Girl_Models_EWL_Output')
 
-resave(covs_4_EWL_girls_pooled, file = 'models/Girl_models_EWL_Output')
-resave(covs_4_EWL_girls_ORs, file = 'models/Girl_models_EWL_Output')
+resave(covs_4_EWL_girls_pooled, file = 'models/Girl_Models_EWL_Output')
+resave(covs_4_EWL_girls_ORs, file = 'models/Girl_Models_EWL_Output')
 
 
-load('models/Age_1_EWL_boy_model')
-load('models/Covs_2_EWL_boy_model')
-load('models/Covs_3_EWL_boy_model')
-load('models/Covs_4_EWL_boy_model')
+load('models/Boy_Models_EWL')
 
 age_1_EWL_boys_pooled <- pool(age_1_ewl_boys)
 age_1_EWL_boys_ORs <- summary(age_1_EWL_boys_pooled, conf.int = TRUE, exponentiate = FALSE) |> 
@@ -85,15 +82,16 @@ covs_4_EWL_boys_ORs <- summary(covs_4_EWL_boys_pooled, conf.int = TRUE, exponent
   mutate (`OR LCI` = exp(`0.25 %`)) |> 
   mutate (`OR HCI` = exp(`99.75 %`))
 
-save(age_1_EWL_boys_pooled, file = 'models/boy_models_EWL_Output')
-resave(age_1_EWL_boys_ORs, file = 'models/boy_models_EWL_Output')
+save(age_1_EWL_boys_pooled, file = 'models/Boy_models_EWL_Output')
+resave(age_1_EWL_boys_ORs, file = 'models/Boy_models_EWL_Output')
 
-resave(covs_2_EWL_boys_pooled, file = 'models/boy_models_EWL_Output')
-resave(covs_2_EWL_boys_ORs, file = 'models/boy_models_EWL_Output')
+resave(covs_2_EWL_boys_pooled, file = 'models/Boy_models_EWL_Output')
+resave(covs_2_EWL_boys_ORs, file = 'models/Boy_models_EWL_Output')
 
-resave(covs_3_EWL_boys_pooled, file = 'models/boy_models_EWL_Output')
-resave(covs_3_EWL_boys_ORs, file = 'models/boy_models_EWL_Output')
+resave(covs_3_EWL_boys_pooled, file = 'models/Boy_models_EWL_Output')
+resave(covs_3_EWL_boys_ORs, file = 'models/Boy_models_EWL_Output')
 
-resave(covs_4_EWL_boys_pooled, file = 'models/boy_models_EWL_Output')
-resave(covs_4_EWL_boys_ORs, file = 'models/boy_models_EWL_Output')
+resave(covs_4_EWL_boys_pooled, file = 'models/Boy_models_EWL_Output')
+resave(covs_4_EWL_boys_ORs, file = 'models/Boy_models_EWL_Output')
 
+rm(list = ls())

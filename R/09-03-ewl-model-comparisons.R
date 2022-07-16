@@ -1,9 +1,7 @@
 library(cgwtools)
 
-load('models/Age_1_EWL_girl_model')
-load('models/Covs_2_EWL_girl_model')
-load('models/Covs_3_EWL_girl_model')
-load('models/Covs_4_EWL_girl_model')
+load('models/Girl_Models_EWL')
+
 
 #Obtain Average -2 Log Liklihood
 
@@ -90,10 +88,8 @@ save(girls_mcomp_table, file = 'models/ewl_mcomp_tables.Rdata')
 
 #Boys Below
 
-load('models/Age_1_EWL_boy_model')
-load('models/Covs_2_EWL_boy_model')
-load('models/Covs_3_EWL_boy_model')
-load('models/Covs_4_EWL_boy_model')
+load('models/Boy_Models_EWL')
+
 
 #Obtain Average -2 Log Liklihood
 
@@ -178,3 +174,4 @@ boys_mcomp_table <- mcomp_table
 
 resave(boys_mcomp_table, file = 'models/ewl_mcomp_tables.Rdata')
 
+rm(list = ls())
