@@ -70,7 +70,13 @@ discussion
 transitions-across-exercise-groups
 rates-of-exercise-for-weight-loss-and-maladaptive-exercise-over-time
 predictors-of-maladaptive-exercise
+eating-disorder-cognitions-1
+age-13-bmi
 limitations
+data-harmonization-across-age
+assessment-gap-between-18-24-years
+model-convergence-for-transition-models
+snapshot-of-anglo-western-culture
 future-directions
 conclusions
 supp1

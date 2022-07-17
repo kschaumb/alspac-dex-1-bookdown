@@ -277,13 +277,13 @@ knitr::include_graphics('figs/Transition-Diagram.png')
 
 ## Missing Data
 
-Prior to mixed-effects modeling, missing data will be imputed using the `mice` and `miceadds` packages [@R-mice; @R-miceadds]. Data to be imputed is included in Supplemental Table \@ref(tab:imptab). A mixed-model approach to imputation will be used. Time-invariant variables will be imputed at level-2 only using a Predictive Mean Matching (PMM) approach, and outcome variables will be imputed using 2-level approaches, which consider time (see Supplemental Table \@ref(tab:imptab)). Datasets for girls and boys will be imputed separately, with 20 imputed datasets. In addition to covariate and predictor variables, parent education was also included in the imputation model specifically to improve imputation of highest parent occupation (measure of SES).
+Prior to mixed-effects modeling, missing data was imputed using the `mice` and `miceadds` packages [@R-mice; @R-miceadds]. Imputed variables and imputation approach for each variable is noted in Supplemental Table \@ref(tab:imptab). Time-invariant variables were imputed at level-2 only using a Predictive Mean Matching (PMM) approach, and outcome variables were imputed using 2-level approaches, which consider time (see Supplemental Table \@ref(tab:imptab)). Datasets for girls and boys are imputed separately, with 20 imputed datasets. In addition to covariate and predictor variables, parent education was also included in the imputation model specifically to improve imputation of highest parent occupation (measure of SES).
 
 ## Mixed Effects Modeling
 
-Mixed Effects Models for ordinal and binary data [@christensenAnalysisOrdinalData2015; @christensenTutorialFittingCumulative2019; @landermanModelingRepeatedMeasures2011] will examine whether levels of exercise for weight loss and maladaptive exercise change across age. Parameter pooling will be utilized to combine models fit to the imputed datasets.
+Mixed Effects Models for ordinal and binary data [@christensenAnalysisOrdinalData2015; @christensenTutorialFittingCumulative2019; @landermanModelingRepeatedMeasures2011]  examine whether levels of exercise for weight loss and maladaptive exercise change across age. Parameter pooling was utilized to combine models fit to the imputed datasets.
 
-Nested models will be built  will allow for a random intercept for each individual, then a fixed effect of Time (assessment point - with baseline set to 14 years), followed by fixed effects for all baseline predictors and covariates, and, finally, all Predictor x Time interactions. Models will be compared via the multivariate Wald test (using the D3 statistic, as recommended) [@buurenMiceMultivariateImputation2011]. Parameters for each model are presented in Supplement (Chapter \@ref(supp1) ). 
+Nested models allow for a random intercept for each individual, then a fixed effect of Time (assessment point - with baseline set to 14 years), followed by fixed effects for all baseline predictors and covariates, and, finally, all Predictor x Time interactions. Models were compared via the multivariate Wald test, using the D1 statistic [@buurenMiceMultivariateImputation2011]. Parameters for each model are presented in Supplement (Chapter \@ref(supp1) ). 
 
 
 <!--chapter:end:04-Analytic_Plan.Rmd-->
@@ -857,33 +857,43 @@ One possible interpretation of the increase in exercise for weight loss over tim
 
 ## Predictors of Maladaptive Exercise
 
-With regards to predictors of maladaptive exercise, as expected (H2c), eating disorder cognitions at age 14 predicted increased odds for exercise for weight loss and maladaptive exercise across adolescent and young adult development. The most consistent and strongest cognitive predictor of exercise behavior during this period was fear of weight gain. Recent studies have highlighted the potential etiological centrality of fear of weight gain in eating disorder development, and this finding undorscores this cogntive feature as particularly xx (CITE CHERI AND LEIGH; LOOK UP OLD EXERCISE PAPER; ANXIETY PREDICTION PAPER)
+### Eating Disorder Cognitions
+
+With regards to predictors of maladaptive exercise, as expected (Hypothesis 2c), eating disorder cognitions at age 14 predicted increased odds for exercise for weight loss and maladaptive exercise across adolescent and young adult development. The most consistent and strongest cognitive predictor of exercise behavior during this period was fear of weight gain. Recent studies have highlighted the potential etiological centrality of fear of weight gain in eating disorder development, and this finding undorscores this cogntive feature as particularly xx (CITE CHERI AND LEIGH; LOOK UP OLD EXERCISE PAPER; ANXIETY PREDICTION PAPER)
 
 In addition to fear of weight gain, thin-ideal internalization xxx
 
 Of note, body dissatisfaction, was not a consistent predictor, only showing prediction of xxx.  
 
-*Age 13 BMI*
+### Age 13 BMI
 
+While there were no a priori hypotheses regarding BMI as a predictor of maladaptive exercise, BMI Z-score at age 13 was consistently, positively associated with both odds of exercise for weight loss and maladaptive exericse in the cohort. Further, BMI Z-score at age 13 related to increased odds of transitioning from the 'no exericse for weight loss' group to the 'exercise for weight loss' group over time. On the one hand, it is possible that individuals at higher BMIs are both receiving and internalizing messages from media, peers, and health professionals to utilize exercise for weight loss. However, the association with not only exercise for weight loss but also maladaptive exercise suggests that these efforts are not always leading to exercise behavior that is exclusively innocucous or health promoting, and that individuals living in larger bodies may be susceptible to the development of a psychologically problematic relationship with exercise. 
 
 ## Limitations 
 
-*Age 24 differential responses*
-*Gap between 18-24 years*
-*Low level endoresment in boys*
-*Snapshot in anglo-western culture*
+### Data harmonization across age
+
+As mentioned previously, a first limitation of analyses were slightly different response options at varying ages. Data harmonization in the current study was informed by the existing literature on maladaptive exercise; however, complete harmonization across age was not possible, and may influence endorsement of exercise for weight loss and maladaptive exercise symptoms across age. 
+
+### Assessment gap between 18-24 years
+
+Second, while individuals provided data every two years from ages 14-18, there was a longer gap between measurements from ages 18 to 24 years. The time period between assessments was modeled reflecting real time in both analytic approaches; however, this larger gap leaves some question as to the nature of change in exercise patterns during transition to young adulthood.
+
+### Model Convergence for Transition Models
+
+Third, while maladaptive exercise was present in both boys and girls as individuals transitioned to young adulthood, it was fairly uncommon (< 7% endorsement) amongst boys at younger ages. Due to lower levels of endoresment at younger ages along with relatively few assessment points present per individual, there was low power to examine predictors of transitions to and from driven exercise amongst boys. 
+
+### Snapshot of Anglo-Western Culture
+
+Fourth, while relatively rich information about exercise cognitions across development in this cohort provides a snapshot of the prevalence of maladaptive exercise behaviors, this snapshot is necessarily contextualized in time and place, specifically, in a Western culture with primarily White individuals in the early 21st century. It is likely that rates of exercise for weight loss and maladaptive exercise vary in other adolescent populations. 
 
 ## Future Directions
 
-*Degree to which EWL and Maldaptive Ex predict increases in ED behaviors*
-
-*Degree to which EWL is associated with changes in BMI*
-
-*Association between EWL/maladaptive ex and obective PA*
+The current paper lays groundwork for continuing to untangle distinctions between adaptive and maladaptive exerise behavior in adolescence. First, while initial work suggests that both exercise for weight loss and maladaptive exercise at age 14 are associated with concurrent and future (age 16) eating disorder behaviors, it is unclear whether this association persists across adolescece, or whether exercise for weight loss continues to demonstrate cross-sectional and longitudinal associations with eating disorder risk as young people age. It is possible, for instance, that exercise for weight loss is most concerning at earlier periods of development. Second, it remins unclear the degree to which psychological motivations for exercise and maladaptive exercise symptoms associate with objective exercise behavior (frequency, intensity of exercise). *frequency or intensity early predicts maladpative OR maladaptive predicts increasing freq/intensity indicating excess OR psychological relationship disagregates from freq** Finally, examination of prospective associations between maladaptive exercise and BMI would clarify the degree to which exercise impacts weight trajectory in a population of adolescence, including potenital growth curve deviations that may signal disordered eating. 
 
 ## Conclusions
 
-The current study is the first investigation to examine rates of exercise for weight loss, and maladaptive exercise, specifically, longitudinally through adolescent development. Findings highlight the high (and increasing) rates of both across adolescence, and bring to question the degree to which marketing and public health messages associating exercise with weight loss may impact young people's experiences of exercise as they age. Further, those who are cognitively at risk for eating disorder development may be most likely to engage in this behavior. Given that eating disorder research suggests the psychological components of, rather than frequency and intensity of, exericse are potentially most damaging, focus on 'unpairing' exercise from weight loss motivations may be indicated. 
+Building off of initial work examining endorsement of exercise for weight loss and maladaptive exercise in early adolescence, the current study is the first investigation to examine rates of exercise for weight loss and maladaptive exercise longitudinally through adolescent and young adult development. Findings highlight the high and increasing rates of both across adolescence, and bring to question the degree to which marketing and public health messages associating exercise with weight loss may impact young people's experiences of exercise as they age. Further, those who are cognitively at risk for eating disorder development may be most likely to internalize weight loss  motivations for exercise. Given that eating disorder research suggests the psychological components of, rather than frequency and intensity of, exercise are potentially most damaging, focus on 'unpairing' exercise from weight loss motivations at a population level amongst teens and young adults may be indicated. 
 
 
 <!--chapter:end:10-discussion.Rmd-->
