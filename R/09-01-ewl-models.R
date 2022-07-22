@@ -1,6 +1,6 @@
 library(ordinal)
 load('data/glm_mice_girls/glm_mice_girls.Rdata')
-clmm_mice_boys <- mi.res
+clmm_mice_girls <- mi.res
 rm(mi.res)
 
 age_1_ewl_girls <- with(clmm_mice_girls, clmm(formula = as.factor(exercise_wtloss) ~ age_adjust + (1|id)))
