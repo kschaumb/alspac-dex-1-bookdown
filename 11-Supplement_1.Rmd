@@ -1,17 +1,17 @@
 
 # Supplement 1 - Mixed Models {#supp1}
 
-*Baseline Model for Driven Exercise*
+**Baseline Model for Maladaptive Exercise**
 
 $$
-Driven\ Exercise_{ij} = b_{0j} + e_{ij}\\ 
+Maladaptive\ Exercise_{ij} = b_{0j} + e_{ij}\\ 
 b_{0j} = \gamma_{00} + u_{0j} 
 $$
 
-*Random Effect of Time*
+**Step 0: Age Effect Model**
 
 $$
-Driven\ Exercise_{ij} = b_{0j} + b_1Age + e_{ij} \\
+Maladaptive\ Exercise_{ij} = b_{0j} + b_1Age + e_{ij} \\
 b_{0j} = \gamma_{00} + u_{0j}
 $$
 
@@ -21,12 +21,38 @@ $$
 Exercise\ for\ Weight\ Loss_{ij} = b_{0j} + b_1Age + e_{ij}\\ 
 b_{0j} = \gamma_{00} + u_{0j}
 $$
-*Main Effects of Predictors and Covariates*
+**Step 1 Covariates: Main Effects of Parent SES and BMI at age 13**
 
 $$
-Driven\ Exercise_{ij} = b_{0j} + b_1Age + b_2ParentSES + b_3BMI13 + b_4TI14 + b_5BodyDissat14 + b_6FearWt14 + e_{ij} \\
+Maladaptive\ Exercise_{ij} = b_{0j} + b_1Age + b_2ParentSES + b_3BMI13 + e_{ij} \\
 b_{0j} = \gamma_{00} + u_{0j}
 $$
-*Time x Predictor Interactions*
 
+$$
+Exercise\ For\ Weight\ Loss_{ij} = b_{0j} + b_1Age + b_2ParentSES + b_3BMI13 + e_{ij} \\
+b_{0j} = \gamma_{00} + u_{0j}
+$$
 
+**Step 2 Covariates: Main Effects of Parent SES, BMI at age 13, and eating disorder cognition variables at age 14**
+
+$$
+Maladaptive\ Exercise_{ij} = b_{0j} + b_1Age + b_2ParentSES + b_3BMI13 + b_4TI14 + b_5BodyDissat14 + b_6FearWt14 + e_{ij} \\
+b_{0j} = \gamma_{00} + u_{0j}
+$$
+
+$$
+Exercise\ For\ Weight\ Loss_{ij} = b_{0j} + b_1Age + b_2ParentSES + b_3BMI13 + b_4TI14 + b_5BodyDissat14 + b_6FearWt14 + e_{ij} \\
+b_{0j} = \gamma_{00} + u_{0j}
+$$
+**Step 3 Covariates: Time x Predictor Interactions**
+
+$$
+Maladaptive\ Exercise_{ij} = b_{0j} + b_1Age + b_2ParentSES + b_3BMI13 + b_4TI14 + b_5BodyDissat14 + b_6FearWt14 + \\
+b_7Age\ X\ BMI13 + b_8Age\ X\ TI14 + b_9Age\ X\ Body Dissat14 + b_{10} Age\ X\ FearWt14 +  e_{ij} \\
+b_{0j} = \gamma_{00} + u_{0j}
+$$
+$$
+Fear\ of\ Weight\ Gain_{ij} = b_{0j} + b_1Age + b_2ParentSES + b_3BMI13 + b_4TI14 + b_5BodyDissat14 + b_6FearWt14 + \\
+b_7Age\ X\ BMI13 + b_8Age\ X\ TI14 + b_9Age\ X\ Body Dissat14 + b_{10} Age\ X\ FearWt14 +  e_{ij} \\
+b_{0j} = \gamma_{00} + u_{0j}
+$$

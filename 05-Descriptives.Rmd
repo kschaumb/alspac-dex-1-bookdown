@@ -5,9 +5,7 @@
 
 ### Covariates: SES, BMIZ at Age 13, ED Cognitions at age 14
 
-Descriptive information for continuous variables are provided in \@ref(tab:continuous)
-
-Descriptives for ordinal variables (Parent SES and Fear of Weight Gain) are provided in Table \@ref(tab:pses) and Table \@ref(tab:fearwt)
+Descriptive information for continuous variables are provided in Supplemental Table \@ref(tab:continuous). Descriptives for ordinal variables (Parent SES and Fear of Weight Gain) are provided in Supplemental Tables \@ref(tab:pses) and \@ref(tab:fearwt)
 
 ### Exercise for Weight Loss Frequency
 
