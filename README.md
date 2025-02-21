@@ -1,4 +1,4 @@
-This is a repository designed to house reproducible code for paper, "Patterns of Maladaptive Exercise Behavior from ages 14-24 in a Longitudinal Cohort" (Schaumberg, Under Review). Code is available here, with a formatted, html version of the paper available at [https://kschaumb.github.io/alspac-dex-1-bookdown/](https://kschaumb.github.io/alspac-dex-1-bookdown/)
+This is a repository designed to house reproducible code for paper, "Patterns of Maladaptive Exercise Behavior from ages 14-24 in a Longitudinal Cohort"[https://pubmed.ncbi.nlm.nih.gov/37258173/]. Code is available here, with a formatted, html version of the paper available at [https://kschaumb.github.io/alspac-dex-1-bookdown/](https://kschaumb.github.io/alspac-dex-1-bookdown/)
 
 With all appropriate raw variables available in from ALSPAC , analyses can be replicated and the paper produced with three steps. 
 
